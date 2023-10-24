@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^5.5.0",
+    "@capacitor/core": "^5.5.0",
+    "@capacitor/ios": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -44,10 +47,12 @@
     ]
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.5.0",
     "@payloadcms/eslint-config": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.9.0",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^39.1.1",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",

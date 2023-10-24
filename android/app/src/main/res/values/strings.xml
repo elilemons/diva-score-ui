@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tech Diva Success App</string>
+    <string name="title_activity_main">Tech Diva Success App</string>
+    <string name="package_name">com.techdivasuccess.app</string>
+    <string name="custom_url_scheme">com.techdivasuccess.app</string>
+</resources>
