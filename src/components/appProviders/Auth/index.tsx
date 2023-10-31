@@ -28,7 +28,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     async (data: { email: string; password: string }) => {
       try {
         await login.mutateAsync({ data })
-        toast.success('Logged in successfully', { autoClose: 1500 })
+        toast.success('Logged in successfully', { autoClose: 1500, toastId: 'login-success' })
 
         const query = QueryString.parse(window.location.search, { ignoreQueryPrefix: true })
         if (typeof query.redirect === 'string') {
@@ -39,7 +39,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       } catch (e) {
         const errors = e as GenericStatusErrorType
         secureStorage.setJWTToken('')
-        toast.error(errors.message)
+        toast.error(errors.message, { autoClose: false, toastId: 'login-failure' })
       }
     },
     [history, login],
