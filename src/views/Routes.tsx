@@ -67,9 +67,15 @@ export const Routes: React.FC = () => {
   const history = useHistory()
   const location = useLocation()
 
-  const attemptedUserFetch = user !== undefined
-  const isAuthenticated = user
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
 
+  React.useEffect(() => {
+    if (user) {
+      setIsAuthenticated(true)
+    } else {
+      setIsAuthenticated(false)
+    }
+  }, [user])
   React.useEffect(() => {
     if (location?.pathname.startsWith('/uni/')) {
       history.push(`${location.pathname.replace('/uni/', '/')}${location.search}${location.hash}`)
@@ -79,7 +85,7 @@ export const Routes: React.FC = () => {
   return (
     <Layout>
       <React.Suspense fallback={<FullscreenLoader />}>
-        {attemptedUserFetch && !isAuthenticated && (
+        {!isAuthenticated && (
           <Switch>
             {unauthenticatedRoutes.map(route => (
               <Route key={route.path} {...route} />
@@ -91,7 +97,7 @@ export const Routes: React.FC = () => {
           </Switch>
         )}
 
-        {attemptedUserFetch && isAuthenticated && (
+        {isAuthenticated && (
           <Switch>
             {authenticatedRoutes.map(route => (
               <Route key={route.path} {...route} />
