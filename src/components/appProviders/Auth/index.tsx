@@ -39,7 +39,10 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       } catch (e) {
         const errors = e as GenericStatusErrorType
         secureStorage.setJWTToken('')
-        toast.error(errors.message, { autoClose: false, toastId: 'login-failure' })
+        toast.error(`${errors.message} Have you verified your email?`, {
+          autoClose: false,
+          toastId: 'login-failure',
+        })
       }
     },
     [history, login],
