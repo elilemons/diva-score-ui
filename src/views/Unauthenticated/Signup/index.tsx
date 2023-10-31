@@ -7,7 +7,6 @@ import { defaultPasswordValidation, validateEmail } from '@utils/formValidators'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-
 type UserSignup = {
   confirmPassword: string
 } & User
@@ -35,12 +34,12 @@ const SignUp: React.FC = () => {
       const error = e as GenericStatusErrorType
       if (canLoop(error?.data?.errors)) {
         error.data.errors.forEach(({ message }: { message: string }) =>
-          toast.error(message, { autoClose: false }),
+          toast.error(message, { autoClose: false, toastId: 'sign-up-errors' }),
         )
       } else {
         toast.error(
           `There was an error creating your account, please try again. Also ${error.message}`,
-          { autoClose: false },
+          { autoClose: false, toastId: 'sign-up-error' },
         )
       }
     }
