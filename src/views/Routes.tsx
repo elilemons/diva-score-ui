@@ -1,31 +1,53 @@
-import React from 'react'
+import * as React from 'react'
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
+
 import { useAuth } from '@components/appProviders/Auth'
-// import { APP_ROUTES } from '@root/appRoutes'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
-import Home from '@root/views/Unauthenticated/Home'
+import FullscreenLoader from '@components/elements/FullscreenLoader'
+import Layout from '@components/elements/Layout'
+import { APP_ROUTES } from '@root/appRoutes'
 
-// TODO Make this lazy once I have a template: https://reactrouter.com/en/main/route/lazy
-// Unauthenticated pages
-// const Home = () => import('./Unauthenticated/Home')
+// // // // // // // // //
+// Unauthenticated Pages
+// // // // // // // // //
+const Home = React.lazy(() => import('./Unauthenticated/Home'))
+// const Login = React.lazy(() => import("./Unauthenticated/Login"))
+const Signup = React.lazy(() => import('./Unauthenticated/Signup'))
 
+// // // // // // // // //
+// Unauthenticated Routes
+// // // // // // // // //
+const unauthenticatedRoutes = [
+  {
+    exact: true,
+    path: APP_ROUTES.unauthenticated.home,
+    component: Home,
+  },
+  // {
+  //   exact: true,
+  //   path: APP_ROUTES.unauthenticated.login,
+  //   component: Login,
+  // },
+  {
+    exact: true,
+    path: APP_ROUTES.unauthenticated.signup,
+    component: Signup,
+  },
+]
+
+// // // // // // // // //
+// Authenticated Routes
+// // // // // // // // //
 // const unauthenticatedRoutes = [
 //   {
-//     path: APP_ROUTES.unauthenticated.home,
-//     lazy: Home,
-//   },
-// ]
-
-// TODO
-// const authenticatedRoutes = [
-//   {
-//     path: APP_ROUTES.authenticated.dashboard,
+//     exact: true,
+//     path: APP_ROUTES.unauthenticated.dashboard,
 //     component: Dashboard,
 //   },
 // ]
 
-export const DIVARoutes: React.FC = () => {
+export const Routes: React.FC = () => {
   const { user } = useAuth()
-  const navigate = useNavigate()
+  const history = useHistory()
   const location = useLocation()
 
   const attemptedUserFetch = user !== undefined
@@ -33,44 +55,33 @@ export const DIVARoutes: React.FC = () => {
 
   React.useEffect(() => {
     if (location?.pathname.startsWith('/uni/')) {
-      navigate(`${location.pathname.replace('/uni/', '/')}${location.search}${location.hash}`)
+      history.push(`${location.pathname.replace('/uni/', '/')}${location.search}${location.hash}`)
     }
-  }, [location, navigate])
+  }, [location, history])
 
   return (
-    // TODO Create a fallback component like <FullscreenLoader />
-    <React.Suspense>
-      {attemptedUserFetch && !isAuthenticated && (
-        <Routes>
-          <Route path='/' element={<Home />} />
+    <Layout>
+      <React.Suspense fallback={<FullscreenLoader />}>
+        {attemptedUserFetch && !isAuthenticated && (
+          <Switch>
+            {unauthenticatedRoutes.map(route => (
+              <Route key={route.path} {...route} />
+            ))}
+          </Switch>
+        )}
 
-          {/* {unauthenticatedRoutes.map(route => (
+        {attemptedUserFetch && isAuthenticated && (
+          <Switch>
+            {/* {authenticatedRoutes.map(route => (
             <Route key={route.path} {...route} />
           ))} */}
 
-          {/* {location &&
-          ['/terms-of-use', '/tos', '/terms-of-service'].includes(location.pathname) ? (<>
-              <Route from='/terms-of-service' to='/terms-of-use' />
-              <Route from='/tos' to='/terms-of-use' />
-              </>
-          ) : (
-            <Route>
-            </Route>
-          )} */}
-        </Routes>
-      )}
-
-      {/* TODO Authenticated Routes */}
-      {/* {attemptedUserFetch && isAuthenticated && (
-        <Routes>
-          {authenticatedRoutes.map(route => (
-            <Route key={route.path} {...route} />
-          ))}
-
-        </Routes>
-         // TODO <Route path={APP_ROUTES.authenticated.shared.notFound} />
-
-      )} */}
-    </React.Suspense>
+            {/* <Route>
+            <Redirect to={APP_ROUTES.authenticated.shared.notFound} />
+          </Route> */}
+          </Switch>
+        )}
+      </React.Suspense>
+    </Layout>
   )
 }
