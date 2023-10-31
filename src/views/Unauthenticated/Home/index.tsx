@@ -1,5 +1,6 @@
-import TopNav from '@components/elements/TopNav'
+import { APP_ROUTES } from '@root/appRoutes'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
   // TODO Remove this test code
@@ -8,7 +9,6 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <TopNav />
       <h2>Daily Inspired Vision and Actions</h2>
       <p>
         Elevate the self-care journey for Daily Inspired Vision and Action (Divas) with your own
@@ -18,8 +18,8 @@ const Home: React.FC = () => {
       </p>
 
       {/* TODO Make Button Component */}
-      <div>Get Started</div>
-      <div>Login</div>
+      <Link to={APP_ROUTES.unauthenticated.signup}>Get Started</Link>
+      <Link to={APP_ROUTES.unauthenticated.login}>Login</Link>
     </div>
   )
 }
