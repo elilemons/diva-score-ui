@@ -6,7 +6,7 @@ import { GenericStatusError } from '@root/types/errors'
 import { canLoop } from '@utils/canLoop'
 import { isResJSON } from '@utils/isResJSON'
 
-const userByIdQueryKey = 'get-user-by-id'
+export const userByIdQueryKey = 'get-user-by-id'
 type userByIdQueryProps = {
   userId?: string
 }
