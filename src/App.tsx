@@ -1,7 +1,12 @@
 import './App.css'
-import { AuthProvider } from '@components/appProviders/Auth'
-import { DIVARoutes } from '@root/views/Routes'
+
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { AuthProvider } from '@components/appProviders/Auth'
+import { InAppBrowserListener } from '@components/elements/InAppBrowserListener'
+import { OnRouteChange } from '@components/elements/OnRouteChange'
+import { Routes } from '@root/views/Routes'
 
 function App() {
   const queryClient = new QueryClient({
@@ -17,9 +22,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className='app'>
-        <AuthProvider>
-          <DIVARoutes />
-        </AuthProvider>
+        <Router>
+          <OnRouteChange />
+          <InAppBrowserListener />
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </Router>
       </div>
     </QueryClientProvider>
   )
