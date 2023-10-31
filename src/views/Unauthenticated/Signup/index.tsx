@@ -1,7 +1,12 @@
 import { User } from '@elilemons/diva-score-lib'
+import { APP_ROUTES } from '@root/appRoutes'
+import { createUserMutation } from '@root/queries/user/createUserMutation'
+import { GenericStatusErrorType } from '@root/types/errors'
+import { canLoop } from '@utils/canLoop'
 import { defaultPasswordValidation, validateEmail } from '@utils/formValidators'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 type UserSignup = {
   confirmPassword: string
@@ -11,22 +16,35 @@ const SignUp: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     getValues,
     formState: { errors },
   } = useForm<Partial<UserSignup>>()
 
-  const onSubmit: SubmitHandler<Partial<UserSignup>> = data => {
-    // TODO Remove this test code
-    console.log('ELITEST form submission', { data })
-    // ^ TODO Remove this test code
-  }
+  const createUser = createUserMutation({ mutationKey: 'sign-up-form' })
 
-  // TODO Remove this test code
-  console.log('ELITEST email input', watch('email'))
-  console.log('ELITEST password input', watch('password'))
-  console.log('ELITEST confirmPassword input', watch('confirmPassword'))
-  // ^ TODO Remove this test code
+  const onSubmit: SubmitHandler<Partial<UserSignup>> = async data => {
+    try {
+      await createUser
+        .mutateAsync({
+          data,
+        })
+        .then(() => {
+          window.location.assign(`${APP_ROUTES.unauthenticated.signupSuccess}`)
+        })
+    } catch (e) {
+      const error = e as GenericStatusErrorType
+      if (canLoop(error?.data?.errors)) {
+        error.data.errors.forEach(({ message }: { message: string }) =>
+          toast.error(message, { autoClose: false }),
+        )
+      } else {
+        toast.error(
+          `There was an error creating your account, please try again. Also ${error.message}`,
+          { autoClose: false },
+        )
+      }
+    }
+  }
 
   return (
     <div>
@@ -44,6 +62,7 @@ const SignUp: React.FC = () => {
         />
         {errors.email && <span>{errors.email.message}</span>}
         <input
+          type='password'
           {...register('password', {
             required: true,
             validate: {
@@ -53,9 +72,9 @@ const SignUp: React.FC = () => {
         />
         {errors.password && <span>{errors.password.message}</span>}
         <input
+          type='password'
           {...register('confirmPassword', {
             required: true,
-
             validate: value => {
               const { password } = getValues()
               return password === value || 'Passwords should match!'
