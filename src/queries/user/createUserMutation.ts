@@ -1,4 +1,4 @@
-import { DocWithToken, User } from '@elilemons/installmint-lib'
+import { DocWithToken, User } from '@elilemons/diva-score-lib'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 
 import { post } from '@root/api'
@@ -7,20 +7,20 @@ import { isResJSON } from '@utils/isResJSON'
 import { secureStorage } from '@utils/storage'
 import { fetchMeQueryKey } from './fetchMeQuery'
 
-type MutateUserCreateProps = {
+type createUserMutationProps = {
   data: Partial<User>
 }
 
-export function useUserCreateMutation(): UseMutationResult<
-  { doc: DocWithToken<User> },
-  unknown,
-  MutateUserCreateProps
-> {
+export function createUserMutation({
+  mutationKey,
+}: {
+  mutationKey: string
+}): UseMutationResult<{ doc: DocWithToken<User> }, unknown, createUserMutationProps> {
   const queryClient = useQueryClient()
   const apiDomain = process.env.REACT_APP_API_URL
 
   const mutation = useMutation({
-    mutationFn: async ({ data }: MutateUserCreateProps) => {
+    mutationFn: async ({ data }: createUserMutationProps) => {
       const res = await post(`${apiDomain}/api/users?depth=0`, {
         body: JSON.stringify(data),
       })
@@ -35,7 +35,7 @@ export function useUserCreateMutation(): UseMutationResult<
         if (res.status === 401) {
           throw GenericStatusError({
             status: 401,
-            message: 'There was a creating your account.',
+            message: 'There was an error creating your account.',
           })
         }
       }
@@ -49,6 +49,7 @@ export function useUserCreateMutation(): UseMutationResult<
       queryClient.invalidateQueries([fetchMeQueryKey])
       queryClient.setQueryData([fetchMeQueryKey], doc)
     },
+    mutationKey: [mutationKey],
   })
 
   return mutation
