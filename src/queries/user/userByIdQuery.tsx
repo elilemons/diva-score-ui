@@ -10,7 +10,7 @@ const userByIdQueryKey = 'get-user-by-id'
 type userByIdQueryProps = {
   userId?: string
 }
-export function getUserByIdQuery({
+export function userByIdQuery({
   userId,
 }: userByIdQueryProps): UseQueryResult<User | null, unknown> {
   const apiDomain = process.env.REACT_APP_API_URL
