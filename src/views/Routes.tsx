@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
+import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom'
 
 import { useAuth } from '@components/appProviders/Auth'
 import FullscreenLoader from '@components/elements/FullscreenLoader'
@@ -10,8 +10,15 @@ import { APP_ROUTES } from '@root/appRoutes'
 // Unauthenticated Pages
 // // // // // // // // //
 const Home = React.lazy(() => import('./Unauthenticated/Home'))
-// const Login = React.lazy(() => import("./Unauthenticated/Login"))
+const Login = React.lazy(() => import('./Unauthenticated/Login'))
 const Signup = React.lazy(() => import('./Unauthenticated/Signup'))
+const SignupSuccess = React.lazy(() => import('./Unauthenticated/SignupSuccess'))
+const VerifyEmail = React.lazy(() => import('./Unauthenticated/VerifyEmail'))
+
+// // // // // // // // //
+// Authenticated Pages
+// // // // // // // // //
+const Dashboard = React.lazy(() => import('./Authenticated/Dashboard'))
 
 // // // // // // // // //
 // Unauthenticated Routes
@@ -22,28 +29,38 @@ const unauthenticatedRoutes = [
     path: APP_ROUTES.unauthenticated.home,
     component: Home,
   },
-  // {
-  //   exact: true,
-  //   path: APP_ROUTES.unauthenticated.login,
-  //   component: Login,
-  // },
+  {
+    exact: true,
+    path: APP_ROUTES.unauthenticated.login,
+    component: Login,
+  },
   {
     exact: true,
     path: APP_ROUTES.unauthenticated.signup,
     component: Signup,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.unauthenticated.signupSuccess,
+    component: SignupSuccess,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.unauthenticated.verifyEmail,
+    component: VerifyEmail,
   },
 ]
 
 // // // // // // // // //
 // Authenticated Routes
 // // // // // // // // //
-// const unauthenticatedRoutes = [
-//   {
-//     exact: true,
-//     path: APP_ROUTES.unauthenticated.dashboard,
-//     component: Dashboard,
-//   },
-// ]
+const authenticatedRoutes = [
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.dashboard,
+    component: Dashboard,
+  },
+]
 
 export const Routes: React.FC = () => {
   const { user } = useAuth()
@@ -67,18 +84,26 @@ export const Routes: React.FC = () => {
             {unauthenticatedRoutes.map(route => (
               <Route key={route.path} {...route} />
             ))}
+
+            <Route>
+              <Redirect to={APP_ROUTES.unauthenticated.login} />
+            </Route>
           </Switch>
         )}
 
         {attemptedUserFetch && isAuthenticated && (
           <Switch>
-            {/* {authenticatedRoutes.map(route => (
-            <Route key={route.path} {...route} />
-          ))} */}
+            {authenticatedRoutes.map(route => (
+              <Route key={route.path} {...route} />
+            ))}
 
+            {/* TODO */}
             {/* <Route>
-            <Redirect to={APP_ROUTES.authenticated.shared.notFound} />
-          </Route> */}
+              <Redirect to={APP_ROUTES.authenticated.shared.notFound} />
+            </Route> */}
+            <Route>
+              <Redirect to={APP_ROUTES.authenticated.dashboard} />
+            </Route>
           </Switch>
         )}
       </React.Suspense>
