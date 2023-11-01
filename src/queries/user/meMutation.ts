@@ -1,22 +1,26 @@
 import { Doc, User } from '@elilemons/diva-score-lib'
 
-import { UseMutationResult, useQueryClient, useMutation } from 'react-query'
 import { patch } from '@root/api'
 import { GenericStatusError } from '@root/types/errors'
 import { canLoop } from '@root/utils/canLoop'
 import { isResJSON } from '@root/utils/isResJSON'
+import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { fetchMeQuery, fetchMeQueryKey } from './fetchMeQuery'
 
 import QueryString from 'qs'
 
 type MeMutationProps = {
-  data: User
+  data: Partial<User>
   depth?: number
   queryParams?: {
     [key: string]: unknown
   }
 }
-export function useMeMutation(): UseMutationResult<Doc<User>, unknown, MeMutationProps> {
+export function meMutation({
+  mutationKey,
+}: {
+  mutationKey: string
+}): UseMutationResult<Doc<User>, unknown, MeMutationProps> {
   const queryClient = useQueryClient()
   const { data: user } = fetchMeQuery({})
   const apiDomain = process.env.REACT_APP_API_URL
@@ -35,11 +39,13 @@ export function useMeMutation(): UseMutationResult<Doc<User>, unknown, MeMutatio
         const res = await patch(`${apiDomain}/api/users/${user?.id}${params}`, {
           body: JSON.stringify(data),
         })
+
         if (isResJSON(res)) {
           const json = await res.json()
           if (res.status === 200) {
             return json
           }
+
           if (res.status === 400) {
             if (canLoop(json.errors)) {
               throw GenericStatusError({
@@ -68,6 +74,7 @@ export function useMeMutation(): UseMutationResult<Doc<User>, unknown, MeMutatio
         queryClient.setQueryData([fetchMeQueryKey], data.doc)
       }
     },
+    mutationKey: [mutationKey],
   })
 
   return mutation
