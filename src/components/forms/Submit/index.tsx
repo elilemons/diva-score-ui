@@ -33,7 +33,7 @@ export const Submit: React.FC<Props> = props => {
   if (isSubmitting) isDisabled = true
 
   return (
-    <Button type='submit' id={id} fullWidth disabled={isDisabled} className={className}>
+    <Button type='submit' id={id} disabled={isDisabled} className={className}>
       {isSubmitting ? submittingLabel : label}
     </Button>
   )
