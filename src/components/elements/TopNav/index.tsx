@@ -16,8 +16,13 @@ const TopNav: React.FC = () => {
         <Link to={APP_ROUTES.authenticated.dashboard}>Dashboard</Link>
       </div>
 
-      <div>Calendar</div>
-      <div>Account</div>
+      <div>
+        <Link to={APP_ROUTES.authenticated.dashboard}>Calendar</Link>
+      </div>
+
+      <div>
+        <Link to={APP_ROUTES.authenticated.account}>Account</Link>
+      </div>
 
       <div>
         <div style={{ textDecoration: 'underline', cursor: 'pointer' }} onClick={logOut}>
@@ -28,11 +33,11 @@ const TopNav: React.FC = () => {
   ) : (
     <div>
       <div>
-        <Link to={APP_ROUTES.unauthenticated.home}>Logo</Link>
+        <Link to={APP_ROUTES.global.home}>Logo</Link>
       </div>
 
       <div>
-        <Link to={APP_ROUTES.unauthenticated.home}>Home</Link>
+        <Link to={APP_ROUTES.global.home}>Home</Link>
       </div>
 
       <div>
