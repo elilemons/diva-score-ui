@@ -1,7 +1,7 @@
 import { User } from '@elilemons/diva-score-lib'
 import { get } from '@root/api'
-import { UseQueryResult, useQuery } from 'react-query'
 import { GenericStatusError } from '@root/types/errors'
+import { useQuery, UseQueryResult } from 'react-query'
 
 import { secureStorage } from '@utils/storage'
 
