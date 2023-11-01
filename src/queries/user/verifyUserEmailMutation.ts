@@ -14,8 +14,8 @@ export function verifyUserEmailMutation({
 }): UseMutationResult<string, unknown, VerifyUserEmailProps> {
   const apiDomain = process.env.REACT_APP_API_URL
 
-  const mutation = useMutation(
-    async ({ token }: VerifyUserEmailProps) => {
+  const mutation = useMutation({
+    mutationFn: async ({ token }: VerifyUserEmailProps) => {
       const url = `${apiDomain}/api/users/verify/${token}`
       const res = await post(url)
 
@@ -47,10 +47,8 @@ export function verifyUserEmailMutation({
         message: 'An unknown error occurred while verifying the user.',
       })
     },
-    {
-      mutationKey: [mutationKey],
-    },
-  )
+    mutationKey: [mutationKey],
+  })
 
   return mutation
 }
