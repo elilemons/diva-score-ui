@@ -1,9 +1,12 @@
+import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
+import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
+import { ControlledRetypeInput } from '@components/forms/fields/Retype/Controlled'
+import { Submit } from '@components/forms/Submit'
 import { User } from '@elilemons/diva-score-lib'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createUserMutation } from '@root/queries/user/createUserMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { canLoop } from '@utils/canLoop'
-import { defaultPasswordValidation, validateEmail } from '@utils/formValidators'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -12,12 +15,7 @@ type UserSignup = {
 } & User
 
 const SignUp: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<Partial<UserSignup>>()
+  const { control, getValues, handleSubmit } = useForm<Partial<UserSignup>>()
 
   const createUser = createUserMutation({ mutationKey: 'sign-up-form' })
 
@@ -50,38 +48,20 @@ const SignUp: React.FC = () => {
       <h1>Sign Up for DIVA Score</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          placeholder='example@email.com'
-          {...register('email', {
-            required: true,
-            validate: {
-              validateEmail: v => validateEmail(v),
-            },
-          })}
+        <ControlledEmailInput control={control} required name='email' />
+        <ControlledPasswordInput control={control} required name='password' />
+        <ControlledRetypeInput
+          control={control}
+          getValues={getValues}
+          required
+          name='confirmPassword'
+          label='Confirm Password'
+          placeholder='Confirm Password'
+          matchFieldName='password'
+          matchFieldType='password'
         />
-        {errors.email && <span>{errors.email.message}</span>}
-        <input
-          type='password'
-          {...register('password', {
-            required: true,
-            validate: {
-              defaultPasswordValidation,
-            },
-          })}
-        />
-        {errors.password && <span>{errors.password.message}</span>}
-        <input
-          type='password'
-          {...register('confirmPassword', {
-            required: true,
-            validate: value => {
-              const { password } = getValues()
-              return password === value || 'Passwords should match!'
-            },
-          })}
-        />
-        {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
-        <input type='submit' />
+
+        <Submit label='Sign up' control={control} />
       </form>
     </div>
   )

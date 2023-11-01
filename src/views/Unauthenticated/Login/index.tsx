@@ -1,15 +1,13 @@
 import { useAuth } from '@components/appProviders/Auth'
 import { UserLogin } from '@components/appProviders/Auth/types'
-import { defaultPasswordValidation, validateEmail } from '@utils/formValidators'
+import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
+import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
+import { Submit } from '@components/forms/Submit'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 
 const Login: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserLogin>()
+  const { control, handleSubmit } = useForm<UserLogin>()
 
   const { logIn } = useAuth()
   const handleLogin = React.useCallback((fieldValues: UserLogin) => logIn(fieldValues), [logIn])
@@ -19,27 +17,9 @@ const Login: React.FC = () => {
       <h1>Login</h1>
 
       <form onSubmit={handleSubmit(handleLogin)}>
-        <input
-          placeholder='example@email.com'
-          {...register('email', {
-            required: true,
-            validate: {
-              validateEmail: v => validateEmail(v),
-            },
-          })}
-        />
-        {errors.email && <span>{errors.email.message}</span>}
-        <input
-          type='password'
-          {...register('password', {
-            required: true,
-            validate: {
-              defaultPasswordValidation,
-            },
-          })}
-        />
-        {errors.password && <span>{errors.password.message}</span>}
-        <input type='submit' />
+        <ControlledEmailInput control={control} required name='email' />
+        <ControlledPasswordInput control={control} required name='password' />
+        <Submit label='Log In' control={control} />
       </form>
     </div>
   )
