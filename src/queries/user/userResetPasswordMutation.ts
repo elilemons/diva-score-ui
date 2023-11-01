@@ -11,11 +11,11 @@ type UserResetPasswordMutationProps = {
   token: string
 }
 
-export function userResetPasswordMutation({
-  mutationKey,
-}: {
-  mutationKey: string
-}): UseMutationResult<Partial<User>, unknown, UserResetPasswordMutationProps> {
+export function userResetPasswordMutation(): UseMutationResult<
+  Partial<User>,
+  unknown,
+  UserResetPasswordMutationProps
+> {
   const apiDomain = process.env.REACT_APP_API_URL
 
   const mutation = useMutation({
@@ -52,7 +52,6 @@ export function userResetPasswordMutation({
         message: 'An unknown error occurred when attempting to reset your password.',
       })
     },
-    mutationKey: [mutationKey],
   })
 
   return mutation
