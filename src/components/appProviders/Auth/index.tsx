@@ -6,6 +6,8 @@ import { toast } from 'react-toastify'
 import { fetchMeQuery } from '@queries/user/fetchMeQuery'
 import { useUserLoginMutation } from '@queries/user/userLoginMutation'
 import { useUserLogoutMutation } from '@queries/user/userLogoutMutation'
+import { forgotPasswordMutation } from '@root/queries/user/forgotPasswordMutation'
+import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { secureStorage } from '@utils/storage'
 import { Authentication } from './types'
@@ -13,6 +15,8 @@ import { Authentication } from './types'
 const Context = createContext<Authentication>({
   logIn: () => null,
   logOut: () => null,
+  forgotPassword: () => null,
+  resetPassword: () => null,
   user: undefined,
 })
 type Props = {
@@ -20,9 +24,39 @@ type Props = {
 }
 const AuthProvider: React.FC<Props> = ({ children }) => {
   const { data: user = undefined } = fetchMeQuery({})
+  const resetPasswordMutation = userResetPasswordMutation()
+  const forgotpassword = forgotPasswordMutation()
   const login = useUserLoginMutation()
   const logout = useUserLogoutMutation()
   const history = useHistory()
+
+  const resetPassword = useCallback(
+    async (token: string, password: string) => {
+      try {
+        await resetPasswordMutation.mutateAsync({ token, password })
+        toast.success('Your password has been reset.')
+      } catch (e) {
+        const errors = e as GenericStatusErrorType
+        toast.error(`${errors.message}`, { toastId: 'reset-password-error' })
+      }
+    },
+    [history, forgotpassword],
+  )
+
+  const forgotPassword = useCallback(
+    async (email: string) => {
+      try {
+        await forgotpassword.mutateAsync({ email })
+        toast.success(
+          'If your email matches an account we have, an email to reset your password has been sent to it.',
+        )
+      } catch (e) {
+        const errors = e as GenericStatusErrorType
+        toast.error(`${errors.message}`, { toastId: 'forgot-password-error' })
+      }
+    },
+    [history, forgotpassword],
+  )
 
   const logIn = useCallback(
     async (data: { email: string; password: string }) => {
@@ -63,6 +97,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         user,
         logIn,
         logOut,
+        forgotPassword,
+        resetPassword,
       }}
     >
       {children}
