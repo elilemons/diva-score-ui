@@ -9,6 +9,8 @@ import { OnRouteChange } from '@components/elements/OnRouteChange'
 import { Routes } from '@root/views/Routes'
 import { Slide, toast, ToastContainer } from 'react-toastify'
 
+import { DialogProvider } from '@components/appProviders/Dialogs'
+import { NavigationProvider } from '@components/appProviders/Navigation'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
@@ -27,11 +29,15 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className='app'>
           <Router>
-            <OnRouteChange />
-            <InAppBrowserListener />
-            <AuthProvider>
-              <Routes />
-            </AuthProvider>
+            <NavigationProvider>
+              <DialogProvider>
+                <OnRouteChange />
+                <InAppBrowserListener />
+                <AuthProvider>
+                  <Routes />
+                </AuthProvider>
+              </DialogProvider>
+            </NavigationProvider>
           </Router>
         </div>
         <ToastContainer
