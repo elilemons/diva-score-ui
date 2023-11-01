@@ -9,14 +9,13 @@ import { Submit } from '@components/forms/Submit'
 import { User } from '@elilemons/diva-score-lib'
 import { getForgotPasswordTokenQuery } from '@root/queries/user/getForgotPasswordToken'
 import { meMutation } from '@root/queries/user/meMutation'
-import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { canLoop } from '@utils/canLoop'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const Account: React.FC = () => {
-  const { user, logOut } = useAuth()
+  const { user, resetPassword, logOut } = useAuth()
   const { control, getValues, handleSubmit } = useForm<Partial<User>>()
 
   const [passwordChanging, setPasswordChanging] = React.useState(false)
@@ -24,7 +23,6 @@ const Account: React.FC = () => {
   const [newPassword, setNewPassword] = React.useState<string | undefined>()
 
   const updateMe = meMutation({ mutationKey: 'account-page-update' })
-  const resetPassword = userResetPasswordMutation({ mutationKey: 'account-page-reset-password' })
 
   const history = useHistory()
 
@@ -72,10 +70,7 @@ const Account: React.FC = () => {
   React.useEffect(() => {
     if (resetPasswordToken && newPassword) {
       try {
-        resetPassword.mutate({
-          token: resetPasswordToken,
-          password: newPassword,
-        })
+        resetPassword(resetPasswordToken, newPassword)
 
         toast.success(
           'Your password has been changed! Now please login again with your new password.',
