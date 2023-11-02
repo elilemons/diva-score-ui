@@ -6,7 +6,7 @@ export const InAppBrowserListener: React.FC = () => {
   const history = useHistory()
   React.useEffect(() => {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-      const slug = event.url.split('installmint.app').pop()
+      const slug = event.url.split('divascore.app').pop()
       if (slug) {
         history.push(slug)
       }
