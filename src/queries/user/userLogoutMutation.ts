@@ -1,8 +1,8 @@
-import { UseMutationResult, useQueryClient, useMutation } from 'react-query'
 import { post } from '@root/api'
 import { GenericStatusError } from '@root/types/errors'
 import { isResJSON } from '@root/utils/isResJSON'
 import { secureStorage } from '@root/utils/storage'
+import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { fetchMeQueryKey } from './fetchMeQuery'
 
 export function useUserLogoutMutation(): UseMutationResult<null, unknown, void> {
@@ -27,7 +27,7 @@ export function useUserLogoutMutation(): UseMutationResult<null, unknown, void> 
     onMutate: async () => {
       await secureStorage.setJWTToken('')
       queryClient.invalidateQueries([fetchMeQueryKey])
-      queryClient.setQueryData([fetchMeQueryKey], null)
+      queryClient.refetchQueries([fetchMeQueryKey])
     },
   })
 

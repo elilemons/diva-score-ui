@@ -3,13 +3,14 @@ import React, { createContext, useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { fetchMeQuery } from '@queries/user/fetchMeQuery'
+import { fetchMeQuery, fetchMeQueryKey } from '@queries/user/fetchMeQuery'
 import { useUserLoginMutation } from '@queries/user/userLoginMutation'
 import { useUserLogoutMutation } from '@queries/user/userLogoutMutation'
 import { forgotPasswordMutation } from '@root/queries/user/forgotPasswordMutation'
 import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { secureStorage } from '@utils/storage'
+import { useQueryClient } from 'react-query'
 import { Authentication } from './types'
 
 const Context = createContext<Authentication>({
@@ -27,8 +28,9 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   const resetPasswordMutation = userResetPasswordMutation()
   const forgotpassword = forgotPasswordMutation()
   const login = useUserLoginMutation()
-  const logout = useUserLogoutMutation()
+  const logoutMutation = useUserLogoutMutation()
   const history = useHistory()
+  const queryClient = useQueryClient()
 
   const resetPassword = useCallback(
     async (token: string, password: string) => {
@@ -84,12 +86,23 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const logOut = useCallback(async () => {
     try {
-      await logout.mutateAsync()
+      await logoutMutation.mutateAsync()
       history.push('/login')
     } catch (e) {
+      history.push('/login')
+
       // silently fail
     }
-  }, [history, logout])
+  }, [history, logoutMutation])
+
+  React.useEffect(() => {
+    const handleLogOut: () => Promise<void> = async () => {
+      if ((await secureStorage.getJWTToken()) === null) {
+        queryClient.invalidateQueries([fetchMeQueryKey])
+      }
+    }
+    handleLogOut()
+  }, [queryClient])
 
   return (
     <Context.Provider
