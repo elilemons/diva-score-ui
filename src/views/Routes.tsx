@@ -10,7 +10,6 @@ import { APP_ROUTES } from '@root/appRoutes'
 // Global Pages
 // // // // // // // // //
 const Home = React.lazy(() => import('./Global/Home'))
-const NotFound = React.lazy(() => import('./Global/NotFound'))
 
 // // // // // // // // //
 // Unauthenticated Pages
@@ -36,11 +35,6 @@ const globalRoutes = [
     exact: true,
     path: APP_ROUTES.global.home,
     component: Home,
-  },
-  {
-    exact: true,
-    path: APP_ROUTES.global.notFound,
-    component: NotFound,
   },
 ]
 
@@ -124,6 +118,8 @@ export const Routes: React.FC = () => {
     <Layout>
       <React.Suspense fallback={<FullscreenLoader />}>
         <Switch>
+          <Route exact path='/' component={Home} />
+
           {globalRoutes.map(route => (
             <Route key={route.path} {...route} />
           ))}
