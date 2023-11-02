@@ -1,7 +1,7 @@
 import './App.css'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 
 import { AuthProvider } from '@components/appProviders/Auth'
 import { InAppBrowserListener } from '@components/elements/InAppBrowserListener'
@@ -11,6 +11,7 @@ import { Slide, toast, ToastContainer } from 'react-toastify'
 
 import { DialogProvider } from '@components/appProviders/Dialogs'
 import { NavigationProvider } from '@components/appProviders/Navigation'
+import { APP_ROUTES } from '@root/appRoutes'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
                 </AuthProvider>
               </DialogProvider>
             </NavigationProvider>
+
+            <Route path='*'>
+              <Redirect to={APP_ROUTES.global.notFound} />
+            </Route>
           </Router>
         </div>
         <ToastContainer
