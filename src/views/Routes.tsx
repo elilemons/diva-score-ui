@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom'
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 
 import { useAuth } from '@components/appProviders/Auth'
 import FullscreenLoader from '@components/elements/FullscreenLoader'
@@ -9,7 +9,8 @@ import { APP_ROUTES } from '@root/appRoutes'
 // // // // // // // // //
 // Global Pages
 // // // // // // // // //
-const Home = React.lazy(() => import('./Unauthenticated/Home'))
+const Home = React.lazy(() => import('./Global/Home'))
+const NotFound = React.lazy(() => import('./Global/NotFound'))
 
 // // // // // // // // //
 // Unauthenticated Pages
@@ -35,6 +36,11 @@ const globalRoutes = [
     exact: true,
     path: APP_ROUTES.global.home,
     component: Home,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.global.notFound,
+    component: NotFound,
   },
 ]
 
@@ -128,10 +134,6 @@ export const Routes: React.FC = () => {
             {unauthenticatedRoutes.map(route => (
               <Route key={route.path} {...route} />
             ))}
-
-            <Route>
-              <Redirect to={APP_ROUTES.unauthenticated.login} />
-            </Route>
           </Switch>
         )}
 

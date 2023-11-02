@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
   global: {
     home: '/',
+    notFound: '/not-found',
   },
 
   unauthenticated: {
