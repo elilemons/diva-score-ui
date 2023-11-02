@@ -29,7 +29,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "dev": "sh -ac '. .env.development; PORT=52051 craco start'",
+    "dev": "sh -ac '. .env.local; PORT=52051 craco start'",
+    "dev:production": "sh -ac '. .env.production.local; PORT=52051 craco start'",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
