@@ -118,8 +118,6 @@ export const Routes: React.FC = () => {
     <Layout>
       <React.Suspense fallback={<FullscreenLoader />}>
         <Switch>
-          <Route exact path='/' component={Home} />
-
           {globalRoutes.map(route => (
             <Route key={route.path} {...route} />
           ))}
