@@ -1365,11 +1365,6 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.52.0.tgz#78fe5f117840f69dc4a353adf9b9cd926353378c"
   integrity sha512-mjZVbpaeMZludF2fsWLD0Z9gCref1Tk4i9+wddjRvpUNqqcndPkBD09N/Mapey0b3jaXbLm2kICwFv2E64QinA==
 
-"@faceless-ui/css-grid@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.1.tgz#675093c5f3f68ec8381570d14cf33509850cb99e"
-  integrity sha512-NE5dnzV2Jj2WzQ4gsQUU/Dzlz33kE/3R2hdW227zFU2Y16vyyrqDAD07AeC+JL8HhZtVmsxjxs1Du/Jc41LsdQ==
-
 "@humanwhocodes/config-array@^0.11.10", "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"
