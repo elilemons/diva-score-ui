@@ -7,6 +7,7 @@
     "@capacitor/app": "^5.0.6",
     "@capacitor/core": "^5.5.0",
     "@capacitor/ios": "^5.5.0",
+    "@elilemons/diva-score-lib": "^0.1.0",
     "@tanstack/eslint-plugin-query": "^5.0.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
