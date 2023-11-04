@@ -1,25 +1,52 @@
-import React from 'react'
-import logo from './logo.svg'
 import './App.css'
 
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { AuthProvider } from '@components/appProviders/Auth'
+import { InAppBrowserListener } from '@components/elements/InAppBrowserListener'
+import { OnRouteChange } from '@components/elements/OnRouteChange'
+import { Routes } from '@root/views/Routes'
+import { Slide, toast, ToastContainer } from 'react-toastify'
+
+import { DialogProvider } from '@components/appProviders/Dialogs'
+import { NavigationProvider } from '@components/appProviders/Navigation'
+import 'react-toastify/dist/ReactToastify.css'
+
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: true,
+        staleTime: Infinity,
+        structuralSharing: false,
+      },
+    },
+  })
+
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <div className='app'>
+          <Router>
+            <NavigationProvider>
+              <DialogProvider>
+                <OnRouteChange />
+                <InAppBrowserListener />
+                <AuthProvider>
+                  <Routes />
+                </AuthProvider>
+              </DialogProvider>
+            </NavigationProvider>
+          </Router>
+        </div>
+        <ToastContainer
+          position={toast.POSITION.BOTTOM_CENTER}
+          transition={Slide}
+          autoClose={2000}
+        />
+      </QueryClientProvider>
+    </>
   )
 }
 
