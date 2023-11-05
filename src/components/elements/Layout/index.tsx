@@ -1,17 +1,18 @@
-import TopNav from '@components/elements/TopNav'
 import * as React from 'react'
+
+import { Container, Flex } from '@chakra-ui/react'
+import TopNav from '@components/elements/TopNav'
 
 type Props = {
   children: React.ReactNode
-  hideTopNav?: boolean
 }
 
-const Layout: React.FC<Props> = ({ children, hideTopNav = false }: Props) => {
+const Layout: React.FC<Props> = ({ children }: Props) => {
   return (
-    <div>
-      {!hideTopNav && <TopNav />}
-      <div>{children}</div>
-    </div>
+    <Flex direction='column'>
+      <TopNav />
+      <Container>{children}</Container>
+    </Flex>
   )
 }
 
