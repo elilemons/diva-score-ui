@@ -1,5 +1,3 @@
-import './App.css'
-
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -12,6 +10,8 @@ import { Slide, toast, ToastContainer } from 'react-toastify'
 import { DialogProvider } from '@components/appProviders/Dialogs'
 import { NavigationProvider } from '@components/appProviders/Navigation'
 import 'react-toastify/dist/ReactToastify.css'
+
+import classes from './App.module.css'
 
 function App() {
   const queryClient = new QueryClient({
@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <div className='app'>
+        <div className={classes.app}>
           <Router>
             <NavigationProvider>
               <DialogProvider>
