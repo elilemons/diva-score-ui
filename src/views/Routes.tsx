@@ -3,7 +3,6 @@ import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 
 import { useAuth } from '@components/appProviders/Auth'
 import FullscreenLoader from '@components/elements/FullscreenLoader'
-import Layout from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
 
 // // // // // // // // //
@@ -115,30 +114,28 @@ export const Routes: React.FC = () => {
   }, [location, history])
 
   return (
-    <Layout>
-      <React.Suspense fallback={<FullscreenLoader />}>
+    <React.Suspense fallback={<FullscreenLoader />}>
+      <Switch>
+        {globalRoutes.map(route => (
+          <Route key={route.path} {...route} />
+        ))}
+      </Switch>
+
+      {attemptedUserFetch && !isAuthenticated && (
         <Switch>
-          {globalRoutes.map(route => (
+          {unauthenticatedRoutes.map(route => (
             <Route key={route.path} {...route} />
           ))}
         </Switch>
+      )}
 
-        {attemptedUserFetch && !isAuthenticated && (
-          <Switch>
-            {unauthenticatedRoutes.map(route => (
-              <Route key={route.path} {...route} />
-            ))}
-          </Switch>
-        )}
-
-        {attemptedUserFetch && isAuthenticated && (
-          <Switch>
-            {authenticatedRoutes.map(route => (
-              <Route key={route.path} {...route} />
-            ))}
-          </Switch>
-        )}
-      </React.Suspense>
-    </Layout>
+      {attemptedUserFetch && isAuthenticated && (
+        <Switch>
+          {authenticatedRoutes.map(route => (
+            <Route key={route.path} {...route} />
+          ))}
+        </Switch>
+      )}
+    </React.Suspense>
   )
 }
