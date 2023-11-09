@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { RefCallBack } from 'react-hook-form'
 
-import { ErrorMessage } from '@components/forms/ErrorMessage'
-import { Label } from '@components/forms/Label'
+import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
 import { FieldType } from '../types'
 
 type UncontrolledProps = FieldType & {
@@ -25,9 +24,9 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
   } = props
 
   return (
-    <div className={className}>
-      <Label htmlFor={name} label={label} required={required} />
-      <input
+    <FormControl className={className} isRequired={required}>
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <Input
         ref={inputRef}
         onChange={onChange}
         value={value}
@@ -39,7 +38,7 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
         data-has-error={invalid}
         data-has-no-value={!value}
       />
-      <ErrorMessage showError={invalid} message={errorMessage} />
-    </div>
+      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+    </FormControl>
   )
 }

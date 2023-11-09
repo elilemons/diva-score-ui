@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { RefCallBack } from 'react-hook-form'
 
-import { ErrorMessage } from '@components/forms/ErrorMessage'
-import { Label } from '@components/forms/Label'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input } from '@chakra-ui/react'
 import { FieldType } from '../types'
 
 type UncontrolledProps = FieldType & {
@@ -32,10 +32,10 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
   }, [inputType])
 
   return (
-    <div className={className}>
-      <Label htmlFor={name} label={label} required={required} />
-      <div>
-        <input
+    <FormControl className={className} isRequired={required}>
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <Flex>
+        <Input
           ref={inputRef}
           onChange={onChange}
           value={value}
@@ -46,14 +46,22 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
           disabled={disabled}
           data-has-error={invalid}
           data-has-no-value={!value}
+          borderEnd='none'
+          borderEndRadius='none'
         />
         {!disabled && (
-          <button type='button' onClick={toggleInputType}>
-            {`${inputType === 'password' ? 'show' : 'hide'}`}
-          </button>
+          <IconButton
+            aria-label={
+              inputType === 'password' ? 'Click to show password' : 'Click to hide password'
+            }
+            borderStartRadius='none'
+            onClick={toggleInputType}
+          >
+            {inputType === 'password' ? <ViewIcon /> : <ViewOffIcon />}
+          </IconButton>
         )}
-      </div>
-      <ErrorMessage showError={invalid} message={errorMessage} />
-    </div>
+      </Flex>
+      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+    </FormControl>
   )
 }
