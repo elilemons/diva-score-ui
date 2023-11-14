@@ -8,11 +8,10 @@ import { User } from '@elilemons/diva-score-lib'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createUserMutation } from '@root/queries/user/createUserMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
-import { APP_BRAND_BUTTON, APP_FORM_HEADINGS, APP_SPACING } from '@utils/appStyling'
-import { canLoop } from '@utils/canLoop'
+import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
+import { toastErrors } from '@utils/toastErrors'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 type UserSignup = {
   confirmPassword: string
 } & User
@@ -33,18 +32,12 @@ const SignUp: React.FC = () => {
         })
     } catch (e) {
       const error = e as GenericStatusErrorType
-      if (canLoop(error?.data?.errors)) {
-        error.data.errors.forEach(({ message }: { message: string }) =>
-          toast.error(message, { autoClose: false, toastId: 'sign-up-errors' }),
-        )
-      } else {
-        toast.error(
-          `There was an error creating your account, please try again. Also ${JSON.stringify(e)} ${
-            error.status
-          } ${error.message}`,
-          { autoClose: false, toastId: 'sign-up-error' },
-        )
-      }
+      toastErrors({
+        error,
+        id: 'sign-up-error',
+        title: 'Account Creation Error',
+        description: 'There was an error creating your account, please try again.',
+      })
     }
   }
 
@@ -52,7 +45,7 @@ const SignUp: React.FC = () => {
     <Layout
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
-          <Heading size={APP_FORM_HEADINGS.size}>Sign Up for DIVA Score</Heading>
+          <Heading size={APP_INNER_HEADINGS.size}>Sign Up for DIVA Score</Heading>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>

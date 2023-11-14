@@ -6,7 +6,7 @@ import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
 import { Submit } from '@components/forms/Submit'
 import { APP_ROUTES } from '@root/appRoutes'
-import { APP_BRAND_BUTTON, APP_FORM_HEADINGS, APP_SPACING } from '@utils/appStyling'
+import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
       bottomContent={
         <form onSubmit={handleSubmit(handleLogin)}>
           <Stack spacing={APP_SPACING.spacing}>
-            <Heading size={APP_FORM_HEADINGS.size}>Login to DIVA Score</Heading>
+            <Heading size={APP_INNER_HEADINGS.size}>Login to DIVA Score</Heading>
 
             <ControlledEmailInput
               control={control}

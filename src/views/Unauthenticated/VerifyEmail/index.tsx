@@ -29,7 +29,13 @@ const VerifyEmail: React.FC = () => {
         }
       } catch (e) {
         const error = e as GenericStatusErrorType
-        toastErrors({ error, id: 'verify-email-false' })
+        toastErrors({
+          error,
+          id: 'verify-email-error',
+          title: 'Verification Error',
+          description:
+            'There was an error verifying your account, please try again. Have you already been verified? Try logging in.',
+        })
       }
     } else {
       if (!toast.isActive('veirfy-email-invalid-token')) {
