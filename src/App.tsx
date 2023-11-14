@@ -43,11 +43,6 @@ function App() {
           </Router>
         </div>
         <ToastContainer />
-        {/* <ToastContainer
-          position={toast.POSITION.BOTTOM_CENTER}
-          transition={Slide}
-          autoClose={2000}
-        /> */}
       </QueryClientProvider>
     </>
   )
