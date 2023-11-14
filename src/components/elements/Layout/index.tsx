@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Logo } from '@components/elements/Logo'
-import { APP_CONTAINER_WIDTH, APP_PADDING, APP_SPACING } from '@utils/appStyling'
+import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 
 type Props = {
   bottomContent: React.ReactNode
-  topContent: React.ReactNode
+  topContent?: React.ReactNode
 }
 
 export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Props) => {
@@ -20,19 +20,24 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
       alignItems='center'
     >
       <Stack
-        alignContent='center'
-        className='top-content'
         color='white'
-        justifyContent={'center'}
-        minWidth={APP_CONTAINER_WIDTH.minWidth}
-        px={APP_PADDING.px}
-        pt={APP_PADDING.pt}
-        pb={APP_PADDING.pb}
-        spacing={APP_SPACING.spacing}
-        width={APP_CONTAINER_WIDTH.width}
+        className='top-container'
+        alignItems='center'
+        height='100%'
+        flex={1}
+        width={{ base: '100%' }}
       >
-        <Logo />
-        {topContent}
+        <Flex
+          minWidth={APP_CONTAINER_WIDTH.minWidth}
+          direction='column'
+          px={APP_PADDING.px}
+          pt={APP_PADDING.pt}
+          pb={APP_PADDING.pb}
+          width={APP_CONTAINER_WIDTH.width}
+        >
+          <Logo />
+          {topContent && topContent}
+        </Flex>
       </Stack>
       <Flex
         className='bottom-container'
