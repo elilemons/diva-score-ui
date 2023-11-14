@@ -15,5 +15,4 @@ export type Authentication = {
     | undefined
   logIn: (data: UserLogin) => void
   logOut: () => void
-  resetPassword: (token: string, password: string) => void
 }

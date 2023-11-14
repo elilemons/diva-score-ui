@@ -6,7 +6,6 @@ import { useToast } from '@chakra-ui/react'
 import { fetchMeQuery, fetchMeQueryKey } from '@queries/user/fetchMeQuery'
 import { useUserLoginMutation } from '@queries/user/userLoginMutation'
 import { useUserLogoutMutation } from '@queries/user/userLogoutMutation'
-import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { secureStorage } from '@utils/storage'
 import { toastErrors } from '@utils/toastErrors'
@@ -16,7 +15,6 @@ import { Authentication } from './types'
 const Context = createContext<Authentication>({
   logIn: () => null,
   logOut: () => null,
-  resetPassword: () => null,
   user: undefined,
 })
 type Props = {
@@ -24,32 +22,11 @@ type Props = {
 }
 const AuthProvider: React.FC<Props> = ({ children }) => {
   const { data: user = undefined } = fetchMeQuery({})
-  const resetPasswordMutation = userResetPasswordMutation()
   const login = useUserLoginMutation()
   const logoutMutation = useUserLogoutMutation()
   const history = useHistory()
   const queryClient = useQueryClient()
   const toast = useToast()
-
-  const resetPassword = useCallback(
-    async (token: string, password: string) => {
-      try {
-        await resetPasswordMutation.mutateAsync({ token, password })
-        const toastId = 'password-reset-success'
-        if (!toast.isActive(toastId)) {
-          toast({ description: 'Your password has been reset.', status: 'success', id: toastId })
-        }
-      } catch (e) {
-        const error = e as GenericStatusErrorType
-        toastErrors({
-          error,
-          id: 'reset-password-error',
-          title: 'Reset Password Error',
-        })
-      }
-    },
-    [history, resetPasswordMutation],
-  )
 
   const logIn = useCallback(
     async (data: { email: string; password: string }) => {
@@ -113,7 +90,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         user,
         logIn,
         logOut,
-        resetPassword,
       }}
     >
       {children}
