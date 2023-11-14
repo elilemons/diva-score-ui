@@ -12,36 +12,44 @@ const Home: React.FC = () => {
     <Layout
       topContent={
         <Stack spacing={APP_SPACING.spacing}>
-          <Heading as='h1' size={APP_PAGE_HEADINGS.size}>
-            Daily Inspired Vision and Actions
+          <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
+            Divinely Inspired Vision and Actions
           </Heading>
           <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-            Elevate the self-care journey for Daily Inspired Vision and Action (Divas) with your own
-            DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
-            values, provide a personalized Daily Self-Care Score. Stay accountable to your
+            Elevate the self-care journey for Divinely Inspired Vision and Action (Divas) with your
+            own DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
+            values, provide a personalized Divine Self-Care Score. Stay accountable to your
             well-being and goals, and cultivate gratitude and connection with this app.
           </Text>
         </Stack>
       }
       bottomContent={
-        <Stack spacing={APP_SPACING.spacing}>
+        <Stack spacing={APP_SPACING.spacing} as='a'>
           {user ? (
             <>
-              <Button colorScheme='brand' size='lg'>
-                <Link to={APP_ROUTES.authenticated.dashboard}>Dashboard</Link>
-              </Button>
-              <Button size='lg'>
-                <Link to={APP_ROUTES.authenticated.account}>Manage Account</Link>
-              </Button>
+              <Link to={APP_ROUTES.authenticated.dashboard}>
+                <Button colorScheme='brand' size='lg' width={'100%'}>
+                  Dashboard
+                </Button>
+              </Link>
+              <Link to={APP_ROUTES.authenticated.account}>
+                <Button size='lg' width={'100%'}>
+                  Manage Account
+                </Button>
+              </Link>
             </>
           ) : (
             <>
-              <Button colorScheme='brand' size='lg'>
-                <Link to={APP_ROUTES.unauthenticated.signup}>Get Started</Link>
-              </Button>
-              <Button size='lg'>
-                <Link to={APP_ROUTES.unauthenticated.login}>Login</Link>
-              </Button>
+              <Link to={APP_ROUTES.unauthenticated.signup}>
+                <Button colorScheme='brand' size='lg' width={'100%'}>
+                  Get Started
+                </Button>
+              </Link>
+              <Link to={APP_ROUTES.unauthenticated.login}>
+                <Button size='lg' width={'100%'}>
+                  Login
+                </Button>
+              </Link>
             </>
           )}
         </Stack>
