@@ -18,7 +18,6 @@ const Signup = React.lazy(() => import('./Unauthenticated/Signup'))
 const SignupSuccess = React.lazy(() => import('./Unauthenticated/SignupSuccess'))
 const VerifyEmail = React.lazy(() => import('./Unauthenticated/VerifyEmail'))
 const ForgotPassword = React.lazy(() => import('./Unauthenticated/ForgotPassword'))
-const ResetPassword = React.lazy(() => import('./Unauthenticated/ResetPassword'))
 
 // // // // // // // // //
 // Authenticated Pages
@@ -75,11 +74,6 @@ const unauthenticatedRoutes = [
     exact: true,
     path: APP_ROUTES.unauthenticated.forgotPasswordWithEmail,
     component: ForgotPassword,
-  },
-  {
-    exact: true,
-    path: APP_ROUTES.unauthenticated.resetPassword,
-    component: ResetPassword,
   },
 ]
 
