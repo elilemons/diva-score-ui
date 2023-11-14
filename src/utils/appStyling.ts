@@ -36,6 +36,7 @@ export const APP_CONTAINER_WIDTH = {
 
 export const APP_PAGE_HEADINGS = {
   size: { base: 'md', md: 'lg', lg: 'xl', xl: 'xl', '2xl': '2xl' },
+  ml: { base: 0, md: '-1px', lg: '-2px' },
 }
 
 export const APP_PAGE_DESCRIPTIONS = {
