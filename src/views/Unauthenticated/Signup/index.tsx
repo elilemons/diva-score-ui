@@ -8,12 +8,7 @@ import { User } from '@elilemons/diva-score-lib'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createUserMutation } from '@root/queries/user/createUserMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
-import {
-  APP_BRAND_BUTTON,
-  APP_FORM_HEADINGS,
-  APP_FORM_STACK_SPACING,
-  APP_SPACING,
-} from '@utils/appStyling'
+import { APP_BRAND_BUTTON, APP_FORM_HEADINGS, APP_SPACING } from '@utils/appStyling'
 import { canLoop } from '@utils/canLoop'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -60,7 +55,7 @@ const SignUp: React.FC = () => {
           <Heading size={APP_FORM_HEADINGS.size}>Sign Up for DIVA Score</Heading>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={APP_FORM_STACK_SPACING.spacing}>
+            <Stack spacing={APP_SPACING.spacing}>
               <ControlledEmailInput control={control} required label='Email' name='email' />
               <ControlledPasswordInput
                 control={control}
