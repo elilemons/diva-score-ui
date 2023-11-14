@@ -45,3 +45,22 @@ export const APP_PAGE_DESCRIPTIONS = {
     md: 'xl',
   },
 }
+
+export const APP_FORM_HEADINGS = {
+  size: {
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+  },
+}
+
+export const APP_FORM_STACK_SPACING = {
+  spacing: {
+    base: 10,
+  },
+}
+
+export const APP_BRAND_BUTTON = {
+  colorScheme: 'brand',
+  bgGradient: 'linear(to-l, accent.500, brand.500)',
+}
