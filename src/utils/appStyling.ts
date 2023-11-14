@@ -48,7 +48,7 @@ export const APP_PAGE_DESCRIPTIONS = {
   },
 }
 
-export const APP_FORM_HEADINGS = {
+export const APP_INNER_HEADINGS = {
   size: {
     base: 'sm',
     sm: 'md',
