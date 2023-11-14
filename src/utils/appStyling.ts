@@ -21,6 +21,8 @@ export const APP_SPACING = {
   spacing: {
     base: 2,
     md: 4,
+    lg: 8,
+    xl: 10,
   },
 }
 
@@ -51,12 +53,6 @@ export const APP_FORM_HEADINGS = {
     base: 'sm',
     sm: 'md',
     md: 'lg',
-  },
-}
-
-export const APP_FORM_STACK_SPACING = {
-  spacing: {
-    base: 10,
   },
 }
 
