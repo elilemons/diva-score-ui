@@ -5,13 +5,15 @@ import { AuthProvider } from '@components/appProviders/Auth'
 import { InAppBrowserListener } from '@components/elements/InAppBrowserListener'
 import { OnRouteChange } from '@components/elements/OnRouteChange'
 import { Routes } from '@root/views/Routes'
-import { Slide, toast, ToastContainer } from 'react-toastify'
 
 import { DialogProvider } from '@components/appProviders/Dialogs'
 import { NavigationProvider } from '@components/appProviders/Navigation'
-import 'react-toastify/dist/ReactToastify.css'
+
+import { createStandaloneToast } from '@chakra-ui/react'
 
 import classes from './App.module.css'
+
+const { ToastContainer } = createStandaloneToast()
 
 function App() {
   const queryClient = new QueryClient({
@@ -40,11 +42,12 @@ function App() {
             </NavigationProvider>
           </Router>
         </div>
-        <ToastContainer
+        <ToastContainer />
+        {/* <ToastContainer
           position={toast.POSITION.BOTTOM_CENTER}
           transition={Slide}
           autoClose={2000}
-        />
+        /> */}
       </QueryClientProvider>
     </>
   )
