@@ -1,3 +1,5 @@
+import { Heading, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react'
+import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
 import { ControlledRetypeInput } from '@components/forms/fields/Retype/Controlled'
@@ -6,10 +8,10 @@ import { User } from '@elilemons/diva-score-lib'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createUserMutation } from '@root/queries/user/createUserMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
-import { canLoop } from '@utils/canLoop'
+import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
+import { toastErrors } from '@utils/toastErrors'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 type UserSignup = {
   confirmPassword: string
 } & User
@@ -30,40 +32,60 @@ const SignUp: React.FC = () => {
         })
     } catch (e) {
       const error = e as GenericStatusErrorType
-      if (canLoop(error?.data?.errors)) {
-        error.data.errors.forEach(({ message }: { message: string }) =>
-          toast.error(message, { autoClose: false, toastId: 'sign-up-errors' }),
-        )
-      } else {
-        toast.error(
-          `There was an error creating your account, please try again. Also ${error.message}`,
-          { autoClose: false, toastId: 'sign-up-error' },
-        )
-      }
+      toastErrors({
+        error,
+        id: 'sign-up-error',
+        title: 'Account Creation Error',
+        description: 'There was an error creating your account, please try again.',
+      })
     }
   }
 
   return (
-    <div>
-      <h1>Sign Up for DIVA Score</h1>
+    <Layout
+      bottomContent={
+        <Stack spacing={APP_SPACING.spacing}>
+          <Heading size={APP_INNER_HEADINGS.size}>Sign Up for DIVA Score</Heading>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ControlledEmailInput control={control} required name='email' />
-        <ControlledPasswordInput control={control} required name='password' />
-        <ControlledRetypeInput
-          control={control}
-          getValues={getValues}
-          required
-          name='confirmPassword'
-          label='Confirm Password'
-          placeholder='Confirm Password'
-          matchFieldName='password'
-          matchFieldType='password'
-        />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={APP_SPACING.spacing}>
+              <ControlledEmailInput control={control} required label='Email' name='email' />
+              <ControlledPasswordInput
+                control={control}
+                required
+                label='Password'
+                name='password'
+              />
+              <Stack spacing={4}>
+                <ControlledRetypeInput
+                  control={control}
+                  getValues={getValues}
+                  required
+                  name='confirmPassword'
+                  label='Confirm Password'
+                  placeholder='Confirm Password'
+                  matchFieldName='password'
+                  matchFieldType='password'
+                />
 
-        <Submit label='Sign up' control={control} />
-      </form>
-    </div>
+                <Text>Your password must have:</Text>
+                <UnorderedList spacing={2}>
+                  <ListItem>8 characters or more</ListItem>
+                  <ListItem>At least 1 capital letter</ListItem>
+                  <ListItem>At least 1 special character</ListItem>
+                </UnorderedList>
+              </Stack>
+              <Submit
+                label='Sign up'
+                control={control}
+                colorScheme={APP_BRAND_BUTTON.colorScheme}
+                bgGradient={APP_BRAND_BUTTON.bgGradient}
+              />
+            </Stack>
+          </form>
+        </Stack>
+      }
+    />
   )
 }
 

@@ -1,7 +1,6 @@
+import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { Control, useFormState } from 'react-hook-form'
-
-import { Button } from '@components/elements/Button'
 
 export type Props = {
   label?: string
@@ -11,8 +10,10 @@ export type Props = {
   className?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: Control<any, any>
+  colorScheme?: string
   removeTopMargin?: boolean
   submittingLabel?: string
+  bgGradient?: string
 }
 
 export const Submit: React.FC<Props> = props => {
@@ -25,6 +26,8 @@ export const Submit: React.FC<Props> = props => {
     control,
     // removeTopMargin,
     submittingLabel = 'Submitting...',
+    colorScheme,
+    bgGradient,
   } = props
 
   const { isDirty, isSubmitting } = useFormState({ control })
@@ -33,7 +36,14 @@ export const Submit: React.FC<Props> = props => {
   if (isSubmitting) isDisabled = true
 
   return (
-    <Button type='submit' id={id} disabled={isDisabled} className={className}>
+    <Button
+      type='submit'
+      id={id}
+      disabled={isDisabled}
+      className={className}
+      colorScheme={colorScheme}
+      bgGradient={bgGradient}
+    >
       {isSubmitting ? submittingLabel : label}
     </Button>
   )
