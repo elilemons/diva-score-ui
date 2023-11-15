@@ -1,18 +1,64 @@
-import TopNav from '@components/elements/TopNav'
 import * as React from 'react'
 
+import { Container, Flex, Stack } from '@chakra-ui/react'
+import { Logo } from '@components/elements/Logo'
+import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
+
 type Props = {
-  children: React.ReactNode
-  hideTopNav?: boolean
+  bottomContent: React.ReactNode
+  topContent?: React.ReactNode
 }
 
-const Layout: React.FC<Props> = ({ children, hideTopNav = false }: Props) => {
+export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Props) => {
   return (
-    <div>
-      {!hideTopNav && <TopNav />}
-      <div>{children}</div>
-    </div>
+    <Flex
+      className={'outer-container'}
+      backgroundColor='brand.500'
+      bgGradient='linear(to-br, accent.500, brand.500, brand.700)'
+      height='100%'
+      direction='column'
+      alignItems='center'
+    >
+      <Stack
+        color='white'
+        className='top-container'
+        alignItems='center'
+        height='100%'
+        flex={1}
+        width={{ base: '100%' }}
+      >
+        <Flex
+          minWidth={APP_CONTAINER_WIDTH.minWidth}
+          direction='column'
+          px={APP_PADDING.px}
+          pt={APP_PADDING.pt}
+          pb={APP_PADDING.pb}
+          width={APP_CONTAINER_WIDTH.width}
+        >
+          <Logo />
+          {topContent && topContent}
+        </Flex>
+      </Stack>
+      <Flex
+        className='bottom-container'
+        alignItems='center'
+        height='100%'
+        direction='column'
+        justifyContent={'stretch'}
+        width={{ base: '100%' }}
+      >
+        <Container
+          backgroundColor='white'
+          className='inner-container'
+          height='100%'
+          minWidth={APP_CONTAINER_WIDTH.minWidth}
+          px={APP_PADDING.px}
+          py={APP_PADDING.py}
+          width={APP_CONTAINER_WIDTH.width}
+        >
+          {bottomContent}
+        </Container>
+      </Flex>
+    </Flex>
   )
 }
-
-export default Layout

@@ -12,7 +12,6 @@ export const APP_ROUTES = {
     verifyEmail: '/verify-email/:token',
     forgotPassword: '/forgot-password',
     forgotPasswordWithEmail: '/forgot-password/:email',
-    resetPassword: '/reset-password/:token/:email',
   },
   authenticated: {
     account: '/account',
