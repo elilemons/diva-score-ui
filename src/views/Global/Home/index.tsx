@@ -19,37 +19,41 @@ const Home: React.FC = () => {
             Elevate the self-care journey for Divinely Inspired Vision and Action (Divas) with your
             own DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
             values, provide a personalized Divine Self-Care Score. Stay accountable to your
-            well-being and goals, and cultivate gratitude and connection with this app.
+            well-being and goals, and cuyarnltivate gratitude and connection with this app.
           </Text>
         </Stack>
       }
       bottomContent={
-        <Stack spacing={APP_SPACING.spacing} as='a'>
+        <Stack spacing={APP_SPACING.spacing}>
           {user ? (
             <>
-              <Link to={APP_ROUTES.authenticated.dashboard}>
-                <Button colorScheme='brand' size='lg' width={'100%'}>
-                  Dashboard
-                </Button>
-              </Link>
-              <Link to={APP_ROUTES.authenticated.account}>
-                <Button size='lg' width={'100%'}>
-                  Manage Account
-                </Button>
-              </Link>
+              <Button
+                as={Link}
+                to={APP_ROUTES.authenticated.dashboard}
+                colorScheme='brand'
+                size='lg'
+                width={'100%'}
+              >
+                Dashboard
+              </Button>
+              <Button as={Link} to={APP_ROUTES.authenticated.account} size='lg' width={'100%'}>
+                Manage Account
+              </Button>
             </>
           ) : (
             <>
-              <Link to={APP_ROUTES.unauthenticated.signup}>
-                <Button colorScheme='brand' size='lg' width={'100%'}>
-                  Get Started
-                </Button>
-              </Link>
-              <Link to={APP_ROUTES.unauthenticated.login}>
-                <Button size='lg' width={'100%'}>
-                  Login
-                </Button>
-              </Link>
+              <Button
+                as={Link}
+                to={APP_ROUTES.unauthenticated.signup}
+                colorScheme='brand'
+                size='lg'
+                width={'100%'}
+              >
+                Get Started
+              </Button>
+              <Button as={Link} to={APP_ROUTES.unauthenticated.login} size='lg' width={'100%'}>
+                Login
+              </Button>
             </>
           )}
         </Stack>
