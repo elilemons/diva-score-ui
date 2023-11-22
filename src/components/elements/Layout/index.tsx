@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { Container, Flex, Stack } from '@chakra-ui/react'
+import { Button, Container, Flex, Stack } from '@chakra-ui/react'
+import { useAuth } from '@components/appProviders/Auth'
 import { Logo } from '@components/elements/Logo'
 import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 
@@ -10,6 +11,7 @@ type Props = {
 }
 
 export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Props) => {
+  const { user, logOut } = useAuth()
   return (
     <Flex
       className={'outer-container'}
@@ -34,8 +36,14 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
           pt={APP_PADDING.pt}
           pb={APP_PADDING.pb}
           width={APP_CONTAINER_WIDTH.width}
+          alignContent='space-between'
         >
           <Logo />
+          {user && (
+            <Button data-cy='logout' onClick={() => logOut()}>
+              Logout
+            </Button>
+          )}
           {topContent && topContent}
         </Flex>
       </Stack>

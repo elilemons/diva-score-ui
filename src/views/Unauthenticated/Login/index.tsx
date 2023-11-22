@@ -28,15 +28,23 @@ const Login: React.FC = () => {
             <Heading size={APP_INNER_HEADINGS.size}>Login to DIVA Score</Heading>
 
             <ControlledEmailInput
+              data-cy='email'
               control={control}
               required
               name='email'
               label='Email'
               defaultValue={email}
             />
-            <ControlledPasswordInput control={control} required name='password' label='Password' />
+            <ControlledPasswordInput
+              data-cy='password'
+              control={control}
+              required
+              name='password'
+              label='Password'
+            />
 
             <Submit
+              data-cy='login'
               label='Log In'
               control={control}
               colorScheme={APP_BRAND_BUTTON.colorScheme}

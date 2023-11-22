@@ -28,6 +28,7 @@ const Home: React.FC = () => {
           {user ? (
             <>
               <Button
+                data-cy='dashboard'
                 as={Link}
                 to={APP_ROUTES.authenticated.dashboard}
                 colorScheme='brand'
@@ -36,13 +37,20 @@ const Home: React.FC = () => {
               >
                 Dashboard
               </Button>
-              <Button as={Link} to={APP_ROUTES.authenticated.account} size='lg' width={'100%'}>
+              <Button
+                data-cy='account'
+                as={Link}
+                to={APP_ROUTES.authenticated.account}
+                size='lg'
+                width={'100%'}
+              >
                 Manage Account
               </Button>
             </>
           ) : (
             <>
               <Button
+                data-cy='signup'
                 as={Link}
                 to={APP_ROUTES.unauthenticated.signup}
                 colorScheme='brand'
@@ -51,7 +59,13 @@ const Home: React.FC = () => {
               >
                 Get Started
               </Button>
-              <Button as={Link} to={APP_ROUTES.unauthenticated.login} size='lg' width={'100%'}>
+              <Button
+                data-cy='login'
+                as={Link}
+                to={APP_ROUTES.unauthenticated.login}
+                size='lg'
+                width={'100%'}
+              >
                 Login
               </Button>
             </>
