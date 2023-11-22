@@ -27,6 +27,7 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
     <FormControl className={className} isRequired={required}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
+        data-cy={name}
         ref={inputRef}
         onChange={onChange}
         value={value}

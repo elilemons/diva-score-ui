@@ -4,13 +4,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', '@tanstack/query'],
+  plugins: ['@typescript-eslint', '@tanstack/query', 'cypress'],
   // HERE
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:@tanstack/eslint-plugin-query/recommended',
+    'plugin:cypress/recommended',
   ],
 
   rules: {
