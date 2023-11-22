@@ -1,6 +1,6 @@
 import { User } from '@elilemons/diva-score-lib'
 import { get } from '@root/api'
-import { GenericStatusError } from '@root/types/errors'
+import { GenericStatusErrorType } from '@root/types/errors'
 import { useQuery, UseQueryResult } from 'react-query'
 
 import { secureStorage } from '@utils/storage'
@@ -14,7 +14,7 @@ export function fetchMeQuery({
   refetchInterval,
 }: fetchMeQueryProps): UseQueryResult<User | null, unknown> {
   const queryRes = useQuery({
-    queryKey: [fetchMeQueryKey],
+    queryKey: [fetchMeQueryKey, refetchInterval],
     queryFn: async () => {
       const token = await secureStorage.getJWTToken()
       if (token) {
@@ -27,13 +27,16 @@ export function fetchMeQuery({
         }
       }
       return null
+      // TODO Handle if server is not up
+      // throw GenericStatusError({
+      //   status: 501,
+      //   message: `An unknown error has occurred fetching the current user's information.`,
+      // })
     },
     refetchInterval,
-    onError: () => {
-      throw GenericStatusError({
-        status: 501,
-        message: `An unknown error has occurred fetching the current user's information.`,
-      })
+    retry: (failCount, error: GenericStatusErrorType) => {
+      console.error({ error })
+      return failCount < 3
     },
   })
 
