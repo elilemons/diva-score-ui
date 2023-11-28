@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading data-cy='welcome-message' size={APP_INNER_HEADINGS.size} textAlign='center'>
-            Welcome to your Dashboard {user && `${user.email}`}!
+            Welcome to your Dashboard {user && `${user.firstName}`}!
           </Heading>
         </Stack>
       }
