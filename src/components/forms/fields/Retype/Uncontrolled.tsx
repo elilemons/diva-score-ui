@@ -41,6 +41,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex>
         <Input
+          data-cy={name}
           ref={inputRef}
           onChange={onChange}
           value={value}
