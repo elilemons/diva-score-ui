@@ -6,6 +6,7 @@ import { ControlledRetypeInput } from '@components/forms/fields/Retype/Controlle
 import { Submit } from '@components/forms/Submit'
 import { User } from '@elilemons/diva-score-lib'
 import { APP_ROUTES } from '@root/appRoutes'
+import { ControlledTextInput } from '@root/components/forms/fields/Text/Controlled'
 import { createUserMutation } from '@root/queries/user/createUserMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
@@ -49,6 +50,8 @@ const SignUp: React.FC = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>
+              <ControlledTextInput control={control} required label='First Name' name='firstName' />
+              <ControlledTextInput control={control} required label='Last Name' name='lastName' />
               <ControlledEmailInput control={control} required label='Email' name='email' />
               <ControlledPasswordInput
                 control={control}
