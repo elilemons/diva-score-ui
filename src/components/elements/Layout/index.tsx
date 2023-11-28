@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { Button, Container, Flex, Stack } from '@chakra-ui/react'
-import { useAuth } from '@components/appProviders/Auth'
+import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Logo } from '@components/elements/Logo'
+import { BottomNav } from '@root/components/elements/BottomNav'
 import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 
 type Props = {
@@ -11,7 +11,6 @@ type Props = {
 }
 
 export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Props) => {
-  const { user, logOut } = useAuth()
   return (
     <Flex
       className={'outer-container'}
@@ -36,14 +35,8 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
           pt={APP_PADDING.pt}
           pb={APP_PADDING.pb}
           width={APP_CONTAINER_WIDTH.width}
-          alignContent='space-between'
         >
           <Logo />
-          {user && (
-            <Button data-cy='logout' onClick={() => logOut()}>
-              Logout
-            </Button>
-          )}
           {topContent && topContent}
         </Flex>
       </Stack>
@@ -56,6 +49,7 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
         width={{ base: '100%' }}
       >
         <Container
+          position='relative'
           backgroundColor='white'
           className='inner-container'
           height='100%'
@@ -65,6 +59,7 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
           width={APP_CONTAINER_WIDTH.width}
         >
           {bottomContent}
+          <BottomNav />
         </Container>
       </Flex>
     </Flex>
