@@ -13,7 +13,12 @@ const SignupSuccess: React.FC = () => {
             You have successfully signed up. Once you confirm your email you will be able to sign
             in.
           </Text>
-          <Button {...APP_BRAND_BUTTON} as={Link} to={APP_ROUTES.unauthenticated.login}>
+          <Button
+            {...APP_BRAND_BUTTON}
+            as={Link}
+            to={APP_ROUTES.unauthenticated.login}
+            data-cy='backToLogin'
+          >
             Back to Login
           </Button>
         </Stack>
