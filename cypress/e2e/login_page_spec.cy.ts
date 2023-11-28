@@ -15,7 +15,7 @@ describe('The Login Page', () => {
     cy.url().should('include', '/dashboard')
 
     // UI should reflect this user being logged in
-    cy.get('[data-cy="welcome-message"]').should('contain', 'Welcome')
+    cy.get('[data-cy="welcome-message"]').should('contain', 'Welcome to your Dashboard Cypress')
 
     // our auth cookie should be present
     cy.getAllLocalStorage().then(result => {
