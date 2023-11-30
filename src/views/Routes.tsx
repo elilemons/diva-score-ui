@@ -96,6 +96,11 @@ const authenticatedRoutes = [
     path: APP_ROUTES.authenticated.survey,
     component: Survey,
   },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.surveyWithId,
+    component: Survey,
+  },
 ]
 
 export const Routes: React.FC = () => {
