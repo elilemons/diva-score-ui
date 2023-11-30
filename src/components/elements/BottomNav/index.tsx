@@ -15,7 +15,7 @@ export const BottomNav: React.FC = () => {
     if (location && location.pathname) {
       if (location.pathname.includes('calendar')) {
         setActive('calendar')
-      } else if (location.pathname.includes('dashboard')) {
+      } else if (location.pathname.includes('dashboard') || location.pathname.includes('survey')) {
         setActive('dashboard')
       } else if (location.pathname.includes('account')) {
         setActive('account')
@@ -40,10 +40,10 @@ export const BottomNav: React.FC = () => {
         bg='none'
         isActive={active === 'calendar'}
         _active={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         _hover={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         colorScheme='whiteAlpha.700'
         size='lg'
@@ -56,10 +56,10 @@ export const BottomNav: React.FC = () => {
         bg='none'
         isActive={active === 'dashboard'}
         _active={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         _hover={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         colorScheme='white'
         size='lg'
@@ -72,10 +72,10 @@ export const BottomNav: React.FC = () => {
         bg='none'
         isActive={active === 'account'}
         _active={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         _hover={{
-          bg: 'brand.500',
+          bg: 'brand.400',
         }}
         colorScheme='white'
         size='lg'
