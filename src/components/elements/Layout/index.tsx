@@ -16,8 +16,9 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
       className={'outer-container'}
       backgroundColor='brand.500'
       bgGradient='linear(to-br, accent.500, brand.500, brand.700)'
-      height='100%'
-      direction='column'
+      height='auto'
+      minHeight='100%'
+      flexFlow='column'
       alignItems='center'
     >
       <Stack
@@ -25,10 +26,10 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
         className='top-container'
         alignItems='center'
         height='100%'
-        flex={1}
         width={{ base: '100%' }}
       >
         <Flex
+          className='inner-top-container'
           minWidth={APP_CONTAINER_WIDTH.minWidth}
           direction='column'
           px={APP_PADDING.px}
@@ -46,13 +47,15 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
         height='100%'
         direction='column'
         justifyContent={'stretch'}
+        flex={1}
         width={{ base: '100%' }}
       >
         <Container
           position='relative'
           backgroundColor='white'
-          className='inner-container'
+          className='inner-bottom-container'
           height='100%'
+          flex={1}
           minWidth={APP_CONTAINER_WIDTH.minWidth}
           px={APP_PADDING.px}
           py={APP_PADDING.py}
