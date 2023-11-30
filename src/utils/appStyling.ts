@@ -60,3 +60,11 @@ export const APP_BRAND_BUTTON = {
   colorScheme: 'brand',
   bgGradient: 'linear(to-l, accent.500, brand.500)',
 }
+
+export const APP_CHECKBOX_SIZING = {
+  size: {
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+  },
+}
