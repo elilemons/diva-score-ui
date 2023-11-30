@@ -1,4 +1,4 @@
-import type { ThemingProps } from '@chakra-ui/react'
+import { FormLabel, ThemingProps } from '@chakra-ui/react'
 import * as React from 'react'
 import { RefCallBack } from 'react-hook-form'
 
@@ -42,7 +42,7 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
         size={size}
         colorScheme={'brand'}
       >
-        {label}
+        <FormLabel htmlFor={name}>{label}</FormLabel>
       </Checkbox>
       {subText && <Text size='xs'>{subText}</Text>}
       {secondaryLabel && <Text>{secondaryLabel}</Text>}
