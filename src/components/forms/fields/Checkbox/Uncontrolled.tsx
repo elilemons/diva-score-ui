@@ -5,13 +5,14 @@ import { RefCallBack } from 'react-hook-form'
 import { FieldType } from '../types'
 
 import { Checkbox, FormControl, FormErrorMessage, Text } from '@chakra-ui/react'
+import { APP_INPUT_COLORING } from '@root/utils/appStyling'
 
 export type FieldSpecificProps = {
   defaultValue?: boolean
   secondaryLabel?: string
   subText?: React.ReactNode
   checkboxAlignment?: 'top' | 'center'
-} & Pick<ThemingProps<'checkbox'>, 'size'>
+} & Partial<Pick<ThemingProps<'checkbox'>, 'size'>>
 
 type UncontrolledProps = FieldSpecificProps &
   Omit<FieldType, 'required' | 'defaultValue'> & {
@@ -33,7 +34,14 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
 
   return (
     <FormControl className={className}>
-      <Checkbox checked={value} data-cy={name} id={name} size={size}>
+      <Checkbox
+        {...APP_INPUT_COLORING}
+        checked={value}
+        data-cy={name}
+        id={name}
+        size={size}
+        colorScheme={'brand'}
+      >
         {label}
       </Checkbox>
       {subText && <Text size='xs'>{subText}</Text>}
