@@ -31,6 +31,7 @@ export const BottomNav: React.FC = () => {
       height={14}
       width='100%'
       bg='brand.700'
+      bgGradient='radial(brand.500, brand.700)'
       alignItems='center'
       justifyContent='space-between'
       px={APP_PADDING.px}
