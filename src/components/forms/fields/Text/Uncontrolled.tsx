@@ -5,6 +5,7 @@ import { FieldType } from '../types'
 import type { SharedProps } from './types'
 
 import { Flex, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
+import { APP_INPUT_COLORING } from '@root/utils/appStyling'
 
 type UncontrolledProps = FieldType &
   SharedProps & {
@@ -32,6 +33,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledProps> = props => {
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex data-inline-label={inputSuffix}>
         <Input
+          {...APP_INPUT_COLORING}
           data-cy={name}
           ref={inputRef}
           onChange={onChange}
