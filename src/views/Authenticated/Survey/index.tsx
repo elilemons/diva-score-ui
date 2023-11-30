@@ -57,7 +57,7 @@ const Survey: React.FC = () => {
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={APP_SPACING.spacing}>
+            <Stack spacing={4}>
               {surveyData &&
                 surveyData.surveyQuestionSets &&
                 surveyData.surveyQuestionSets.map(qs => {
@@ -109,7 +109,7 @@ const Survey: React.FC = () => {
                               break
                           }
                         })}
-                      <Divider />
+                      <Divider color='brand.300' />
                     </React.Fragment>
                   )
                 })}
