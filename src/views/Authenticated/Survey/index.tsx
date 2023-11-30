@@ -1,11 +1,13 @@
-import { Heading, Stack } from '@chakra-ui/react'
-import { QuestionSet, Survey as SurveyType } from '@elilemons/diva-score-lib'
+import { Badge, Divider, Flex, Heading, Stack } from '@chakra-ui/react'
+import { QuestionBlock, QuestionSet, Survey as SurveyType } from '@elilemons/diva-score-lib'
 import { Layout } from '@root/components/elements/Layout'
 import { ControlledCheckbox } from '@root/components/forms/fields/Checkbox/Controlled'
 import { ControlledTextInput } from '@root/components/forms/fields/Text/Controlled'
+import { ControlledTextAreaInput } from '@root/components/forms/fields/TextArea/Controlled'
+import { Submit } from '@root/components/forms/Submit'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
 import { GenericStatusErrorType } from '@root/types/errors'
-import { APP_CHECKBOX_SIZING, APP_SPACING } from '@root/utils/appStyling'
+import { APP_BRAND_BUTTON, APP_CHECKBOX_SIZING, APP_SPACING } from '@root/utils/appStyling'
 import { toastErrors } from '@root/utils/toastErrors'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -61,38 +63,62 @@ const Survey: React.FC = () => {
                 surveyData.surveyQuestionSets.map(qs => {
                   const questionSet = qs as QuestionSet
 
-                  if (questionSet && questionSet.questions) {
-                    return questionSet.questions.map(q => {
-                      const question = q as {
-                        id: string
-                        questionTextFields: {
-                          question: string
-                          answer: { blockType: string }[]
-                        }
-                      }
+                  return (
+                    <React.Fragment key={questionSet.id}>
+                      <Flex alignItems='flex-start' gap={2}>
+                        <Heading>{questionSet.title}</Heading>
+                        {!!questionSet.pointValue && questionSet.pointValue > 0 && (
+                          <Badge colorScheme='green'>{questionSet.pointValue}</Badge>
+                        )}
+                      </Flex>
 
-                      if (question.questionTextFields.answer[0].blockType === 'answerTextBlock') {
-                        return (
-                          <ControlledTextInput
-                            control={control}
-                            label={question.questionTextFields.question}
-                            name={`${question.questionTextFields.question}`}
-                          />
-                        )
-                      } else {
-                        // Checkbox
-                        return (
-                          <ControlledCheckbox
-                            size={APP_CHECKBOX_SIZING.size}
-                            control={control}
-                            label={question.questionTextFields.question}
-                            name={`${question.questionTextFields.question}`}
-                          />
-                        )
-                      }
-                    })
-                  }
+                      {questionSet.questions &&
+                        questionSet.questions.map(q => {
+                          const question = q as QuestionBlock
+
+                          switch (question.questionTextFields.answer[0].blockType) {
+                            case 'answerTextBlock':
+                              return (
+                                <ControlledTextInput
+                                  key={question.id}
+                                  control={control}
+                                  label={question.questionTextFields.question}
+                                  name={question.questionFieldName}
+                                />
+                              )
+                            case 'answerCheckboxBlock':
+                              return (
+                                <ControlledCheckbox
+                                  key={question.id}
+                                  size={APP_CHECKBOX_SIZING.size}
+                                  control={control}
+                                  label={question.questionTextFields.question}
+                                  name={question.questionFieldName}
+                                />
+                              )
+                            case 'answerRichTextBlock':
+                              return (
+                                <ControlledTextAreaInput
+                                  key={question.id}
+                                  control={control}
+                                  label={question.questionTextFields.question}
+                                  name={question.questionFieldName}
+                                />
+                              )
+                            default:
+                              break
+                          }
+                        })}
+                      <Divider />
+                    </React.Fragment>
+                  )
                 })}
+              <Submit
+                label='Submit'
+                control={control}
+                colorScheme={APP_BRAND_BUTTON.colorScheme}
+                bgGradient={APP_BRAND_BUTTON.bgGradient}
+              />
             </Stack>
           </form>
         </Stack>
