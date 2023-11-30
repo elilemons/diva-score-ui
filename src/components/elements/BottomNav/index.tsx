@@ -10,9 +10,6 @@ import { useLocation } from 'react-router-dom'
 export const BottomNav: React.FC = () => {
   const location = useLocation()
   const [active, setActive] = React.useState<'calendar' | 'dashboard' | 'account' | null>()
-  // TODO Remove this test code
-  console.log('ELITEST BottomNav')
-  // ^ TODO Remove this test code
 
   React.useEffect(() => {
     if (location && location.pathname) {
