@@ -26,6 +26,15 @@ export const APP_SPACING = {
   },
 }
 
+export const APP_GAP = {
+  gap: {
+    base: 7,
+    md: 14,
+    lg: 18,
+    xl: 24,
+  },
+}
+
 export const APP_CONTAINER_WIDTH = {
   minWidth: {
     base: '100%',
@@ -67,4 +76,11 @@ export const APP_CHECKBOX_SIZING = {
     sm: 'md',
     md: 'lg',
   },
+}
+
+export const APP_INPUT_COLORING = {
+  borderColor: 'brand.100',
+  _hover: { borderColor: 'brand.300' },
+  focusBorderColor: 'brand.500',
+  errorBorderColor: 'accent.500',
 }
