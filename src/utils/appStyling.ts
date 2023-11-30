@@ -72,8 +72,7 @@ export const APP_BRAND_BUTTON = {
 
 export const APP_CHECKBOX_SIZING = {
   size: {
-    base: 'sm',
-    sm: 'md',
+    base: 'md',
     md: 'lg',
   },
 }
