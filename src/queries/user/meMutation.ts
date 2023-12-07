@@ -7,6 +7,7 @@ import { isResJSON } from '@root/utils/isResJSON'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { fetchMeQuery, fetchMeQueryKey } from './fetchMeQuery'
 
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import QueryString from 'qs'
 
 type MeMutationProps = {
@@ -23,7 +24,7 @@ export function meMutation({
 }): UseMutationResult<Doc<User>, unknown, MeMutationProps> {
   const queryClient = useQueryClient()
   const { data: user } = fetchMeQuery({})
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
     mutationFn: async ({ data, depth = 0, queryParams = {} }: MeMutationProps) => {

@@ -1,5 +1,6 @@
 import { DocWithToken, User } from '@elilemons/diva-score-lib'
-import { UseMutationResult, useQueryClient, useMutation } from 'react-query'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
+import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { post } from '../../api'
 import { GenericStatusError } from '../../types/errors'
 import { isResJSON } from '../../utils/isResJSON'
@@ -18,7 +19,7 @@ export function useUserLoginMutation(): UseMutationResult<
   MutateUserLoginProps
 > {
   const queryClient = useQueryClient()
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
     mutationFn: async ({ data }: MutateUserLoginProps) => {

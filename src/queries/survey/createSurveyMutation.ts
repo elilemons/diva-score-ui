@@ -2,6 +2,7 @@ import { Survey } from '@elilemons/diva-score-lib'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 
 import { post } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError, GenericStatusErrorType } from '@root/types/errors'
 import { isResJSON } from '@utils/isResJSON'
 import { getSurveyByIdQueryKey } from './getSurveyByIdQuery'
@@ -22,7 +23,7 @@ export function createSurveyMutation({
   createSurveyMutationProps
 > {
   const queryClient = useQueryClient()
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
     mutationFn: async ({ title, surveyUser, surveyDate }: createSurveyMutationProps) => {
