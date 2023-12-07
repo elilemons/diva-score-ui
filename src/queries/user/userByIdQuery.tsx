@@ -2,6 +2,7 @@ import { User } from '@elilemons/diva-score-lib'
 import { useQuery, UseQueryResult } from 'react-query'
 
 import { get } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError } from '@root/types/errors'
 import { canLoop } from '@utils/canLoop'
 import { isResJSON } from '@utils/isResJSON'
@@ -13,7 +14,7 @@ type userByIdQueryProps = {
 export function userByIdQuery({
   userId,
 }: userByIdQueryProps): UseQueryResult<User | null, unknown> {
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
   const queryRes = useQuery({
     queryKey: [userByIdQueryKey, userId, apiDomain],
     queryFn: async () => {
