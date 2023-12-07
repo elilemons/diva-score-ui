@@ -10,9 +10,6 @@ describe('The Login Page', () => {
     cy.url().should('contain', '/dashboard')
 
     cy.getAllLocalStorage().then(result => {
-      // TODO Remove this test code
-      console.log('ELITEST local storage', { result })
-      // ^ TODO Remove this test code
       expect(result[Cypress.env('baseURL')][Cypress.env('jwtTokenName')]).to.exist
     })
     // // UI should reflect this user being logged in
