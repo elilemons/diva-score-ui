@@ -1,6 +1,7 @@
 import { useMutation } from 'react-query'
 
 import { post } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError } from '@root/types/errors'
 import { isResJSON } from '@utils/isResJSON'
 
