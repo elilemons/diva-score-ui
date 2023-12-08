@@ -3,7 +3,6 @@ import { get } from '@root/api'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { useQuery, UseQueryResult } from 'react-query'
 
-import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { secureStorage } from '@utils/storage'
 
 export const fetchMeQueryKey = 'fetch-me'
@@ -19,7 +18,7 @@ export function fetchMeQuery({
     queryFn: async () => {
       const token = await secureStorage.getJWTToken()
       if (token) {
-        const { apiDomain } = useAppConfig()
+        const apiDomain = process.env.REACT_APP_API_URL
 
         const res = await get(`${apiDomain}/api/users/me?depth=0`)
         if (res.status === 200) {
