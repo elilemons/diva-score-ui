@@ -1,6 +1,7 @@
 import { useQuery, UseQueryResult } from 'react-query'
 
 import { get } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError, GenericStatusErrorType } from '@root/types/errors'
 
 export const getForgotPasswordTokenQueryKey = 'get-forgot-password-token'
@@ -12,7 +13,7 @@ type getForgotPasswordTokenProps = {
 export function getForgotPasswordTokenQuery({
   run,
 }: getForgotPasswordTokenProps): UseQueryResult<{ token: string }, GenericStatusErrorType> {
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const queryRes = useQuery<{ token: string }, GenericStatusErrorType>({
     queryKey: [getForgotPasswordTokenQueryKey, apiDomain],

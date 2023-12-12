@@ -1,25 +1,18 @@
 describe('The Login Page', () => {
   it('sets auth cookie when logging in via form submission', () => {
-    // destructuring assignment of the this.currentUser object
-    const email = Cypress.env('email')
-    const password = Cypress.env('password')
-
     cy.visit('/login')
 
-    cy.get('[data-cy="email"]').type(email)
+    cy.get('[data-cy="email"]').type(Cypress.env('email'))
 
     // {enter} causes the form to submit
-    cy.get('[data-cy="password"]').type(`${password}{enter}`)
+    cy.get('[data-cy="password"]').type(`${Cypress.env('password')}{enter}`)
 
-    // we should be redirected to /dashboard
-    cy.url().should('include', '/dashboard')
+    cy.url().should('contain', '/dashboard')
 
-    // UI should reflect this user being logged in
-    cy.get('[data-cy="welcome-message"]').should('contain', 'Welcome')
-
-    // our auth cookie should be present
     cy.getAllLocalStorage().then(result => {
       expect(result[Cypress.env('baseURL')][Cypress.env('jwtTokenName')]).to.exist
     })
+    // // UI should reflect this user being logged in
+    cy.get('[data-cy="welcome-message"]').should('contain', 'Welcome to your Dashboard Cypress')
   })
 })

@@ -3,6 +3,7 @@ import { RefCallBack } from 'react-hook-form'
 
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input } from '@chakra-ui/react'
+import { APP_INPUT_COLORING } from '@root/utils/appStyling'
 import { FieldType } from '../types'
 
 export type RetypeProps = {
@@ -41,6 +42,8 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex>
         <Input
+          data-cy={name}
+          {...APP_INPUT_COLORING}
           ref={inputRef}
           onChange={onChange}
           value={value}

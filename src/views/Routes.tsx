@@ -24,7 +24,7 @@ const ForgotPassword = React.lazy(() => import('./Unauthenticated/ForgotPassword
 // // // // // // // // //
 const Account = React.lazy(() => import('./Authenticated/Account'))
 const Dashboard = React.lazy(() => import('./Authenticated/Dashboard'))
-
+const Survey = React.lazy(() => import('./Authenticated/Survey'))
 // // // // // // // // //
 // Global Routes
 // // // // // // // // //
@@ -90,6 +90,16 @@ const authenticatedRoutes = [
     exact: true,
     path: APP_ROUTES.authenticated.dashboard,
     component: Dashboard,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.survey,
+    component: Survey,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.surveyWithId,
+    component: Survey,
   },
 ]
 

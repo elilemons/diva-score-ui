@@ -1,23 +1,24 @@
-import { User } from '@elilemons/diva-score-lib'
+import { Survey } from '@elilemons/diva-score-lib'
 import { useQuery, UseQueryResult } from 'react-query'
 
 import { get } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError } from '@root/types/errors'
 import { canLoop } from '@utils/canLoop'
 import { isResJSON } from '@utils/isResJSON'
 
-export const userByIdQueryKey = 'get-user-by-id'
-type userByIdQueryProps = {
-  userId?: string
+export const getSurveyByIdQueryKey = 'get-survey-by-id'
+type surveyByIdQueryProps = {
+  surveyId?: string
 }
-export function userByIdQuery({
-  userId,
-}: userByIdQueryProps): UseQueryResult<User | null, unknown> {
-  const apiDomain = process.env.REACT_APP_API_URL
+export function getSurveyByIdQuery({
+  surveyId,
+}: surveyByIdQueryProps): UseQueryResult<Survey | null, unknown> {
+  const { apiDomain } = useAppConfig()
   const queryRes = useQuery({
-    queryKey: [userByIdQueryKey, userId, apiDomain],
+    queryKey: [getSurveyByIdQueryKey, surveyId, apiDomain],
     queryFn: async () => {
-      const res = await get(`${apiDomain}/api/users/${userId}`)
+      const res = await get(`${apiDomain}/api/surveys/${surveyId}`)
 
       if (isResJSON(res)) {
         const json = await res.json()
@@ -28,7 +29,7 @@ export function userByIdQuery({
           if (canLoop(json.errors)) {
             throw GenericStatusError({
               status: 400,
-              message: 'There was an issue getting this user.',
+              message: 'There was an issue getting this survey.',
               data: { ...json },
             })
           }
@@ -36,7 +37,7 @@ export function userByIdQuery({
 
         throw GenericStatusError({
           status: 501,
-          message: 'An unknown error occurred when attempting to fetch this user',
+          message: 'An unknown error occurred when attempting to fetch this survey',
         })
       }
 
@@ -45,7 +46,7 @@ export function userByIdQuery({
     onError: () => {
       throw GenericStatusError({ status: 501, message: 'An unknown error has occurred' })
     },
-    enabled: !!userId,
+    enabled: !!surveyId,
   })
 
   return queryRes

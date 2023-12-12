@@ -11,6 +11,7 @@ import { NavigationProvider } from '@components/appProviders/Navigation'
 
 import { createStandaloneToast } from '@chakra-ui/react'
 
+import { AppConfigProvider } from '@root/components/appProviders/AppConfig'
 import classes from './App.module.css'
 
 const { ToastContainer } = createStandaloneToast()
@@ -28,22 +29,24 @@ function App() {
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <div className={classes.app}>
-          <Router>
-            <NavigationProvider>
-              <DialogProvider>
-                <OnRouteChange />
-                <InAppBrowserListener />
-                <AuthProvider>
-                  <Routes />
-                </AuthProvider>
-              </DialogProvider>
-            </NavigationProvider>
-          </Router>
-        </div>
-        <ToastContainer />
-      </QueryClientProvider>
+      <AppConfigProvider>
+        <QueryClientProvider client={queryClient}>
+          <div className={classes.app}>
+            <Router>
+              <NavigationProvider>
+                <DialogProvider>
+                  <OnRouteChange />
+                  <InAppBrowserListener />
+                  <AuthProvider>
+                    <Routes />
+                  </AuthProvider>
+                </DialogProvider>
+              </NavigationProvider>
+            </Router>
+          </div>
+          <ToastContainer />
+        </QueryClientProvider>
+      </AppConfigProvider>
     </>
   )
 }

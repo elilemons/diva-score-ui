@@ -3,6 +3,7 @@ import { RefCallBack } from 'react-hook-form'
 
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input } from '@chakra-ui/react'
+import { APP_INPUT_COLORING } from '@root/utils/appStyling'
 import { FieldType } from '../types'
 
 type UncontrolledProps = FieldType & {
@@ -37,6 +38,7 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
       <Flex>
         <Input
           data-cy={name}
+          {...APP_INPUT_COLORING}
           ref={inputRef}
           onChange={onChange}
           value={value}
