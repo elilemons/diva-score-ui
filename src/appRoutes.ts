@@ -16,5 +16,7 @@ export const APP_ROUTES = {
   authenticated: {
     account: '/account',
     dashboard: '/dashboard',
+    survey: '/survey',
+    surveyWithId: '/survey/:surveyId',
   },
 }

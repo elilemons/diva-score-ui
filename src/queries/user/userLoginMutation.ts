@@ -1,5 +1,5 @@
 import { DocWithToken, User } from '@elilemons/diva-score-lib'
-import { UseMutationResult, useQueryClient, useMutation } from 'react-query'
+import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 import { post } from '../../api'
 import { GenericStatusError } from '../../types/errors'
 import { isResJSON } from '../../utils/isResJSON'

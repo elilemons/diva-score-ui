@@ -2,6 +2,7 @@ import { DocWithToken, User } from '@elilemons/diva-score-lib'
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
 
 import { post } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError } from '@root/types/errors'
 import { isResJSON } from '@utils/isResJSON'
 import { secureStorage } from '@utils/storage'
@@ -17,7 +18,7 @@ export function createUserMutation({
   mutationKey: string
 }): UseMutationResult<{ doc: DocWithToken<User> }, unknown, createUserMutationProps> {
   const queryClient = useQueryClient()
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
     mutationFn: async ({ data }: createUserMutationProps) => {

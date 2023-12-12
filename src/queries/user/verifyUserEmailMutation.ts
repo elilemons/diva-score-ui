@@ -1,6 +1,7 @@
 import { useMutation, UseMutationResult } from 'react-query'
 
 import { post } from '@root/api'
+import { useAppConfig } from '@root/components/appProviders/AppConfig'
 import { GenericStatusError } from '@root/types/errors'
 import { isResJSON } from '@utils/isResJSON'
 
@@ -12,7 +13,7 @@ export function verifyUserEmailMutation({
 }: {
   mutationKey: string
 }): UseMutationResult<string, unknown, VerifyUserEmailProps> {
-  const apiDomain = process.env.REACT_APP_API_URL
+  const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
     mutationFn: async ({ token }: VerifyUserEmailProps) => {
