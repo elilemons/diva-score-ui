@@ -11,7 +11,7 @@ export type FieldType = {
   defaultValue?: string
   value?: unknown
   onChange: (value: any) => void
-  invalid?: boolean
+  isInvalid?: boolean
   errorMessage?: string
 }
 

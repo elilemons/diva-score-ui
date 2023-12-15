@@ -17,7 +17,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledProps> = props => {
     name,
     className,
     label,
-    invalid,
+    isInvalid,
     errorMessage,
     value = '',
     disabled,
@@ -29,7 +29,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledProps> = props => {
   } = props
 
   return (
-    <FormControl className={className} isRequired={required}>
+    <FormControl className={className} isRequired={required} isInvalid={isInvalid}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex data-inline-label={inputSuffix}>
         <Input
@@ -43,11 +43,9 @@ export const UncontrolledTextInput: React.FC<UncontrolledProps> = props => {
           id={name}
           title={label}
           disabled={disabled}
-          data-has-error={invalid}
-          data-has-no-value={!value}
         />
       </Flex>
-      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      <FormErrorMessage data-cy={`${name}-error`}>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
 }

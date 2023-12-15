@@ -19,7 +19,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
     name,
     className,
     label,
-    invalid,
+    isInvalid,
     errorMessage,
     value = '',
     disabled,
@@ -38,7 +38,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
   }, [inputType])
 
   return (
-    <FormControl className={className} isRequired={required}>
+    <FormControl className={className} isRequired={required} isInvalid={isInvalid}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex>
         <Input
@@ -52,8 +52,6 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
           id={name}
           title={label}
           disabled={disabled}
-          data-has-error={invalid}
-          data-has-no-value={!value}
         />
         {matchFieldType === 'password' && !disabled && (
           <IconButton
@@ -67,7 +65,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
           </IconButton>
         )}
       </Flex>
-      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      <FormErrorMessage data-cy={`${name}-error`}>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
 }

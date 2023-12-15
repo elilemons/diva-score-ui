@@ -26,7 +26,7 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
     label,
     secondaryLabel,
     subText,
-    invalid,
+    isInvalid: invalid,
     errorMessage,
     value = false,
     size,
