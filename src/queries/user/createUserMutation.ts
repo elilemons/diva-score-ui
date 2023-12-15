@@ -1,5 +1,5 @@
 import { DocWithToken, User } from '@elilemons/diva-score-lib'
-import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
+import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
 
 import { post } from '@root/api'
 import { useAppConfig } from '@root/components/appProviders/AppConfig'
