@@ -3,6 +3,11 @@ import { APP_ROUTES } from '@root/appRoutes'
 describe('The Unauthenticated Home Page', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.injectAxe()
+  })
+
+  it('should test the accessibility of the home page', () => {
+    cy.checkA11y('#root')
   })
 
   afterEach(() => {
