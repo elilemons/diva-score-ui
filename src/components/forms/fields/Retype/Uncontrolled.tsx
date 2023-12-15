@@ -55,6 +55,7 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
         />
         {matchFieldType === 'password' && !disabled && (
           <IconButton
+            data-cy={`${name}-toggle`}
             aria-label={
               inputType === 'password' ? 'Click to show password' : 'Click to hide password'
             }
