@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const FullscreenLoader: React.FC = () => {
-  return <div>Loading...</div>
+  return <div data-cy='loading'>Loading...</div>
 }
 
 export default FullscreenLoader
