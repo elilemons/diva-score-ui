@@ -1,3 +1,5 @@
+import 'cypress-axe'
+
 Cypress.Commands.add('loginViaUI', (name = crypto.randomUUID()) => {
   cy.session(name, () => {
     cy.visit('/login')
