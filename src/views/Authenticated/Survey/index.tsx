@@ -1,4 +1,4 @@
-import { Badge, Divider, Flex, Heading, Stack } from '@chakra-ui/react'
+import { Badge, Divider, Flex, Heading, Stack, useToast } from '@chakra-ui/react'
 import { QuestionBlock, QuestionSet, Survey as SurveyType } from '@elilemons/diva-score-lib'
 import { Layout } from '@root/components/elements/Layout'
 import { ControlledCheckbox } from '@root/components/forms/fields/Checkbox/Controlled'
@@ -6,6 +6,7 @@ import { ControlledTextInput } from '@root/components/forms/fields/Text/Controll
 import { ControlledTextAreaInput } from '@root/components/forms/fields/TextArea/Controlled'
 import { Submit } from '@root/components/forms/Submit'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
+import { saveSurveyMutation } from '@root/queries/survey/saveSurveyMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import { APP_BRAND_BUTTON, APP_CHECKBOX_SIZING, APP_SPACING } from '@root/utils/appStyling'
 import { toastErrors } from '@root/utils/toastErrors'
@@ -18,6 +19,9 @@ const Survey: React.FC = () => {
 
   const { surveyId } = useParams<{ surveyId: string }>()
   const { data: surveyData, isError, error } = getSurveyByIdQuery({ surveyId })
+  const saveSurvey = saveSurveyMutation({ mutationKey: 'save-survey' })
+
+  const toast = useToast()
 
   React.useEffect(() => {
     if (surveyData) {
@@ -36,17 +40,22 @@ const Survey: React.FC = () => {
 
   const onSubmit: SubmitHandler<Partial<SurveyType>> = async data => {
     try {
-      // answer survey
-      // TODO Remove this test code
-      console.log('ELITEST submitted survey', { data })
-      // ^ TODO Remove this test code
+      await saveSurvey.mutateAsync({ survey: data })
+      const toastId = 'survey-update-success'
+      if (!toast.isActive(toastId)) {
+        toast({
+          id: toastId,
+          description: 'The survey has been saved.',
+          status: 'success',
+        })
+      }
     } catch (e) {
       const error = e as GenericStatusErrorType
       toastErrors({
         error,
-        id: 'sign-up-error',
-        title: 'Account Creation Error',
-        description: 'There was an error creating your account, please try again.',
+        id: 'survey-update-error',
+        title: 'Survey Update Error',
+        description: 'There was an error saving the survey, please try again.',
       })
     }
   }
