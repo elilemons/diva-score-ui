@@ -30,6 +30,7 @@ export const UncontrolledTextAreaInput: React.FC<UncontrolledProps> = props => {
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Textarea
         {...APP_INPUT_COLORING}
+        data-cy={name}
         ref={inputRef}
         onChange={onChange}
         value={value}
