@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Badge, Divider, Flex, Heading, Stack, useToast } from '@chakra-ui/react'
 import { QuestionBlock, QuestionSet, Survey as SurveyType } from '@elilemons/diva-score-lib'
 import { Layout } from '@root/components/elements/Layout'
@@ -39,8 +40,11 @@ const Survey: React.FC = () => {
   }, [isError, error])
 
   const onSubmit: SubmitHandler<Partial<SurveyType>> = async data => {
+    // TODO Remove this test code
+    console.log('ELITEST survey submitted', { data })
+    // ^ TODO Remove this test code
     try {
-      await saveSurvey.mutateAsync({ survey: data })
+      await saveSurvey.mutateAsync({ surveyId, survey: data })
       const toastId = 'survey-update-success'
       if (!toast.isActive(toastId)) {
         toast({
@@ -93,6 +97,10 @@ const Survey: React.FC = () => {
                                   control={control}
                                   label={question.questionTextFields.question}
                                   name={question.questionFieldName}
+                                  defaultValue={
+                                    question.questionTextFields.answer[0].answerTextFields
+                                      ?.answerTextValue || ''
+                                  }
                                 />
                               )
                             case 'answerCheckboxBlock':
@@ -103,6 +111,10 @@ const Survey: React.FC = () => {
                                   control={control}
                                   label={question.questionTextFields.question}
                                   name={question.questionFieldName}
+                                  defaultValue={
+                                    question.questionTextFields.answer[0].answerCheckboxFields
+                                      ?.answerCheckboxValue || false
+                                  }
                                 />
                               )
                             case 'answerRichTextBlock':
@@ -112,6 +124,10 @@ const Survey: React.FC = () => {
                                   control={control}
                                   label={question.questionTextFields.question}
                                   name={question.questionFieldName}
+                                  defaultValue={
+                                    (question.questionTextFields.answer[0].answerRichTextFields
+                                      ?.answerRichTextValue as any) || ''
+                                  }
                                 />
                               )
                             default:
