@@ -37,6 +37,7 @@ export const Submit: React.FC<Props> = props => {
 
   return (
     <Button
+      data-cy='submit'
       type='submit'
       id={id}
       disabled={isDisabled}
