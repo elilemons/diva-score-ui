@@ -7,6 +7,7 @@ import { isResJSON } from '@root/utils/isResJSON'
 import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
 
 type SaveSurveyMutationProps = {
+  surveyId: string
   survey: Partial<Survey>
 }
 
@@ -19,8 +20,8 @@ export function saveSurveyMutation({
   const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
-    mutationFn: async ({ survey }: SaveSurveyMutationProps) => {
-      const res = await patch(`${apiDomain}/api/surveys/${survey.id}`, {
+    mutationFn: async ({ surveyId, survey }: SaveSurveyMutationProps) => {
+      const res = await patch(`${apiDomain}/api/surveys/${surveyId}`, {
         body: JSON.stringify(survey),
       })
 
@@ -46,10 +47,10 @@ export function saveSurveyMutation({
     onError: (error: GenericStatusErrorType) => {
       throw GenericStatusError(error)
     },
-    onSuccess: ({ res }) => {
-      console.log('ELITEST survey saved mutation', { res })
-      queryClient.invalidateQueries([getSurveyByIdQueryKey, res.doc.id])
-      queryClient.setQueryData([getSurveyByIdQueryKey, res.doc.id], res)
+    onSuccess: data => {
+      console.log('ELITEST survey saved mutation', data)
+      queryClient.invalidateQueries([getSurveyByIdQueryKey, data.doc.id])
+      queryClient.setQueryData([getSurveyByIdQueryKey, data.doc.id], data)
     },
     mutationKey: [mutationKey],
   })
