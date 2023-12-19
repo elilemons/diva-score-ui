@@ -28,6 +28,21 @@ describe('The Survey Page', () => {
     cy.url().should('include', APP_ROUTES.authenticated.survey)
   })
 
+  it('should find a loading state', () => {
+    cy.intercept('GET', '/api/surveys/*', req => req.on('response', res => res.setDelay(300))).as(
+      'getSurvey',
+    )
+
+    cy.reload()
+
+    cy.get('[data-cy="skeleton-loading"]').should('be.visible')
+
+    // Wait for the 'get-todays-survey' request to finish
+    cy.wait('@getSurvey')
+
+    cy.get('[data-cy="skeleton-loading"]').should('not.exist')
+  })
+
   it('should display a message when the survey has saved', () => {
     cy.intercept('PATCH', '/api/surveys/*', req =>
       req.reply({
