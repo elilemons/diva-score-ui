@@ -14,7 +14,7 @@ import * as React from 'react'
 
 export const SurveyLoadingSkeleton: React.FC = () => {
   return (
-    <Stack spacing={APP_SPACING.spacing}>
+    <Stack spacing={APP_SPACING.spacing} data-cy='skeleton-loading'>
       <Flex alignItems='flex-start' gap={2}>
         <Skeleton>
           <Heading>Body</Heading>

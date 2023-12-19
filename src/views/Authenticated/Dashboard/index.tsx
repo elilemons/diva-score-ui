@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
           <Heading data-cy='welcome-message' size={APP_INNER_HEADINGS.size} textAlign='center'>
             Welcome to your Dashboard {user && `${user.firstName}`}!
           </Heading>
-          <Skeleton isLoaded={!isLoading} width={'100%'}>
+          <Skeleton isLoaded={!isLoading} width={'100%'} data-cy='skeleton-loading'>
             <Button
               data-cy='beginDailySurvey'
               colorScheme={APP_BRAND_BUTTON.colorScheme}
