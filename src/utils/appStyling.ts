@@ -65,6 +65,9 @@ export const APP_INNER_HEADINGS = {
   },
 }
 
+export const APP_ACCENT_BUTTON = {
+  colorScheme: 'accent',
+}
 export const APP_BRAND_BUTTON = {
   colorScheme: 'brand',
   bgGradient: 'linear(to-l, accent.500, brand.500)',
