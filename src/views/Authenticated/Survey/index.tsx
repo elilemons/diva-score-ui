@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Badge,
+  Box,
   Button,
   Divider,
   Fade,
@@ -65,7 +66,11 @@ const Survey: React.FC = () => {
 
   const onSubmit: SubmitHandler<Partial<SurveyType>> = async data => {
     try {
-      await saveSurvey.mutateAsync({ surveyId, survey: data }).then(() => setShowAnimation(true))
+      await saveSurvey.mutateAsync({ surveyId, survey: data }).then(res => {
+        if (res && res.doc && res.doc.pointsEarned && res.doc.pointsEarned > 0) {
+          setShowAnimation(true)
+        }
+      })
 
       const toastId = 'survey-update-success'
 
@@ -110,7 +115,7 @@ const Survey: React.FC = () => {
                   <Stack spacing={4}>
                     {surveyData &&
                       surveyData.surveyQuestionSets &&
-                      surveyData.surveyQuestionSets.map(qs => {
+                      surveyData.surveyQuestionSets.map((qs, index) => {
                         const questionSet = qs as QuestionSet
 
                         return (
@@ -123,9 +128,7 @@ const Survey: React.FC = () => {
                             </Flex>
 
                             {questionSet.questions &&
-                              questionSet.questions.map(q => {
-                                const question = q as QuestionBlock
-
+                              questionSet.questions.map((question: QuestionBlock) => {
                                 switch (question.questionTextFields.answer[0].blockType) {
                                   case 'answerTextBlock':
                                     return (
@@ -171,10 +174,33 @@ const Survey: React.FC = () => {
                                     break
                                 }
                               })}
-                            <Divider color='brand.300' />
+                            {surveyData &&
+                              surveyData.surveyQuestionSets &&
+                              index < surveyData.surveyQuestionSets.length - 1 && (
+                                <Divider color='brand.300' />
+                              )}
                           </React.Fragment>
                         )
                       })}
+                    <Box py={1} position='relative'>
+                      <Box position='absolute' top='-2' width='100%'>
+                        {!!surveyData &&
+                          !!surveyData.pointsEarned &&
+                          surveyData.pointsEarned > 0 && (
+                            <Flex data-cy='score' alignItems='center' justifyContent='center'>
+                              <Text
+                                color={'brand.500'}
+                                bgGradient={APP_BRAND_BUTTON.bgGradient}
+                                bgClip='text'
+                                fontWeight={600}
+                              >
+                                Current Score: {surveyData.pointsEarned}
+                              </Text>
+                            </Flex>
+                          )}
+                      </Box>
+                    </Box>
+
                     <Flex
                       width={'100%'}
                       alignItems='stretch'
@@ -203,11 +229,6 @@ const Survey: React.FC = () => {
                     </Flex>
                   </Stack>
                 </form>
-                {surveyData && (
-                  <Flex data-cy='score'>
-                    <Text fontWeight={600}>Current Score:</Text> 0
-                  </Flex>
-                )}
               </Stack>
             )
           }
