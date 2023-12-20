@@ -54,9 +54,6 @@ export function createSurveyMutation({
       throw GenericStatusError(error)
     },
     onSuccess: ({ res }) => {
-      // TODO Remove this test code
-      console.log('ELITEST survey created mutation', { res })
-      // ^ TODO Remove this test code
       queryClient.invalidateQueries([getSurveyByIdQueryKey])
       queryClient.setQueryData([getSurveyByIdQueryKey], res)
     },

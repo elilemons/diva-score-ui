@@ -48,7 +48,6 @@ export function saveSurveyMutation({
       throw GenericStatusError(error)
     },
     onSuccess: data => {
-      console.log('ELITEST survey saved mutation', data)
       queryClient.invalidateQueries([getSurveyByIdQueryKey, data.doc.id])
       queryClient.setQueryData([getSurveyByIdQueryKey, data.doc.id], data)
     },

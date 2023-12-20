@@ -48,9 +48,6 @@ export function scoreQuestionSetMutation({
     onError: (error: GenericStatusErrorType) => {
       throw GenericStatusError(error)
     },
-    onSuccess: ({ res }) => {
-      console.log('ELITEST question set scored mutation', { res })
-    },
     mutationKey: [mutationKey],
   })
 

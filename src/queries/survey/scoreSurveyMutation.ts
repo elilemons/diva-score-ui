@@ -51,7 +51,6 @@ export function scoreSurveyMutation({
       throw GenericStatusError(error)
     },
     onSuccess: ({ res }) => {
-      console.log('ELITEST survey scored mutation', { res })
       queryClient.invalidateQueries([getSurveyByIdQueryKey, res.doc.id])
       queryClient.setQueryData([getSurveyByIdQueryKey, res.doc.id], res)
     },
