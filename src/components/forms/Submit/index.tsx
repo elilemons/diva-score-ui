@@ -14,6 +14,7 @@ export type Props = {
   removeTopMargin?: boolean
   submittingLabel?: string
   bgGradient?: string
+  width?: string | number
 }
 
 export const Submit: React.FC<Props> = props => {
@@ -28,6 +29,7 @@ export const Submit: React.FC<Props> = props => {
     submittingLabel = 'Submitting...',
     colorScheme,
     bgGradient,
+    width,
   } = props
 
   const { isDirty, isSubmitting } = useFormState({ control })
@@ -44,6 +46,7 @@ export const Submit: React.FC<Props> = props => {
       className={className}
       colorScheme={colorScheme}
       bgGradient={bgGradient}
+      width={width}
     >
       {isSubmitting ? submittingLabel : label}
     </Button>
