@@ -1,4 +1,4 @@
-import { Center, Heading, Link as ChakraLink, Stack } from '@chakra-ui/react'
+import { Center, Link as ChakraLink, Heading, Stack } from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { UserLogin } from '@components/appProviders/Auth/types'
 import { Layout } from '@components/elements/Layout'
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   return (
     <Layout
       bottomContent={
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={handleSubmit(handleLogin)} noValidate>
           <Stack spacing={APP_SPACING.spacing}>
             <Heading size={APP_INNER_HEADINGS.size}>Login to DIVA Score</Heading>
 

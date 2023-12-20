@@ -15,7 +15,7 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
     name,
     className,
     label,
-    invalid,
+    isInvalid,
     errorMessage,
     value = '',
     disabled,
@@ -33,12 +33,12 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
   }, [inputType])
 
   return (
-    <FormControl className={className} isRequired={required}>
+    <FormControl className={className} isRequired={required} isInvalid={isInvalid}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Flex>
         <Input
-          data-cy={name}
           {...APP_INPUT_COLORING}
+          data-cy={name}
           ref={inputRef}
           onChange={onChange}
           value={value}
@@ -47,8 +47,6 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
           id={name}
           title={label}
           disabled={disabled}
-          data-has-error={invalid}
-          data-has-no-value={!value}
           borderEnd='none'
           borderEndRadius='none'
         />
@@ -57,6 +55,7 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
             aria-label={
               inputType === 'password' ? 'Click to show password' : 'Click to hide password'
             }
+            data-cy={`${name}-toggle`}
             borderStartRadius='none'
             onClick={toggleInputType}
           >
@@ -64,7 +63,7 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
           </IconButton>
         )}
       </Flex>
-      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      <FormErrorMessage data-cy={`${name}-error`}>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
 }

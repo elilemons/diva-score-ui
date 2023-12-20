@@ -4,16 +4,17 @@ export const APP_PADDING = {
     md: 14,
   },
   py: {
-    base: 16,
-    md: 20,
+    base: 20,
+    md: 24,
   },
   pt: {
     base: 12,
     md: 14,
   },
   pb: {
-    base: 4,
-    md: 8,
+    base: 6,
+    sm: 8,
+    md: 12,
   },
 }
 
@@ -65,6 +66,9 @@ export const APP_INNER_HEADINGS = {
   },
 }
 
+export const APP_ACCENT_BUTTON = {
+  colorScheme: 'accent',
+}
 export const APP_BRAND_BUTTON = {
   colorScheme: 'brand',
   bgGradient: 'linear(to-l, accent.500, brand.500)',

@@ -37,7 +37,7 @@ export const ControlledPasswordInput: React.FC<ControllerType> = props => {
           value={value}
           inputRef={ref}
           errorMessage={error?.message}
-          invalid={Boolean(error)}
+          isInvalid={Boolean(error)}
         />
       )}
     />

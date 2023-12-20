@@ -1,9 +1,9 @@
-import { Button, Heading, Stack } from '@chakra-ui/react'
+import { Button, Heading, Skeleton, Stack } from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createSurveyMutation } from '@root/queries/survey/createSurveyMutation'
-import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurvey'
+import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurveyQuery'
 import { GenericStatusError, GenericStatusErrorType } from '@root/types/errors'
 import { toastErrors } from '@root/utils/toastErrors'
 import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom'
 const Dashboard: React.FC = () => {
   const { user } = useAuth()
   const history = useHistory()
-  const { data: existingSurvey } = getTodaysSurveyQuery()
+  const { data: existingSurvey, isLoading } = getTodaysSurveyQuery()
   const createSurvey = createSurveyMutation({ mutationKey: 'user-create-daily-survey' })
 
   const onBeginClick = async () => {
@@ -61,14 +61,17 @@ const Dashboard: React.FC = () => {
           <Heading data-cy='welcome-message' size={APP_INNER_HEADINGS.size} textAlign='center'>
             Welcome to your Dashboard {user && `${user.firstName}`}!
           </Heading>
-          <Button
-            data-cy='beginDailySurvey'
-            colorScheme={APP_BRAND_BUTTON.colorScheme}
-            bgGradient={APP_BRAND_BUTTON.bgGradient}
-            onClick={onBeginClick}
-          >
-            {existingSurvey && existingSurvey.id ? 'Continue' : 'Begin'} Today's Entry
-          </Button>
+          <Skeleton isLoaded={!isLoading} width={'100%'} data-cy='skeleton-loading'>
+            <Button
+              data-cy='beginDailySurvey'
+              colorScheme={APP_BRAND_BUTTON.colorScheme}
+              bgGradient={APP_BRAND_BUTTON.bgGradient}
+              onClick={onBeginClick}
+              width={'100%'}
+            >
+              {existingSurvey && existingSurvey.id ? 'Continue' : 'Begin'} Today's Entry
+            </Button>
+          </Skeleton>
         </Stack>
       }
     />

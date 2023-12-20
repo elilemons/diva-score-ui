@@ -1,38 +1,35 @@
 import { Survey } from '@elilemons/diva-score-lib'
-import { useMutation, UseMutationResult, useQueryClient } from 'react-query'
-
 import { post } from '@root/api'
 import { useAppConfig } from '@root/components/appProviders/AppConfig'
+import { getSurveyByIdQueryKey } from '@root/queries/survey/getSurveyByIdQuery'
 import { GenericStatusError, GenericStatusErrorType } from '@root/types/errors'
-import { isResJSON } from '@utils/isResJSON'
-import { getSurveyByIdQueryKey } from './getSurveyByIdQuery'
+import { isResJSON } from '@root/utils/isResJSON'
+import { UseMutationResult, useMutation, useQueryClient } from 'react-query'
 
-type createSurveyMutationProps = {
-  title: string
-  surveyUser: string
-  surveyDate: Date
+type ScoreSurveyMutationProps = {
+  survey: Survey
 }
 
-export function createSurveyMutation({
+export function scoreSurveyMutation({
   mutationKey,
 }: {
   mutationKey: string
 }): UseMutationResult<
   { doc: Partial<Survey>; message: string },
   unknown,
-  createSurveyMutationProps
+  ScoreSurveyMutationProps
 > {
   const queryClient = useQueryClient()
   const { apiDomain } = useAppConfig()
 
   const mutation = useMutation({
-    mutationFn: async ({ title, surveyUser, surveyDate }: createSurveyMutationProps) => {
-      const res = await post(`${apiDomain}/api/surveys`, {
-        body: JSON.stringify({ title, surveyUser, surveyDate }),
+    mutationFn: async (survey: ScoreSurveyMutationProps) => {
+      const res = await post(`${apiDomain}/api/surveys/score-survey`, {
+        body: JSON.stringify(survey),
       })
 
       if (isResJSON(res)) {
-        if (res.status === 201) {
+        if (res.status === 200) {
           const json = await res.json()
           return json
         }
@@ -40,22 +37,22 @@ export function createSurveyMutation({
         if (res.status === 401) {
           throw GenericStatusError({
             status: 401,
-            message: 'There was an error creating the survey.',
+            message: 'There was an error scoring the survey.',
           })
         }
       }
 
       throw GenericStatusError({
         status: 501,
-        message: 'An unknown error occurred when attempting to fetch this survey',
+        message: 'An unknown error occurred when attempting to score this survey',
       })
     },
     onError: (error: GenericStatusErrorType) => {
       throw GenericStatusError(error)
     },
     onSuccess: ({ res }) => {
-      queryClient.invalidateQueries([getSurveyByIdQueryKey])
-      queryClient.setQueryData([getSurveyByIdQueryKey], res)
+      queryClient.invalidateQueries([getSurveyByIdQueryKey, res.doc.id])
+      queryClient.setQueryData([getSurveyByIdQueryKey, res.doc.id], res)
     },
     mutationKey: [mutationKey],
   })

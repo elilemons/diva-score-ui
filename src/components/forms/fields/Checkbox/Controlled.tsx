@@ -29,7 +29,7 @@ export const ControlledCheckbox: React.FC<
           value={value}
           inputRef={ref}
           errorMessage={error?.message}
-          invalid={Boolean(error)}
+          isInvalid={Boolean(error)}
           label={label}
           size={size}
         />

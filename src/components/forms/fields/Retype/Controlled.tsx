@@ -49,7 +49,7 @@ export const ControlledRetypeInput: React.FC<ControlledRetypeProps> = props => {
           value={value}
           inputRef={ref}
           errorMessage={error?.message}
-          invalid={Boolean(error)}
+          isInvalid={Boolean(error)}
         />
       )}
     />

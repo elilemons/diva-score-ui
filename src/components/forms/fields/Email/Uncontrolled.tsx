@@ -14,7 +14,7 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
     name,
     className,
     label,
-    invalid,
+    isInvalid,
     errorMessage,
     value = '',
     disabled,
@@ -25,11 +25,11 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
   } = props
 
   return (
-    <FormControl className={className} isRequired={required}>
+    <FormControl className={className} isRequired={required} isInvalid={isInvalid}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
-        data-cy={name}
         {...APP_INPUT_COLORING}
+        data-cy={name}
         ref={inputRef}
         onChange={onChange}
         value={value}
@@ -38,10 +38,8 @@ export const UncontrolledEmailInput: React.FC<UncontrolledProps> = props => {
         id={name}
         title={label}
         disabled={disabled}
-        data-has-error={invalid}
-        data-has-no-value={!value}
       />
-      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      <FormErrorMessage data-cy={`${name}-error`}>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
 }
