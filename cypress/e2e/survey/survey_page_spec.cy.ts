@@ -152,11 +152,7 @@ describe('The Survey Page', () => {
 
     cy.fillInSurvey('whatever', 'whatever', 'whatever')
 
-    cy.intercept('/api/surveys/*', req => {
-      req.continue(res => {
-        res.delay(3000)
-      })
-    }).as('patchSurvey')
+    cy.intercept('/api/surveys/*').as('patchSurvey')
 
     cy.get("[data-cy='submit']").click()
 
@@ -164,7 +160,11 @@ describe('The Survey Page', () => {
 
     cy.wait('@patchSurvey')
 
-    cy.get("[data-cy='score-animation']").should('not.be.visible')
+    cy.get("[data-cy='close-score-animation']").should('be.visible').click()
+
+    cy.get("[data-cy='score-animation']").should('not.exist')
+
+    cy.get("[data-cy='score']").should('be.visible')
   })
 
   it('should display a score after submission', () => {
@@ -172,8 +172,37 @@ describe('The Survey Page', () => {
 
     cy.fillInSurvey('whatever', 'whatever', 'whatever')
 
+    cy.intercept('/api/surveys/*').as('patchSurvey')
+
     cy.get("[data-cy='submit']").click()
 
+    cy.wait('@patchSurvey')
+    cy.get("[data-cy='close-score-animation']").should('be.visible').click()
+
     cy.get("[data-cy='score']").should('be.visible')
+
+    cy.reload()
+
+    cy.get("[data-cy='score']").should('be.visible')
+  })
+
+  it('should not display an animation after an empty submission (score is 0)', () => {
+    cy.get("[data-cy='clear']").click()
+
+    cy.get("[data-cy='submit']").click()
+
+    cy.get("[data-cy='score-animation']").should('not.exist')
+  })
+
+  it('should not display a score after an empty submission (score is 0)', () => {
+    cy.get("[data-cy='clear']").click()
+
+    cy.get("[data-cy='submit']").click()
+
+    cy.get("[data-cy='score']").should('not.exist')
+
+    cy.reload()
+
+    cy.get("[data-cy='score']").should('not.exist')
   })
 })
