@@ -2,7 +2,7 @@ import { APP_ROUTES } from '@root/appRoutes'
 
 describe('The Dashboard Page', () => {
   beforeEach(() => {
-    cy.loginViaUI() // Server must be running for this to work
+    cy.loginViaAPI() // Server must be running for this to work
 
     // Intercept the network request for 'get-todays-survey' endpoint
     cy.intercept('GET', '/api/surveys/get-todays-survey').as('getTodaysSurvey')

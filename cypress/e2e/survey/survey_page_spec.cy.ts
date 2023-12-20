@@ -2,7 +2,7 @@ import { APP_ROUTES } from '@root/appRoutes'
 
 describe('The Survey Page', () => {
   beforeEach(() => {
-    cy.loginViaUI() // Server must be running for this to work
+    cy.loginViaAPI() // Server must be running for this to work
     cy.visit('/dashboard')
 
     // Make sure the page isn't loading
@@ -76,48 +76,43 @@ describe('The Survey Page', () => {
     cy.get("[id='toast-survey-update-error']").should('exist')
   })
 
-  it('should change the corresponding input value and save the new values', () => {
-    cy.get("[data-cy='body1']").click()
+  it('should test the clear button', () => {
+    cy.get("[data-cy='clear']").click()
+
+    cy.fillInSurvey('whatever', 'whatever', 'whatever')
+
+    cy.get("[data-cy='clear']").click()
+
     cy.get("[data-cy='body1']").within(() => {
-      cy.get('input[type=checkbox]').should('be.checked')
+      cy.get('input[type=checkbox]').should('not.be.checked')
     })
-
-    cy.get("[data-cy='body2']").click()
     cy.get("[data-cy='body2']").within(() => {
-      cy.get('input[type=checkbox]').should('be.checked')
+      cy.get('input[type=checkbox]').should('not.be.checked')
     })
-
-    cy.get("[data-cy='mind1']").click()
     cy.get("[data-cy='mind1']").within(() => {
-      cy.get('input[type=checkbox]').should('be.checked')
+      cy.get('input[type=checkbox]').should('not.be.checked')
     })
+    cy.get("[data-cy='spirit1']").should('not.have.value')
+    cy.get("[data-cy='connection1']").within(() => {
+      cy.get('input[type=checkbox]').should('not.be.checked')
+    })
+    cy.get("[data-cy='goals1']").should('not.have.value')
+    cy.get("[data-cy='goals2']").within(() => {
+      cy.get('input[type=checkbox]').should('not.be.checked')
+    })
+    cy.get("[data-cy='other1']").should('not.have.value')
+  })
+
+  it('should change the corresponding input value and save the new values', () => {
+    cy.get("[data-cy='clear']").click()
 
     const gratitude = 'I am grateful for my cat'
-    cy.get("[data-cy='spirit1']").type(gratitude)
-    cy.get("[data-cy='spirit1']").should('have.value', gratitude)
-
-    cy.get("[data-cy='connection1']").click()
-    cy.get("[data-cy='connection1']").within(() => {
-      cy.get('input[type=checkbox]').should('be.checked')
-    })
-
     const goal = 'Brush and floss my teeth today'
-    cy.get("[data-cy='goals1']").type(goal)
-    cy.get("[data-cy='goals1']").should('have.value', goal)
-
-    cy.get("[data-cy='goals2']").click()
-    cy.get("[data-cy='goals2']").within(() => {
-      cy.get('input[type=checkbox]').should('be.checked')
-    })
-
     const otherNotes = 'I had a great day today!'
-    cy.get("[data-cy='other1']").type(otherNotes)
-    cy.get("[data-cy='other1']").should('have.value', otherNotes)
+
+    cy.fillInSurvey(gratitude, goal, otherNotes)
 
     cy.intercept('PATCH', '/api/surveys/*', req => {
-      // TODO Remove this test code
-      console.log('ELITEST', { req })
-      // ^ TODO Remove this test code
       expect(req.body.body1).to.be.true
       expect(req.body.body2).to.be.true
       expect(req.body.mind1).to.be.true
@@ -150,5 +145,35 @@ describe('The Survey Page', () => {
       cy.get('input[type=checkbox]').should('be.checked')
     })
     cy.get("[data-cy='other1']").should('have.value', otherNotes)
+  })
+
+  it('should display an animation with the users score after submission', () => {
+    cy.get("[data-cy='clear']").click()
+
+    cy.fillInSurvey('whatever', 'whatever', 'whatever')
+
+    cy.intercept('/api/surveys/*', req => {
+      req.continue(res => {
+        res.delay(3000)
+      })
+    }).as('patchSurvey')
+
+    cy.get("[data-cy='submit']").click()
+
+    cy.get("[data-cy='score-animation']").should('be.visible')
+
+    cy.wait('@patchSurvey')
+
+    cy.get("[data-cy='score-animation']").should('not.be.visible')
+  })
+
+  it('should display a score after submission', () => {
+    cy.get("[data-cy='clear']").click()
+
+    cy.fillInSurvey('whatever', 'whatever', 'whatever')
+
+    cy.get("[data-cy='submit']").click()
+
+    cy.get("[data-cy='score']").should('be.visible')
   })
 })
