@@ -46,9 +46,16 @@ const SignUp: React.FC = () => {
     <Layout
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
-          <Heading size={APP_INNER_HEADINGS.size}>Sign Up for DIVA Score</Heading>
+          <Heading as='h1' size={APP_INNER_HEADINGS.size}>
+            Sign Up for DIVA Score
+          </Heading>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id='signup-form'
+            aria-label='sign-up-form-label'
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledTextInput control={control} required label='First Name' name='firstName' />
               <ControlledTextInput control={control} required label='Last Name' name='lastName' />

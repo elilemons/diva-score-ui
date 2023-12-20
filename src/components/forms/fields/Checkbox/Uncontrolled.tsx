@@ -26,28 +26,33 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
     label,
     secondaryLabel,
     subText,
-    invalid,
+    isInvalid: invalid,
     errorMessage,
     value = false,
     size,
+    onChange,
+    inputRef,
   } = props
 
   return (
-    <FormControl className={className}>
+    <FormControl className={className} isInvalid={invalid}>
       <Checkbox
         {...APP_INPUT_COLORING}
-        checked={value}
+        name={name}
+        isChecked={value}
         data-cy={name}
         id={name}
         size={size}
         colorScheme={'brand'}
+        onChange={onChange}
+        ref={inputRef}
       >
         <Text fontWeight='medium'>{label}</Text>
       </Checkbox>
       {subText && <Text size='xs'>{subText}</Text>}
       {secondaryLabel && <Text>{secondaryLabel}</Text>}
 
-      {invalid && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+      <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
 }

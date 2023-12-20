@@ -20,7 +20,8 @@ export const toastErrors = ({ error, id, title, description }: ToastErrorProps) 
           description: `${description ? `${description} ` : ''}${message}`,
           id: `id-${index}`,
           status: 'error',
-          isClosable: false,
+          isClosable: true,
+          duration: null,
         })
       }
     })
@@ -31,7 +32,8 @@ export const toastErrors = ({ error, id, title, description }: ToastErrorProps) 
         description: `${description ? `${description} ` : ''}Error: ${error.message}`,
         id,
         status: 'error',
-        isClosable: false,
+        isClosable: true,
+        duration: null,
       })
     }
   }

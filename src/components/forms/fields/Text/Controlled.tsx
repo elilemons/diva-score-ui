@@ -3,8 +3,8 @@ import { Controller } from 'react-hook-form'
 
 import { defaultValidate } from '@components/forms/validations'
 import { ControllerType } from '../types'
-import { SharedProps } from './types'
 import { UncontrolledTextInput } from './Uncontrolled'
+import { SharedProps } from './types'
 
 export const ControlledTextInput: React.FC<ControllerType & SharedProps> = props => {
   const { name, defaultValue = '', control, required, label, validate, ...rest } = props
@@ -30,7 +30,7 @@ export const ControlledTextInput: React.FC<ControllerType & SharedProps> = props
           value={value}
           inputRef={ref}
           errorMessage={error?.message}
-          invalid={Boolean(error)}
+          isInvalid={Boolean(error)}
         />
       )}
     />

@@ -51,6 +51,8 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
         width={{ base: '100%' }}
       >
         <Container
+          as='main'
+          role='main'
           position='relative'
           backgroundColor='white'
           className='inner-bottom-container'

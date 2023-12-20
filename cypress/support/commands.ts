@@ -1,3 +1,6 @@
+import { secureStorage } from '@root/utils/storage'
+import 'cypress-axe'
+
 Cypress.Commands.add('loginViaUI', (name = crypto.randomUUID()) => {
   cy.session(name, () => {
     cy.visit('/login')
@@ -10,7 +13,6 @@ Cypress.Commands.add('loginViaUI', (name = crypto.randomUUID()) => {
   })
 })
 
-// TODO While this works, it doesn't allow me to visit any pages after
 Cypress.Commands.add('loginViaAPI', (name = crypto.randomUUID()) => {
   cy.session(name, () => {
     cy.request({
@@ -24,7 +26,43 @@ Cypress.Commands.add('loginViaAPI', (name = crypto.randomUUID()) => {
         password: Cypress.env('password'),
       }),
     }).then(response => {
-      window.localStorage.setItem(Cypress.env('jwtTokenName'), response.body.token)
+      secureStorage.setJWTToken(response.body.token)
     })
   })
+})
+
+Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, otherNotes: string) => {
+  cy.get("[data-cy='body1']").click()
+  cy.get("[data-cy='body1']").within(() => {
+    cy.get('input[type=checkbox]').should('be.checked')
+  })
+
+  cy.get("[data-cy='body2']").click()
+  cy.get("[data-cy='body2']").within(() => {
+    cy.get('input[type=checkbox]').should('be.checked')
+  })
+
+  cy.get("[data-cy='mind1']").click()
+  cy.get("[data-cy='mind1']").within(() => {
+    cy.get('input[type=checkbox]').should('be.checked')
+  })
+
+  cy.get("[data-cy='spirit1']").type(gratitude)
+  cy.get("[data-cy='spirit1']").should('have.value', gratitude)
+
+  cy.get("[data-cy='connection1']").click()
+  cy.get("[data-cy='connection1']").within(() => {
+    cy.get('input[type=checkbox]').should('be.checked')
+  })
+
+  cy.get("[data-cy='goals1']").type(goal)
+  cy.get("[data-cy='goals1']").should('have.value', goal)
+
+  cy.get("[data-cy='goals2']").click()
+  cy.get("[data-cy='goals2']").within(() => {
+    cy.get('input[type=checkbox]').should('be.checked')
+  })
+
+  cy.get("[data-cy='other1']").type(otherNotes)
+  cy.get("[data-cy='other1']").should('have.value', otherNotes)
 })
