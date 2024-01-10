@@ -35,7 +35,7 @@ const Calendar: React.FC = () => {
             </Text>
             <Text as='span' data-cy='total-score-value'>
               {todaysSurvey?.pointsEarned || 0}
-            </Text>{' '}
+            </Text>
             {/* TODO Replace with totalScore */}
           </Box>
 
