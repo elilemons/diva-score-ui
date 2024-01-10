@@ -23,8 +23,10 @@ const ForgotPassword = React.lazy(() => import('./Unauthenticated/ForgotPassword
 // Authenticated Pages
 // // // // // // // // //
 const Account = React.lazy(() => import('./Authenticated/Account'))
+const Calendar = React.lazy(() => import('./Authenticated/Calendar'))
 const Dashboard = React.lazy(() => import('./Authenticated/Dashboard'))
 const Survey = React.lazy(() => import('./Authenticated/Survey'))
+
 // // // // // // // // //
 // Global Routes
 // // // // // // // // //
@@ -85,6 +87,11 @@ const authenticatedRoutes = [
     exact: true,
     path: APP_ROUTES.authenticated.account,
     component: Account,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.calendar,
+    component: Calendar,
   },
   {
     exact: true,

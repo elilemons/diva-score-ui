@@ -15,6 +15,7 @@ export const APP_ROUTES = {
   },
   authenticated: {
     account: '/account',
+    calendar: '/calendar',
     dashboard: '/dashboard',
     survey: '/survey',
     surveyWithId: '/survey/:surveyId',
