@@ -21,17 +21,22 @@ const Calendar: React.FC = () => {
         <Stack spacing={APP_SPACING.spacing}>
           <Heading size={APP_INNER_HEADINGS.size}>Calendar Page</Heading>
           <Box>
-            <Text as='span' fontWeight={'bold'}>
+            <Text as='span' fontWeight={'bold'} data-cy='todays-score-label'>
               {`Todays Score: `}
             </Text>
-            {todaysSurvey?.pointsEarned || 0}
+            <Text as='span' data-cy='todays-score-value'>
+              {todaysSurvey?.pointsEarned || 0}
+            </Text>
           </Box>
 
           <Box>
-            <Text as='span' fontWeight={'bold'}>
+            <Text as='span' fontWeight={'bold'} data-cy='total-score-label'>
               {`Total Score: `}
             </Text>
-            {todaysSurvey?.pointsEarned || 0} {/* TODO Replace with totalScore */}
+            <Text as='span' data-cy='total-score-value'>
+              {todaysSurvey?.pointsEarned || 0}
+            </Text>{' '}
+            {/* TODO Replace with totalScore */}
           </Box>
 
           {surveyData &&
