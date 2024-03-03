@@ -23,6 +23,7 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
   const {
     name,
     className,
+    disabled,
     label,
     secondaryLabel,
     subText,
@@ -38,6 +39,7 @@ export const UncontrolledCheckbox: React.FC<UncontrolledProps> = props => {
     <FormControl className={className} isInvalid={invalid}>
       <Checkbox
         {...APP_INPUT_COLORING}
+        disabled={disabled}
         name={name}
         isChecked={value}
         data-cy={name}
