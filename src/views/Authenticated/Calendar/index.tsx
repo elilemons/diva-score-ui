@@ -1,4 +1,16 @@
-import { Stack, Heading, Text, Box, Icon, Circle, Flex, Badge } from '@chakra-ui/react'
+import {
+  Stack,
+  Heading,
+  Text,
+  Box,
+  Icon,
+  Circle,
+  Flex,
+  Badge,
+  LinkOverlay,
+  LinkBox,
+} from '@chakra-ui/react'
+import { APP_ROUTES } from '@root/appRoutes'
 import { Layout } from '@root/components/elements/Layout'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
 import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurveyQuery'
@@ -7,6 +19,7 @@ import { APP_SPACING, APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appSty
 import formatDate, { displayTypes } from '@root/utils/formatDate'
 import * as React from 'react'
 import { GiNotebook } from 'react-icons/gi'
+import { Link } from 'react-router-dom'
 
 const Calendar: React.FC = () => {
   const { data: userSurveyData } = getUsersSurveysQuery({ limit: 10 })
@@ -48,16 +61,22 @@ const Calendar: React.FC = () => {
               userSurveyData.docs.length > 0 &&
               userSurveyData.docs.map((survey, index) => {
                 return (
-                  <Box
+                  <LinkBox
                     bgColor={index % 2 === 0 ? 'white' : 'gray.100'}
+                    _hover={{ bgColor: 'brand.100' }}
                     w={'100%'}
                     px={APP_PADDING.px}
                   >
                     <Flex alignItems='center' justifyContent='space-between'>
                       <Flex alignItems='center'>
-                        <Circle color='brand.500' p={4}>
-                          <Icon as={GiNotebook} w={35} h={35} />
-                        </Circle>
+                        <LinkOverlay
+                          as={Link}
+                          to={`${APP_ROUTES.authenticated.survey}/${survey.id}`}
+                        >
+                          <Circle color='brand.500' p={4}>
+                            <Icon aria-label='Link to view survey' as={GiNotebook} w={35} h={35} />
+                          </Circle>
+                        </LinkOverlay>
                         <Box>
                           <Text>
                             {formatDate(survey.surveyDate, displayTypes.MONTHNAME_DAY_YEAR)}
@@ -71,7 +90,7 @@ const Calendar: React.FC = () => {
                         <Badge colorScheme='green'>+{survey.pointsEarned}</Badge>
                       </Box>
                     </Flex>
-                  </Box>
+                  </LinkBox>
                 )
               })}
           </Box>
