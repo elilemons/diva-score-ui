@@ -13,8 +13,9 @@ import {
 import { APP_ROUTES } from '@root/appRoutes'
 import { Layout } from '@root/components/elements/Layout'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
-import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurveyQuery'
+import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { getUsersSurveysQuery } from '@root/queries/survey/getUsersSurveysQuery'
+import { getUsersTotalScoreQuery } from '@root/queries/survey/getUsersTotalScoreQuery'
 import { APP_SPACING, APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appStyling'
 import formatDate, { displayTypes } from '@root/utils/formatDate'
 import * as React from 'react'
@@ -23,12 +24,9 @@ import { Link } from 'react-router-dom'
 
 const Calendar: React.FC = () => {
   const { data: userSurveyData } = getUsersSurveysQuery({ limit: 10 })
-  // const { data: totalScore } = getUsersTotalScore()
-  const { data: todaysSurveyId } = getTodaysSurveyQuery()
+  const { data: todaysSurveyId } = getTodaysSurveyIdQuery()
   const { data: todaysSurvey } = getSurveyByIdQuery({ surveyId: todaysSurveyId?.id })
-  // TODO Remove this test code
-  console.log('ELITEST Calendar', { userSurveyData })
-  // ^ TODO Remove this test code
+  const { data: totalScoreData } = getUsersTotalScoreQuery()
 
   return (
     <Layout
@@ -51,9 +49,8 @@ const Calendar: React.FC = () => {
                 {`Total Score: `}
               </Text>
               <Text as='span' data-cy='total-score-value'>
-                {todaysSurvey?.pointsEarned || 0}
+                {totalScoreData?.totalScore || 0}
               </Text>
-              {/* TODO Replace with totalScore */}
             </Box>
           </Stack>
           <Box pt={1}>
