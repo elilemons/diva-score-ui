@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       topContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
-            Divinely Inspired Vision and Actions for self care
+            Divinely Inspired Vision and Actions
           </Heading>
           <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
             Elevate the self-care journey for Divinely Inspired Vision and Action (Divas) with your
