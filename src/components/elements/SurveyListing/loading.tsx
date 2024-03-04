@@ -4,7 +4,7 @@ import * as React from 'react'
 
 export const SurveyListingSkeleton: React.FC = () => {
   return (
-    <Box px={APP_PADDING.px}>
+    <Box px={APP_PADDING.px} data-cy='survey-listing-skeleton'>
       <Flex alignItems='center' justifyContent='space-between' width='100% '>
         <Flex alignItems='center' py={1} gap={4}>
           <SkeletonCircle size='50' />

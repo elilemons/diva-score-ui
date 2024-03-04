@@ -13,11 +13,21 @@ import * as React from 'react'
 const Calendar: React.FC = () => {
   const { user } = useAuth()
   const { data: userSurveyData, isSuccess: surveyDataIsLoaded } = getUsersSurveysQuery({})
-  const { data: todaysSurveyId } = getTodaysSurveyIdQuery()
+  const { data: todaysSurveyId, isSuccess: todaysSurveyIdIsLoaded } = getTodaysSurveyIdQuery()
   const { data: todaysSurvey, isSuccess: todaysSurveyLoaded } = getSurveyByIdQuery({
     surveyId: todaysSurveyId?.id,
   })
   const { data: totalScoreData, isSuccess: totalScoreLoaded } = getUsersTotalScoreQuery()
+
+  const [todaysScore, setTodaysScore] = React.useState<number>(0)
+
+  React.useEffect(() => {
+    if (todaysSurveyIdIsLoaded && !!todaysSurveyId.id) {
+      setTodaysScore(0)
+    } else if (todaysSurveyIdIsLoaded && todaysSurveyLoaded && todaysSurvey) {
+      setTodaysScore(todaysSurvey.pointsEarned || 0)
+    }
+  }, [todaysSurveyId, todaysSurveyIdIsLoaded, todaysSurveyLoaded, todaysSurvey])
 
   return (
     <Layout
@@ -30,12 +40,12 @@ const Calendar: React.FC = () => {
               <Text as='span' fontWeight={'bold'} data-cy='todays-score-label'>
                 {`Today's Score: `}
               </Text>
-              {todaysSurveyLoaded ? (
+              {todaysSurveyIdIsLoaded ? (
                 <Text as='span' data-cy='todays-score-value'>
-                  {todaysSurvey?.pointsEarned || 0}
+                  {todaysScore}
                 </Text>
               ) : (
-                <Spinner size='xs' color='brand.300' />
+                <Spinner size='xs' color='brand.300' data-cy='todays-score-value-loading' />
               )}
             </Box>
 
@@ -53,17 +63,15 @@ const Calendar: React.FC = () => {
             </Box>
           </Stack>
           {surveyDataIsLoaded ? (
-            <Box pt={1}>
-              {userSurveyData &&
-                userSurveyData.docs.length > 0 &&
-                userSurveyData.docs.map((survey, index) => (
-                  <SurveyListing
-                    backgroundColor={index % 2 === 0 ? 'white' : 'gray.100'}
-                    survey={survey}
-                    key={survey.id}
-                  />
-                ))}
-            </Box>
+            userSurveyData &&
+            userSurveyData.docs.length > 0 &&
+            userSurveyData.docs.map((survey, index) => (
+              <SurveyListing
+                backgroundColor={index % 2 === 0 ? 'white' : 'gray.100'}
+                survey={survey}
+                key={survey.id}
+              />
+            ))
           ) : (
             <>
               <SurveyListingSkeleton />
