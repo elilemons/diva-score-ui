@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  Alert,
+  AlertIcon,
   Badge,
   Box,
   Button,
@@ -19,6 +21,7 @@ import { ControlledTextInput } from '@root/components/forms/fields/Text/Controll
 import { ControlledTextAreaInput } from '@root/components/forms/fields/TextArea/Controlled'
 import { Submit } from '@root/components/forms/Submit'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
+import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { saveSurveyMutation } from '@root/queries/survey/saveSurveyMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import {
@@ -39,12 +42,20 @@ const Survey: React.FC = () => {
   const { control, reset, handleSubmit } = useForm<Partial<SurveyType>>()
   const { surveyId } = useParams<{ surveyId: string }>()
   const { data: surveyData, isError, error, isLoading } = getSurveyByIdQuery({ surveyId })
+  const { data: todaysSurveyId } = getTodaysSurveyIdQuery()
 
+  const [isTodaysSurvey, setIsTodaysSurvey] = React.useState<boolean>(false)
   const [showAnimation, setShowAnimation] = React.useState<boolean>(false)
   const [width, height] = useWindowSize()
 
   const saveSurvey = saveSurveyMutation({ mutationKey: 'save-survey' })
   const toast = useToast()
+
+  React.useEffect(() => {
+    if (surveyData && surveyData.id && todaysSurveyId && todaysSurveyId.id) {
+      setIsTodaysSurvey(todaysSurveyId.id === surveyData.id)
+    }
+  }, [surveyData, todaysSurveyId, setIsTodaysSurvey])
 
   React.useEffect(() => {
     if (isError) {
@@ -111,6 +122,12 @@ const Survey: React.FC = () => {
               <SurveyLoadingSkeleton />
             ) : (
               <Stack spacing={APP_SPACING.spacing}>
+                {!isTodaysSurvey && (
+                  <Alert status='info' colorScheme='brand'>
+                    <AlertIcon />
+                    Attention: As this is not todays survey, no changes can be saved.
+                  </Alert>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Stack spacing={4}>
                     {surveyData &&
@@ -194,7 +211,8 @@ const Survey: React.FC = () => {
                                 bgClip='text'
                                 fontWeight={600}
                               >
-                                Current Score: {surveyData.pointsEarned}
+                                {isTodaysSurvey ? 'Current' : 'Total'} Score:{' '}
+                                {surveyData.pointsEarned}
                               </Text>
                             </Flex>
                           )}
@@ -206,6 +224,7 @@ const Survey: React.FC = () => {
                       alignItems='stretch'
                       justifyContent='space-between'
                       gap={2}
+                      visibility={isTodaysSurvey ? 'visible' : 'hidden'}
                     >
                       <Button
                         data-cy='clear'
@@ -220,6 +239,7 @@ const Survey: React.FC = () => {
                         Clear
                       </Button>
                       <Submit
+                        disabled={!isTodaysSurvey}
                         label='Submit'
                         control={control}
                         colorScheme={APP_BRAND_BUTTON.colorScheme}

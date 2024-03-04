@@ -2,7 +2,7 @@ import { useAuth } from '@components/appProviders/Auth'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Heading, Stack, useToast } from '@chakra-ui/react'
+import { Heading, Link, Stack, useToast } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
@@ -133,6 +133,14 @@ const Account: React.FC = () => {
                 matchFieldType='password'
               />
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />
+
+              <Link
+                onClick={() => {
+                  logOut()
+                }}
+              >
+                Log Out
+              </Link>
             </Stack>
           </form>
         </Stack>

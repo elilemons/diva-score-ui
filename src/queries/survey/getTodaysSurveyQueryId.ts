@@ -8,7 +8,7 @@ import { useQuery, UseQueryResult } from 'react-query'
  */
 export const getTodaysSurveyKey = 'get-todays-survey'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getTodaysSurveyQuery(): UseQueryResult<{ id: string | undefined }, unknown> {
+export function getTodaysSurveyIdQuery(): UseQueryResult<{ id: string | undefined }, unknown> {
   const { apiDomain } = useAppConfig()
   const queryRes = useQuery({
     queryKey: [getTodaysSurveyKey, apiDomain],

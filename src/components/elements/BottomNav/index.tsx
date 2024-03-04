@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Flex, IconButton } from '@chakra-ui/react'
 import { APP_ROUTES } from '@root/appRoutes'
 import { APP_PADDING } from '@root/utils/appStyling'
@@ -5,11 +6,13 @@ import * as React from 'react'
 import { BsCalendar2HeartFill } from 'react-icons/bs'
 import { FaUserAstronaut } from 'react-icons/fa'
 import { GiSharpCrown } from 'react-icons/gi'
-import { useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 export const BottomNav: React.FC = () => {
   const location = useLocation()
   const [active, setActive] = React.useState<'calendar' | 'dashboard' | 'account' | null>()
+
+  const history = useHistory()
 
   React.useEffect(() => {
     if (location && location.pathname) {
@@ -49,8 +52,8 @@ export const BottomNav: React.FC = () => {
         size='lg'
         icon={<BsCalendar2HeartFill />}
         aria-label={'Calendar (View past surveys and scores)'}
-        as='a'
-        href='/calendar'
+        as={Link}
+        to={APP_ROUTES.authenticated.calendar}
       />
       <IconButton
         bg='none'
@@ -65,8 +68,8 @@ export const BottomNav: React.FC = () => {
         size='lg'
         icon={<GiSharpCrown />}
         aria-label={'Dashboard - Start, edit, or view todays entry'}
-        as='a'
-        href={APP_ROUTES.authenticated.dashboard}
+        as={Link}
+        to={APP_ROUTES.authenticated.dashboard}
       />
       <IconButton
         bg='none'
@@ -81,8 +84,8 @@ export const BottomNav: React.FC = () => {
         size='lg'
         icon={<FaUserAstronaut />}
         aria-label={'Account - manage account information'}
-        as='a'
-        href={APP_ROUTES.authenticated.account}
+        as={Link}
+        to={APP_ROUTES.authenticated.account}
       />
     </Flex>
   )

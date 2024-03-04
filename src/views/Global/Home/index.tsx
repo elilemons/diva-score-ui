@@ -19,7 +19,7 @@ const Home: React.FC = () => {
             Elevate the self-care journey for Divinely Inspired Vision and Action (Divas) with your
             own DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
             values, provide a personalized Divine Self-Care Score. Stay accountable to your
-            well-being and goals, and cuyarnltivate gratitude and connection with this app.
+            well-being and goals, and cultivate gratitude and connection with this app.
           </Text>
         </Stack>
       }
