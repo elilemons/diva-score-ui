@@ -7,7 +7,7 @@ import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
 import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { getUsersSurveysQuery } from '@root/queries/survey/getUsersSurveysQuery'
 import { getUsersTotalScoreQuery } from '@root/queries/survey/getUsersTotalScoreQuery'
-import { APP_SPACING, APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appStyling'
+import { APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appStyling'
 import * as React from 'react'
 
 const Calendar: React.FC = () => {
@@ -33,8 +33,8 @@ const Calendar: React.FC = () => {
     <Layout
       innerBottomContainerPadding={{ px: '0' }}
       bottomContent={
-        <Stack spacing={APP_SPACING.spacing}>
-          <Stack px={APP_PADDING.px}>
+        <Box>
+          <Stack pb={APP_PADDING.pb} px={APP_PADDING.px}>
             <Heading size={APP_INNER_HEADINGS.size}>{user?.firstName}'s Surveys</Heading>
             <Box>
               <Text as='span' fontWeight={'bold'} data-cy='todays-score-label'>
@@ -66,22 +66,25 @@ const Calendar: React.FC = () => {
             userSurveyData &&
             userSurveyData.docs.length > 0 &&
             userSurveyData.docs.map((survey, index) => (
-              <SurveyListing
-                backgroundColor={index % 2 === 0 ? 'white' : 'gray.100'}
-                survey={survey}
-                key={survey.id}
-              />
+              <>
+                <SurveyListing
+                  backgroundColor={index % 2 === 0 ? 'white' : 'gray.100'}
+                  survey={survey}
+                  key={survey.id}
+                />
+              </>
             ))
           ) : (
             <>
               <SurveyListingSkeleton />
+              <SurveyListingSkeleton backgroundColor='gray.100' />
               <SurveyListingSkeleton />
+              <SurveyListingSkeleton backgroundColor='gray.100' />
               <SurveyListingSkeleton />
-              <SurveyListingSkeleton />
-              <SurveyListingSkeleton />
+              <SurveyListingSkeleton backgroundColor='gray.100' />
             </>
           )}
-        </Stack>
+        </Box>
       }
     />
   )

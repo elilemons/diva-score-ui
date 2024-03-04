@@ -17,6 +17,7 @@ export const SurveyListing: React.FC<Props> = ({ backgroundColor, survey }) => {
       bgColor={backgroundColor}
       _hover={{ bgColor: 'brand.100' }}
       w={'100%'}
+      h='75'
       pt={1}
       px={APP_PADDING.px}
     >
