@@ -3,7 +3,7 @@ import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
 import { createSurveyMutation } from '@root/queries/survey/createSurveyMutation'
-import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurveyQuery'
+import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { GenericStatusError, GenericStatusErrorType } from '@root/types/errors'
 import { toastErrors } from '@root/utils/toastErrors'
 import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom'
 const Dashboard: React.FC = () => {
   const { user } = useAuth()
   const history = useHistory()
-  const { data: existingSurvey, isLoading } = getTodaysSurveyQuery()
+  const { data: existingSurvey, isLoading } = getTodaysSurveyIdQuery()
   const createSurvey = createSurveyMutation({ mutationKey: 'user-create-daily-survey' })
 
   const onBeginClick = async () => {

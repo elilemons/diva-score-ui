@@ -8,9 +8,14 @@ import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 type Props = {
   bottomContent: React.ReactNode
   topContent?: React.ReactNode
+  innerBottomContainerPadding?: { px?: string; py?: string }
 }
 
-export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Props) => {
+export const Layout: React.FC<Props> = ({
+  bottomContent,
+  topContent = true,
+  innerBottomContainerPadding,
+}: Props) => {
   return (
     <Flex
       className={'outer-container'}
@@ -59,8 +64,8 @@ export const Layout: React.FC<Props> = ({ bottomContent, topContent = true }: Pr
           height='100%'
           flex={1}
           minWidth={APP_CONTAINER_WIDTH.minWidth}
-          px={APP_PADDING.px}
-          py={APP_PADDING.py}
+          px={innerBottomContainerPadding?.px || APP_PADDING.px}
+          py={innerBottomContainerPadding?.py || APP_PADDING.py}
           width={APP_CONTAINER_WIDTH.width}
         >
           {bottomContent}

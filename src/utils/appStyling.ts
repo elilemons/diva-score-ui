@@ -74,6 +74,13 @@ export const APP_BRAND_BUTTON = {
   bgGradient: 'linear(to-l, accent.500, brand.500)',
 }
 
+export const APP_BRAND_GRADIENT = {
+  bgGradient: 'linear(to-l, accent.500, brand.500)',
+}
+export const APP_BRAND_REVERSE_GRADIENT = {
+  bgGradient: 'linear(to-l, brand.500, accent.500)',
+}
+
 export const APP_CHECKBOX_SIZING = {
   size: {
     base: 'md',
