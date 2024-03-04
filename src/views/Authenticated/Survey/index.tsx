@@ -21,7 +21,7 @@ import { ControlledTextInput } from '@root/components/forms/fields/Text/Controll
 import { ControlledTextAreaInput } from '@root/components/forms/fields/TextArea/Controlled'
 import { Submit } from '@root/components/forms/Submit'
 import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
-import { getTodaysSurveyQuery } from '@root/queries/survey/getTodaysSurveyQuery'
+import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { saveSurveyMutation } from '@root/queries/survey/saveSurveyMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
 import {
@@ -42,7 +42,7 @@ const Survey: React.FC = () => {
   const { control, reset, handleSubmit } = useForm<Partial<SurveyType>>()
   const { surveyId } = useParams<{ surveyId: string }>()
   const { data: surveyData, isError, error, isLoading } = getSurveyByIdQuery({ surveyId })
-  const { data: todaysSurvey } = getTodaysSurveyQuery()
+  const { data: todaysSurveyId } = getTodaysSurveyIdQuery()
 
   const [isTodaysSurvey, setIsTodaysSurvey] = React.useState<boolean>(false)
   const [showAnimation, setShowAnimation] = React.useState<boolean>(false)
@@ -52,10 +52,10 @@ const Survey: React.FC = () => {
   const toast = useToast()
 
   React.useEffect(() => {
-    if (surveyData && surveyData.id && todaysSurvey && todaysSurvey.id) {
-      setIsTodaysSurvey(todaysSurvey.id === surveyData.id)
+    if (surveyData && surveyData.id && todaysSurveyId && todaysSurveyId.id) {
+      setIsTodaysSurvey(todaysSurveyId.id === surveyData.id)
     }
-  }, [surveyData, todaysSurvey, setIsTodaysSurvey])
+  }, [surveyData, todaysSurveyId, setIsTodaysSurvey])
 
   React.useEffect(() => {
     if (isError) {
