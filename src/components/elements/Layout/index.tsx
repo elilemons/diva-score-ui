@@ -7,6 +7,7 @@ import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 
 type Props = {
   bottomContent: React.ReactNode
+  hideBottomNav?: boolean
   topContent?: React.ReactNode
   innerBottomContainerPadding?: { px?: string; py?: string }
 }
@@ -14,6 +15,7 @@ type Props = {
 export const Layout: React.FC<Props> = ({
   bottomContent,
   topContent = true,
+  hideBottomNav = false,
   innerBottomContainerPadding,
 }: Props) => {
   return (
@@ -69,7 +71,7 @@ export const Layout: React.FC<Props> = ({
           width={APP_CONTAINER_WIDTH.width}
         >
           {bottomContent}
-          <BottomNav />
+          {!hideBottomNav && <BottomNav />}
         </Container>
       </Flex>
     </Flex>
