@@ -7,7 +7,7 @@ import { getSurveyByIdQuery } from '@root/queries/survey/getSurveyByIdQuery'
 import { getTodaysSurveyIdQuery } from '@root/queries/survey/getTodaysSurveyQueryId'
 import { getUsersSurveysQuery } from '@root/queries/survey/getUsersSurveysQuery'
 import { getUsersTotalScoreQuery } from '@root/queries/survey/getUsersTotalScoreQuery'
-import { APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appStyling'
+import { APP_BRAND_REVERSE_GRADIENT, APP_INNER_HEADINGS, APP_PADDING } from '@root/utils/appStyling'
 import * as React from 'react'
 
 const Calendar: React.FC = () => {
@@ -39,7 +39,12 @@ const Calendar: React.FC = () => {
                 {`Your Total DIVA Score: `}
               </Text>
               {totalScoreLoaded ? (
-                <Text as='span' data-cy='total-score-value'>
+                <Text
+                  as='span'
+                  data-cy='total-score-value'
+                  bgGradient={APP_BRAND_REVERSE_GRADIENT.bgGradient}
+                  bgClip='text'
+                >
                   {totalScoreData?.totalScore || 0}
                 </Text>
               ) : (
