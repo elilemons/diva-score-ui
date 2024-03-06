@@ -16,10 +16,10 @@ const Home: React.FC = () => {
             Divinely Inspired Vision and Actions
           </Heading>
           <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-            Elevate the self-care journey for Divinely Inspired Vision and Action (Divas) with your
-            own DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
-            values, provide a personalized Divine Self-Care Score. Stay accountable to your
-            well-being and goals, and cultivate gratitude and connection with this app.
+            Elevate the self-care journey for Divinely Inspired Vision and Action with your own DIVA
+            Score. Daily check-ins on body, mind, and spirit activities, each with point values,
+            provide a personalized Divine Self-Care Score. Stay accountable to your well-being and
+            goals, and cultivate gratitude and connection with this app.
           </Text>
         </Stack>
       }
