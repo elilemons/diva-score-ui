@@ -22,9 +22,7 @@ const Calendar: React.FC = () => {
   const [todaysScore, setTodaysScore] = React.useState<number>(0)
 
   React.useEffect(() => {
-    if (todaysSurveyIdIsLoaded && !!todaysSurveyId.id) {
-      setTodaysScore(0)
-    } else if (todaysSurveyIdIsLoaded && todaysSurveyLoaded && todaysSurvey) {
+    if (todaysSurveyIdIsLoaded && todaysSurveyLoaded && todaysSurvey) {
       setTodaysScore(todaysSurvey.pointsEarned || 0)
     }
   }, [todaysSurveyId, todaysSurveyIdIsLoaded, todaysSurveyLoaded, todaysSurvey])
@@ -64,15 +62,15 @@ const Calendar: React.FC = () => {
           </Stack>
           {surveyDataIsLoaded ? (
             userSurveyData &&
+            userSurveyData.docs &&
             userSurveyData.docs.length > 0 &&
             userSurveyData.docs.map((survey, index) => (
-              <>
+              <React.Fragment key={survey.id}>
                 <SurveyListing
                   backgroundColor={index % 2 === 0 ? 'white' : 'gray.100'}
                   survey={survey}
-                  key={survey.id}
                 />
-              </>
+              </React.Fragment>
             ))
           ) : (
             <>
