@@ -43,6 +43,7 @@ export function getSurveyByIdQuery({
 
       return null
     },
+    refetchOnMount: 'always',
     onError: () => {
       throw GenericStatusError({ status: 501, message: 'An unknown error has occurred' })
     },

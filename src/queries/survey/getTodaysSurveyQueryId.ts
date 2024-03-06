@@ -19,6 +19,7 @@ export function getTodaysSurveyIdQuery(): UseQueryResult<{ id: string | undefine
       const json = res.json()
       return json
     },
+    refetchOnMount: 'always',
     retry: (failCount, error: GenericStatusErrorType) => {
       console.error({ error })
       return failCount < 3

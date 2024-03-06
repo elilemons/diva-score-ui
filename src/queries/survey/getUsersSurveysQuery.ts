@@ -27,6 +27,7 @@ export function getUsersSurveysQuery({
       const json = await res.json()
       return json
     },
+    refetchOnMount: 'always',
     retry: (failCount, error: GenericStatusErrorType) => {
       console.error({ error })
       return failCount < 3
