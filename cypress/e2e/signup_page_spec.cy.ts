@@ -9,6 +9,10 @@ describe('The Unauthenticated Signup Page', () => {
     cy.checkA11y('#root')
   })
 
+  it('should not show the bottom nav', () => {
+    cy.get('[data-cy="bottom-nav"]').should('not.exist')
+  })
+
   it('should display a success message page when the server returns a 201', () => {
     const email = `test-cypress${crypto.randomUUID()}@email.com`
     const password = 'P@ssw0rd!'

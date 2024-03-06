@@ -96,10 +96,11 @@ describe('The Survey Page', () => {
     cy.get("[data-cy='connection1']").within(() => {
       cy.get('input[type=checkbox]').should('not.be.checked')
     })
-    cy.get("[data-cy='goals1']").should('not.have.value')
-    cy.get("[data-cy='goals2']").within(() => {
+    cy.get("[data-cy='goals1']").within(() => {
       cy.get('input[type=checkbox]').should('not.be.checked')
     })
+    cy.get("[data-cy='goals2']").should('not.have.value')
+
     cy.get("[data-cy='other1']").should('not.have.value')
   })
 
@@ -118,8 +119,8 @@ describe('The Survey Page', () => {
       expect(req.body.mind1).to.be.true
       expect(req.body.spirit1).to.equal(gratitude)
       expect(req.body.connection1).to.be.true
-      expect(req.body.goals1).to.equal(goal)
-      expect(req.body.goals2).to.be.true
+      expect(req.body.goals1).to.be.true
+      expect(req.body.goals2).to.equal(goal)
       expect(req.body.other1).to.equal(otherNotes)
     })
 
@@ -140,10 +141,11 @@ describe('The Survey Page', () => {
     cy.get("[data-cy='connection1']").within(() => {
       cy.get('input[type=checkbox]').should('be.checked')
     })
-    cy.get("[data-cy='goals1']").should('have.value', goal)
-    cy.get("[data-cy='goals2']").within(() => {
+    cy.get("[data-cy='goals1']").within(() => {
       cy.get('input[type=checkbox]').should('be.checked')
     })
+    cy.get("[data-cy='goals2']").should('have.value', goal)
+
     cy.get("[data-cy='other1']").should('have.value', otherNotes)
   })
 

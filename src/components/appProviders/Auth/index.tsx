@@ -30,11 +30,15 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const logIn = useCallback(
     async (data: { email: string; password: string }) => {
+      const loginToastErrorId = 'login-failure'
       try {
         await login.mutateAsync({ data })
 
         const toastId = 'login-success'
         if (!toast.isActive(toastId)) {
+          if (toast.isActive(loginToastErrorId)) {
+            toast.close(loginToastErrorId)
+          }
           toast({
             id: toastId,
             title: 'Login Success',
@@ -54,7 +58,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         const error = e as GenericStatusErrorType
         toastErrors({
           error,
-          id: 'login-failure',
+          id: loginToastErrorId,
           title: 'Failure to Login',
           description: 'There was an error logging you in. Have you verified your email address?',
         })
