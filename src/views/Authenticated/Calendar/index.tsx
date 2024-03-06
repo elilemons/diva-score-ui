@@ -33,8 +33,20 @@ const Calendar: React.FC = () => {
       bottomContent={
         <Box>
           <Stack pb={APP_PADDING.pb} px={APP_PADDING.px}>
-            <Heading size={APP_INNER_HEADINGS.size}>{user?.firstName}'s Surveys</Heading>
-            <Box>
+            <Heading size={APP_INNER_HEADINGS.size}>{user?.firstName}'s Daily History</Heading>
+            <Box fontSize='xl'>
+              <Text as='span' fontWeight={'bold'} data-cy='total-score-label'>
+                {`Your Total DIVA Score: `}
+              </Text>
+              {totalScoreLoaded ? (
+                <Text as='span' data-cy='total-score-value'>
+                  {totalScoreData?.totalScore || 0}
+                </Text>
+              ) : (
+                <Spinner size='xs' color='brand.300' />
+              )}
+            </Box>
+            <Box fontSize='xl'>
               <Text as='span' fontWeight={'bold'} data-cy='todays-score-label'>
                 {`Today's Score: `}
               </Text>
@@ -47,18 +59,10 @@ const Calendar: React.FC = () => {
               )}
             </Box>
 
-            <Box>
-              <Text as='span' fontWeight={'bold'} data-cy='total-score-label'>
-                {`Total Score: `}
-              </Text>
-              {totalScoreLoaded ? (
-                <Text as='span' data-cy='total-score-value'>
-                  {totalScoreData?.totalScore || 0}
-                </Text>
-              ) : (
-                <Spinner size='xs' color='brand.300' />
-              )}
-            </Box>
+            <Text>
+              Modify your daily score until the clock strikes midnight. Once the day is complete,
+              your daily history becomes a locked treasure, capturing your unique journey.
+            </Text>
           </Stack>
           {surveyDataIsLoaded ? (
             userSurveyData &&
