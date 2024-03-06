@@ -22,7 +22,7 @@ export const UncontrolledPasswordInput: React.FC<UncontrolledProps> = props => {
     onChange,
     inputRef,
     required = true,
-    placeholder = '* * * * * * * * *',
+    placeholder = '* * * * * * * * ',
   } = props
 
   const [inputType, setInputType] = React.useState<'password' | 'text'>('password')
