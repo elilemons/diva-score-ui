@@ -70,8 +70,8 @@ const Survey: React.FC = () => {
     mind1: false,
     spirit1: '',
     connection1: false,
-    goals1: '',
-    goals2: false,
+    goals1: false,
+    goals2: '',
     other1: '',
   } as Partial<SurveyType>
 
@@ -122,11 +122,16 @@ const Survey: React.FC = () => {
               <SurveyLoadingSkeleton />
             ) : (
               <Stack spacing={APP_SPACING.spacing}>
-                {!isTodaysSurvey && (
+                {!isTodaysSurvey ? (
                   <Alert status='info' colorScheme='brand'>
                     <AlertIcon />
                     Attention: As this is not todays survey, no changes can be saved.
                   </Alert>
+                ) : (
+                  <Text>
+                    Complete the questions below based on your daily activities to add to your DIVA
+                    Score
+                  </Text>
                 )}
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Stack spacing={4}>
@@ -149,16 +154,21 @@ const Survey: React.FC = () => {
                                 switch (question.questionTextFields.answer[0].blockType) {
                                   case 'answerTextBlock':
                                     return (
-                                      <ControlledTextInput
-                                        key={question.id}
-                                        control={control}
-                                        label={question.questionTextFields.question}
-                                        name={question.questionFieldName}
-                                        defaultValue={
-                                          question.questionTextFields.answer[0].answerTextFields
-                                            ?.answerTextValue || ''
-                                        }
-                                      />
+                                      <React.Fragment key={question.id}>
+                                        <ControlledTextInput
+                                          hint={
+                                            question.questionTextFields.answer[0].answerTextFields
+                                              ?.answerTextFieldLabel
+                                          }
+                                          control={control}
+                                          label={question.questionTextFields.question}
+                                          name={question.questionFieldName}
+                                          defaultValue={
+                                            question.questionTextFields.answer[0].answerTextFields
+                                              ?.answerTextValue || ''
+                                          }
+                                        />
+                                      </React.Fragment>
                                     )
                                   case 'answerCheckboxBlock':
                                     return (

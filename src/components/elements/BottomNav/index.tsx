@@ -38,6 +38,7 @@ export const BottomNav: React.FC = () => {
       alignItems='center'
       justifyContent='space-between'
       px={APP_PADDING.px}
+      data-cy='bottom-nav'
     >
       <IconButton
         bg='none'

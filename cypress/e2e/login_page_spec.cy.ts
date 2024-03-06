@@ -8,6 +8,10 @@ describe('The Login Page', () => {
     cy.checkA11y('#root')
   })
 
+  it('should not show the bottom nav', () => {
+    cy.get('[data-cy="bottom-nav"]').should('not.exist')
+  })
+
   it('sets auth cookie when logging in via form submission', () => {
     // The server needs to be on for this test to pass.
     cy.get('[data-cy="email"]').type(Cypress.env('email'))

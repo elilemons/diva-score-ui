@@ -7,7 +7,7 @@ import { UncontrolledTextInput } from './Uncontrolled'
 import { SharedProps } from './types'
 
 export const ControlledTextInput: React.FC<ControllerType & SharedProps> = props => {
-  const { name, defaultValue = '', control, required, label, validate, ...rest } = props
+  const { name, defaultValue = '', hint = '', control, required, label, validate, ...rest } = props
 
   return (
     <Controller
@@ -23,6 +23,7 @@ export const ControlledTextInput: React.FC<ControllerType & SharedProps> = props
       render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
         <UncontrolledTextInput
           {...rest}
+          hint={hint}
           required={required}
           name={name}
           label={label}

@@ -9,6 +9,7 @@ export type FieldType = {
   placeholder?: string
   disabled?: boolean
   defaultValue?: string
+  hint?: string | null | undefined
   value?: unknown
   onChange: (value: any) => void
   isInvalid?: boolean

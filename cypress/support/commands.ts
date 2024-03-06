@@ -32,6 +32,9 @@ Cypress.Commands.add('loginViaAPI', (name = crypto.randomUUID()) => {
 })
 
 Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, otherNotes: string) => {
+  // TODO Remove this test code
+  console.log('ELITEST', { goal })
+  // ^ TODO Remove this test code
   cy.get("[data-cy='body1']").click()
   cy.get("[data-cy='body1']").within(() => {
     cy.get('input[type=checkbox]').should('be.checked')
@@ -55,13 +58,13 @@ Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, otherNote
     cy.get('input[type=checkbox]').should('be.checked')
   })
 
-  cy.get("[data-cy='goals1']").type(goal)
-  cy.get("[data-cy='goals1']").should('have.value', goal)
-
-  cy.get("[data-cy='goals2']").click()
-  cy.get("[data-cy='goals2']").within(() => {
+  cy.get("[data-cy='goals1']").click()
+  cy.get("[data-cy='goals1']").within(() => {
     cy.get('input[type=checkbox]').should('be.checked')
   })
+
+  cy.get("[data-cy='goals2']").type(goal)
+  cy.get("[data-cy='goals2']").should('have.value', goal)
 
   cy.get("[data-cy='other1']").type(otherNotes)
   cy.get("[data-cy='other1']").should('have.value', otherNotes)
