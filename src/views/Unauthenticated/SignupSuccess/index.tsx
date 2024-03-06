@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 const SignupSuccess: React.FC = () => {
   return (
     <Layout
+      hideBottomNav={true}
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Text>

@@ -22,6 +22,7 @@ const Login: React.FC = () => {
 
   return (
     <Layout
+      hideBottomNav={true}
       bottomContent={
         <form onSubmit={handleSubmit(handleLogin)} noValidate>
           <Stack spacing={APP_SPACING.spacing}>

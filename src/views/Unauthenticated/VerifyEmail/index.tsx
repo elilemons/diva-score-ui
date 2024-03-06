@@ -56,6 +56,7 @@ const VerifyEmail: React.FC = () => {
 
   return (
     <Layout
+      hideBottomNav={true}
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Button as={Link} to={APP_ROUTES.unauthenticated.login} {...APP_BRAND_BUTTON}>
