@@ -6,10 +6,6 @@ import * as React from 'react'
 const TermsOfService: React.FC = () => {
   const { user } = useAuth()
 
-  // TODO Remove this test code
-  console.log('ELITEST TermsOfService')
-  // ^ TODO Remove this test code
-
   return (
     <Layout
       hideBottomNav={!user}
