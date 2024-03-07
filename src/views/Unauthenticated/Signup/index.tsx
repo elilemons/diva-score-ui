@@ -1,4 +1,4 @@
-import { Heading, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react'
+import { Heading, ListItem, Stack, Text, UnorderedList, Link as ChakraLink } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
@@ -13,6 +13,7 @@ import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appSty
 import { toastErrors } from '@utils/toastErrors'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 type UserSignup = {
   confirmPassword: string
 } & User
@@ -92,6 +93,30 @@ const SignUp: React.FC = () => {
                 colorScheme={APP_BRAND_BUTTON.colorScheme}
                 bgGradient={APP_BRAND_BUTTON.bgGradient}
               />
+              <Text align='center'>
+                Already have an account?{' '}
+                <ChakraLink
+                  color={'brand.500'}
+                  as={Link}
+                  to={`${APP_ROUTES.unauthenticated.login}`}
+                >
+                  Log in
+                </ChakraLink>
+              </Text>
+              <Text align='center' fontSize='xs'>
+                By signing up, you agree to our{' '}
+                <ChakraLink isExternal to='/terms-of-service' as={Link}>
+                  <Text as='u' color='accent.500'>
+                    Terms of Service
+                  </Text>{' '}
+                </ChakraLink>
+                and{' '}
+                <ChakraLink isExternal to='/privacy-policy' as={Link}>
+                  <Text as='u' color='accent.500'>
+                    Privacy Policy
+                  </Text>
+                </ChakraLink>
+              </Text>
             </Stack>
           </form>
         </Stack>
