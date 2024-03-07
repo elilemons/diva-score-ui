@@ -2,7 +2,7 @@ import { useAuth } from '@components/appProviders/Auth'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Heading, Link, Stack, useToast } from '@chakra-ui/react'
+import { Heading, Link as ChakraLink, Stack, useToast, Text } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
@@ -15,7 +15,7 @@ import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordM
 import { GenericStatusErrorType } from '@root/types/errors'
 import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
 import { toastErrors } from '@utils/toastErrors'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const Account: React.FC = () => {
   const { user, logOut } = useAuth()
@@ -133,14 +133,27 @@ const Account: React.FC = () => {
                 matchFieldType='password'
               />
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />
-
-              <Link
-                onClick={() => {
-                  logOut()
-                }}
-              >
-                Log Out
-              </Link>
+              <Stack>
+                <ChakraLink isExternal to='/terms-of-service' as={Link}>
+                  <Text as='u' color='accent.500'>
+                    Terms of Service
+                  </Text>{' '}
+                </ChakraLink>
+                <ChakraLink isExternal to='/privacy-policy' as={Link}>
+                  <Text as='u' color='accent.500'>
+                    Privacy Policy
+                  </Text>
+                </ChakraLink>
+                <ChakraLink
+                  onClick={() => {
+                    logOut()
+                  }}
+                >
+                  <Text as='u' color='brand.500'>
+                    Log Out
+                  </Text>
+                </ChakraLink>
+              </Stack>
             </Stack>
           </form>
         </Stack>
