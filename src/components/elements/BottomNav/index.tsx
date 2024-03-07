@@ -51,7 +51,8 @@ export const BottomNav: React.FC = () => {
       left={0}
       bottom={0}
       height={14}
-      width='800px'
+      width='100%'
+      maxWidth='800px'
       bg='brand.700'
       alignItems='center'
       justifyContent='space-between'
