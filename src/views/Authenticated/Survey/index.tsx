@@ -28,6 +28,7 @@ import {
   APP_ACCENT_BUTTON,
   APP_BRAND_BUTTON,
   APP_CHECKBOX_SIZING,
+  APP_INNER_HEADINGS,
   APP_SPACING,
 } from '@root/utils/appStyling'
 import { toastErrors } from '@root/utils/toastErrors'
@@ -116,12 +117,12 @@ const Survey: React.FC = () => {
         </Fade>
       ) : (
         <Layout
-          topContent={<Heading data-cy='daily-survey-heading'>Daily Questions</Heading>}
           bottomContent={
             isLoading ? (
               <SurveyLoadingSkeleton />
             ) : (
               <Stack spacing={APP_SPACING.spacing}>
+                <Heading data-cy='daily-survey-heading'>Daily Questions</Heading>
                 {!isTodaysSurvey ? (
                   <Alert status='info' colorScheme='brand'>
                     <AlertIcon />
@@ -130,7 +131,7 @@ const Survey: React.FC = () => {
                 ) : (
                   <Text>
                     Complete the questions below based on your daily activities to add to your DIVA
-                    Score
+                    Score.
                   </Text>
                 )}
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,7 +144,7 @@ const Survey: React.FC = () => {
                         return (
                           <React.Fragment key={questionSet.id}>
                             <Flex alignItems='flex-start' gap={2}>
-                              <Heading>{questionSet.title}</Heading>
+                              <Heading size={APP_INNER_HEADINGS.size}>{questionSet.title}</Heading>
                               {!!questionSet.pointValue && questionSet.pointValue > 0 && (
                                 <Badge colorScheme='green'>{questionSet.pointValue}</Badge>
                               )}

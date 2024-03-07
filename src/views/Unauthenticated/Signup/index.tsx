@@ -13,13 +13,14 @@ import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appSty
 import { toastErrors } from '@utils/toastErrors'
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 type UserSignup = {
   confirmPassword: string
 } & User
 
 const SignUp: React.FC = () => {
   const { control, getValues, handleSubmit } = useForm<Partial<UserSignup>>()
+  const history = useHistory()
 
   const createUser = createUserMutation({ mutationKey: 'sign-up-form' })
 
@@ -30,7 +31,7 @@ const SignUp: React.FC = () => {
           data,
         })
         .then(() => {
-          window.location.assign(`${APP_ROUTES.unauthenticated.signupSuccess}`)
+          history.push(`${APP_ROUTES.unauthenticated.signupSuccess}`)
         })
     } catch (e) {
       const error = e as GenericStatusErrorType
