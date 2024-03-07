@@ -47,7 +47,7 @@ export const APP_CONTAINER_WIDTH = {
 }
 
 export const APP_PAGE_HEADINGS = {
-  size: { base: 'md', md: 'lg', lg: 'xl', xl: 'xl', '2xl': '2xl' },
+  size: { base: 'md', md: 'lg', lg: 'xl', xl: 'xl' },
   ml: { base: 0, md: '-1px', lg: '-2px' },
 }
 
@@ -93,4 +93,8 @@ export const APP_INPUT_COLORING = {
   _hover: { borderColor: 'brand.300' },
   focusBorderColor: 'brand.500',
   errorBorderColor: 'accent.500',
+}
+
+export const APP_BOX_SHADOW = {
+  boxShadow: '0px 1px 50px 0px rgba(0,0,0,0.5)',
 }
