@@ -1,4 +1,4 @@
-import { Center, Link as ChakraLink, Heading, Stack } from '@chakra-ui/react'
+import { Link as ChakraLink, Heading, Stack, Text } from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { UserLogin } from '@components/appProviders/Auth/types'
 import { Layout } from '@components/elements/Layout'
@@ -51,17 +51,29 @@ const Login: React.FC = () => {
               colorScheme={APP_BRAND_BUTTON.colorScheme}
               bgGradient={APP_BRAND_BUTTON.bgGradient}
             />
-            <Center>
-              <ChakraLink
-                color={'brand.500'}
-                as={Link}
-                to={`${APP_ROUTES.unauthenticated.forgotPassword}${
-                  emailInput ? `/${emailInput}` : ''
-                }`}
-              >
-                Forgot Password?
-              </ChakraLink>
-            </Center>
+            <Stack>
+              <Text align='center'>
+                No account?{' '}
+                <ChakraLink
+                  color={'brand.500'}
+                  as={Link}
+                  to={`${APP_ROUTES.unauthenticated.signup}`}
+                >
+                  Sign Up
+                </ChakraLink>
+              </Text>
+              <Text align='center'>
+                <ChakraLink
+                  color={'brand.500'}
+                  as={Link}
+                  to={`${APP_ROUTES.unauthenticated.forgotPassword}${
+                    emailInput ? `/${emailInput}` : ''
+                  }`}
+                >
+                  Forgot Password?
+                </ChakraLink>
+              </Text>
+            </Stack>
           </Stack>
         </form>
       }
