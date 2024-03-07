@@ -2,6 +2,8 @@ export const APP_ROUTES = {
   global: {
     home: '/',
     notFound: '/not-found',
+    termsOfService: '/terms-of-service',
+    privacyPolicy: '/privacy-policy',
   },
 
   unauthenticated: {
