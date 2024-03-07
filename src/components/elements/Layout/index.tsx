@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Logo } from '@components/elements/Logo'
 import { BottomNav } from '@root/components/elements/BottomNav'
-import { APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
+import { APP_BOX_SHADOW, APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
 
 type Props = {
   bottomContent: React.ReactNode
@@ -40,8 +40,6 @@ export const Layout: React.FC<Props> = ({
           minWidth={APP_CONTAINER_WIDTH.minWidth}
           direction='column'
           px={APP_PADDING.px}
-          pt={APP_PADDING.pt}
-          pb={APP_PADDING.pb}
           width={APP_CONTAINER_WIDTH.width}
         >
           <Logo />
@@ -63,16 +61,17 @@ export const Layout: React.FC<Props> = ({
           position='relative'
           backgroundColor='white'
           className='inner-bottom-container'
-          height='100%'
+          minHeight='100%'
           flex={1}
           minWidth={APP_CONTAINER_WIDTH.minWidth}
           px={innerBottomContainerPadding?.px || APP_PADDING.px}
-          py={innerBottomContainerPadding?.py || APP_PADDING.py}
+          pt={innerBottomContainerPadding?.py || APP_PADDING.py}
           width={APP_CONTAINER_WIDTH.width}
+          boxShadow={APP_BOX_SHADOW.boxShadow}
         >
           {bottomContent}
-          {!hideBottomNav && <BottomNav />}
         </Container>
+        {!hideBottomNav && <BottomNav />}
       </Flex>
     </Flex>
   )
