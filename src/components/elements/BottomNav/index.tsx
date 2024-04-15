@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Flex, Icon, Text, LinkBox, LinkOverlay } from '@chakra-ui/react'
+import { Flex, Icon, Text, LinkBox, LinkOverlay, Stack } from '@chakra-ui/react'
 import { APP_ROUTES } from '@root/appRoutes'
 import { APP_BOX_SHADOW, APP_PADDING } from '@root/utils/appStyling'
 import * as React from 'react'
@@ -8,7 +8,7 @@ import { FaUserAstronaut } from 'react-icons/fa'
 import { GiSharpCrown } from 'react-icons/gi'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 
-export const BottomNav: React.FC = () => {
+const BottomNav: React.FC = () => {
   const location = useLocation()
   const [active, setActive] = React.useState<'calendar' | 'dashboard' | 'account' | null>()
 
@@ -50,7 +50,7 @@ export const BottomNav: React.FC = () => {
       position='sticky'
       left={0}
       bottom={0}
-      height={14}
+      height={16}
       width='100%'
       maxWidth='800px'
       bg='brand.700'
@@ -68,27 +68,33 @@ export const BottomNav: React.FC = () => {
           alignItems='center'
           justifyContent='center'
           bg={active === item ? 'brand.400' : 'brand.700'}
+          color={active === item ? 'white' : 'whiteAlpha.700'}
+          borderBottom={'5px solid'}
+          borderColor={active === item ? 'white' : 'transparent'}
+          transition={'border-color 0.3s ease-in-out'}
           _active={{
             bg: 'brand.400',
           }}
           _hover={{
-            bg: active === item ? 'brand.700' : 'brand.400',
+            borderColor: 'white',
+            color: 'white',
           }}
         >
           <LinkOverlay as={Link} to={getLink(item)}>
-            <Icon
-              color={active === item ? 'white' : 'whiteAlpha.700'}
-              as={getIcon(item)}
-              aria-label='Link to Calendar'
-              w={6}
-              h={6}
-              _hover={{
-                color: active === item ? 'whiteAlpha.700' : 'white',
-              }}
-            />
+            <Stack alignItems='center'>
+              <Icon
+                as={getIcon(item)}
+                aria-label={`Link to ${item.charAt(0).toUpperCase() + item.slice(1)}`}
+                w={5}
+                h={5}
+              />
+              <Text fontSize='small'>{item.charAt(0).toUpperCase() + item.slice(1)}</Text>
+            </Stack>
           </LinkOverlay>
         </LinkBox>
       ))}
     </Flex>
   )
 }
+
+export default BottomNav
