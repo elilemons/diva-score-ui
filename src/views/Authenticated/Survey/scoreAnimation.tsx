@@ -58,6 +58,7 @@ export const SurveyScoreAnimation: React.FC<SurveyScoreAnimationProps> = ({
           leftIcon={<LiaLongArrowAltLeftSolid />}
           variant='link'
           to={APP_ROUTES.authenticated.dashboard}
+          data-cy='survey-animation-dashboard-link'
         >
           Go back to Dashboard
         </Button>
