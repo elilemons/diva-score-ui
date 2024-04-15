@@ -88,7 +88,9 @@ const BottomNav: React.FC = () => {
                 w={5}
                 h={5}
               />
-              <Text fontSize='small'>{item.charAt(0).toUpperCase() + item.slice(1)}</Text>
+              <Text fontSize='small' data-cy={`bottom-nav-label-${item}`}>
+                {item.charAt(0).toUpperCase() + item.slice(1)}
+              </Text>
             </Stack>
           </LinkOverlay>
         </LinkBox>
