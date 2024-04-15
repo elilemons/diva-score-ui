@@ -18,6 +18,7 @@ const FullscreenLoader: React.FC = () => {
           <Spinner color='brand.300' />
         </Flex>
       }
+      showBottomNav={false}
     />
   )
 }

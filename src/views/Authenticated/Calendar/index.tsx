@@ -29,6 +29,7 @@ const Calendar: React.FC = () => {
 
   return (
     <Layout
+      showBottomNav
       innerBottomContainerPadding={{ px: '0' }}
       bottomContent={
         <Box>

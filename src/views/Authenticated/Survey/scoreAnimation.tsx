@@ -1,8 +1,12 @@
-import { Box, Flex, Heading, IconButton } from '@chakra-ui/react'
+import { Box, Heading, IconButton, Button, Stack } from '@chakra-ui/react'
 import { colors } from '@root/theme/colors'
 import * as React from 'react'
 import ReactConfetti from 'react-confetti'
 import { IoCloseOutline } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
+import { LiaLongArrowAltLeftSolid } from 'react-icons/lia'
+import { APP_ROUTES } from '@root/appRoutes'
+import { APP_SPACING } from '@root/utils/appStyling'
 
 type SurveyScoreAnimationProps = {
   score?: number
@@ -39,9 +43,26 @@ export const SurveyScoreAnimation: React.FC<SurveyScoreAnimationProps> = ({
           zIndex: 2,
         }}
       />
-      <Flex alignItems='center' justifyContent='center' height='100%' position='relative'>
+      <Stack
+        alignItems='center'
+        justifyContent='center'
+        direction='column'
+        height='100%'
+        position='relative'
+        spacing={APP_SPACING.spacing}
+      >
         <Heading color='white'>You Scored: {score}</Heading>
-      </Flex>
+        <Button
+          as={Link}
+          color='white'
+          leftIcon={<LiaLongArrowAltLeftSolid />}
+          variant='link'
+          to={APP_ROUTES.authenticated.dashboard}
+          data-cy='survey-animation-dashboard-link'
+        >
+          Go back to Dashboard
+        </Button>
+      </Stack>
       <IconButton
         aria-label='Close Score Animation'
         data-cy='close-score-animation'
