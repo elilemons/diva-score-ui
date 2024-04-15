@@ -31,7 +31,7 @@ Cypress.Commands.add('loginViaAPI', (name = crypto.randomUUID()) => {
   })
 })
 
-Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, otherNotes: string) => {
+Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, reflections: string) => {
   // TODO Remove this test code
   console.log('ELITEST', { goal })
   // ^ TODO Remove this test code
@@ -66,6 +66,6 @@ Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, otherNote
   cy.get("[data-cy='goals2']").type(goal)
   cy.get("[data-cy='goals2']").should('have.value', goal)
 
-  cy.get("[data-cy='other1']").type(otherNotes)
-  cy.get("[data-cy='other1']").should('have.value', otherNotes)
+  cy.get("[data-cy='reflections1']").type(reflections)
+  cy.get("[data-cy='reflections1']").should('have.value', reflections)
 })
