@@ -65,7 +65,7 @@ export const Layout: React.FC<Props> = ({
           flex={1}
           minWidth={APP_CONTAINER_WIDTH.minWidth}
           px={innerBottomContainerPadding?.px || APP_PADDING.px}
-          pt={innerBottomContainerPadding?.py || APP_PADDING.py}
+          py={innerBottomContainerPadding?.py || APP_PADDING.py}
           width={APP_CONTAINER_WIDTH.width}
           boxShadow={APP_BOX_SHADOW.boxShadow}
         >
