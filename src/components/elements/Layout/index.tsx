@@ -16,7 +16,7 @@ type Props = {
 export const Layout: React.FC<Props> = ({
   bottomContent,
   topContent = true,
-  showBottomNav = false,
+  showBottomNav,
   innerBottomContainerPadding,
 }: Props) => {
   return (
