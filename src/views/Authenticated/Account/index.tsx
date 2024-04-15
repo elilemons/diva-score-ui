@@ -106,6 +106,7 @@ const Account: React.FC = () => {
 
   return (
     <Layout
+      showBottomNav
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading size={APP_INNER_HEADINGS.size}>Account Page</Heading>

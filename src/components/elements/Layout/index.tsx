@@ -2,12 +2,13 @@ import * as React from 'react'
 
 import { Container, Flex, Stack } from '@chakra-ui/react'
 import { Logo } from '@components/elements/Logo'
-import { BottomNav } from '@root/components/elements/BottomNav'
 import { APP_BOX_SHADOW, APP_CONTAINER_WIDTH, APP_PADDING } from '@utils/appStyling'
+
+const BottomNav = React.lazy(() => import('@root/components/elements/BottomNav'))
 
 type Props = {
   bottomContent: React.ReactNode
-  hideBottomNav?: boolean
+  showBottomNav?: boolean
   topContent?: React.ReactNode
   innerBottomContainerPadding?: { px?: string; py?: string }
 }
@@ -15,7 +16,7 @@ type Props = {
 export const Layout: React.FC<Props> = ({
   bottomContent,
   topContent = true,
-  hideBottomNav = false,
+  showBottomNav = false,
   innerBottomContainerPadding,
 }: Props) => {
   return (
@@ -71,7 +72,7 @@ export const Layout: React.FC<Props> = ({
         >
           {bottomContent}
         </Container>
-        {!hideBottomNav && <BottomNav />}
+        {!!showBottomNav && <BottomNav />}
       </Flex>
     </Flex>
   )

@@ -46,7 +46,7 @@ const SignUp: React.FC = () => {
 
   return (
     <Layout
-      hideBottomNav={true}
+      showBottomNav={false}
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading as='h1' size={APP_INNER_HEADINGS.size}>

@@ -63,6 +63,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <Layout
+      showBottomNav
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading data-cy='welcome-message' size={APP_INNER_HEADINGS.size} textAlign='center'>
