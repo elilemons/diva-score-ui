@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Flex, Icon, IconButton, LinkBox, LinkOverlay } from '@chakra-ui/react'
+import { Flex, Icon, Text, LinkBox, LinkOverlay } from '@chakra-ui/react'
 import { APP_ROUTES } from '@root/appRoutes'
 import { APP_BOX_SHADOW, APP_PADDING } from '@root/utils/appStyling'
 import * as React from 'react'
@@ -59,8 +59,9 @@ export const BottomNav: React.FC = () => {
       data-cy='bottom-nav'
       boxShadow={APP_BOX_SHADOW.boxShadow}
     >
-      {['calendar', 'dashboard', 'account'].map(item => (
+      {['calendar', 'dashboard', 'account'].map((item, index) => (
         <LinkBox
+          key={index}
           height='100%'
           width='100%'
           display='flex'
