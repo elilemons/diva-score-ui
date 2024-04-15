@@ -35,5 +35,8 @@ describe('The Unauthenticated Home Page', () => {
     cy.loginViaAPI() // Server must be running for this to work
     cy.visit('/')
     cy.get('[data-cy="bottom-nav"]').should('be.visible')
+    cy.get('[data-cy="bottom-nav-label-calendar"]').should('exist')
+    cy.get('[data-cy="bottom-nav-label-dashboard"]').should('exist')
+    cy.get('[data-cy="bottom-nav-label-account"]').should('exist')
   })
 })
