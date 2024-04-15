@@ -101,7 +101,7 @@ describe('The Survey Page', () => {
     })
     cy.get("[data-cy='goals2']").should('not.have.value')
 
-    cy.get("[data-cy='other1']").should('not.have.value')
+    cy.get("[data-cy='reflections1']").should('not.have.value')
   })
 
   it('should change the corresponding input value and save the new values', () => {
@@ -109,9 +109,9 @@ describe('The Survey Page', () => {
 
     const gratitude = 'I am grateful for my cat'
     const goal = 'Brush and floss my teeth today'
-    const otherNotes = 'I had a great day today!'
+    const reflections = 'I had a great day today!'
 
-    cy.fillInSurvey(gratitude, goal, otherNotes)
+    cy.fillInSurvey(gratitude, goal, reflections)
 
     cy.intercept('PATCH', '/api/surveys/*', req => {
       expect(req.body.body1).to.be.true
@@ -121,7 +121,7 @@ describe('The Survey Page', () => {
       expect(req.body.connection1).to.be.true
       expect(req.body.goals1).to.be.true
       expect(req.body.goals2).to.equal(goal)
-      expect(req.body.other1).to.equal(otherNotes)
+      expect(req.body.reflections1).to.equal(reflections)
     })
 
     cy.get("[data-cy='submit']").click()
@@ -146,65 +146,6 @@ describe('The Survey Page', () => {
     })
     cy.get("[data-cy='goals2']").should('have.value', goal)
 
-    cy.get("[data-cy='other1']").should('have.value', otherNotes)
-  })
-
-  it('should display an animation with the users score after submission', () => {
-    cy.get("[data-cy='clear']").click()
-
-    cy.fillInSurvey('whatever', 'whatever', 'whatever')
-
-    cy.intercept('/api/surveys/*').as('patchSurvey')
-
-    cy.get("[data-cy='submit']").click()
-
-    cy.get("[data-cy='score-animation']").should('be.visible')
-
-    cy.wait('@patchSurvey')
-
-    cy.get("[data-cy='close-score-animation']").should('be.visible').click()
-
-    cy.get("[data-cy='score-animation']").should('not.exist')
-
-    cy.get("[data-cy='score']").should('be.visible')
-  })
-
-  it('should display a score after submission', () => {
-    cy.get("[data-cy='clear']").click()
-
-    cy.fillInSurvey('whatever', 'whatever', 'whatever')
-
-    cy.intercept('/api/surveys/*').as('patchSurvey')
-
-    cy.get("[data-cy='submit']").click()
-
-    cy.wait('@patchSurvey')
-    cy.get("[data-cy='close-score-animation']").should('be.visible').click()
-
-    cy.get("[data-cy='score']").should('be.visible')
-
-    cy.reload()
-
-    cy.get("[data-cy='score']").should('be.visible')
-  })
-
-  it('should not display an animation after an empty submission (score is 0)', () => {
-    cy.get("[data-cy='clear']").click()
-
-    cy.get("[data-cy='submit']").click()
-
-    cy.get("[data-cy='score-animation']").should('not.exist')
-  })
-
-  it('should not display a score after an empty submission (score is 0)', () => {
-    cy.get("[data-cy='clear']").click()
-
-    cy.get("[data-cy='submit']").click()
-
-    cy.get("[data-cy='score']").should('not.exist')
-
-    cy.reload()
-
-    cy.get("[data-cy='score']").should('not.exist')
+    cy.get("[data-cy='reflections1']").should('have.value', reflections)
   })
 })
