@@ -76,7 +76,7 @@ const Survey: React.FC = () => {
     connection1: false,
     goals1: false,
     goals2: '',
-    other1: '',
+    reflections1: '',
   } as Partial<SurveyType>
 
   const onSubmit: SubmitHandler<Partial<SurveyType>> = async data => {
