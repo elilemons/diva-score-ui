@@ -8,7 +8,7 @@ const TermsOfService: React.FC = () => {
 
   return (
     <Layout
-      hideBottomNav={!user}
+      showBottomNav={!!user}
       bottomContent={
         <Flex height='100vh' flexDirection='column'>
           <iframe

@@ -47,7 +47,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Layout
-      hideBottomNav={true}
+      showBottomNav={false}
       bottomContent={
         isSubmitted ? (
           <Stack spacing={APP_SPACING.spacing}>

@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { QuestionBlock, QuestionSet, Survey as SurveyType } from '@elilemons/diva-score-lib'
 import { useWindowSize } from '@react-hook/window-size'
+import { APP_ROUTES } from '@root/appRoutes'
 import { Layout } from '@root/components/elements/Layout'
 import { ControlledCheckbox } from '@root/components/forms/fields/Checkbox/Controlled'
 import { ControlledTextInput } from '@root/components/forms/fields/Text/Controlled'
@@ -37,7 +38,7 @@ import { SurveyScoreAnimation } from '@root/views/Authenticated/Survey/scoreAnim
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { GiMagicBroom } from 'react-icons/gi'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 const Survey: React.FC = () => {
   const { control, reset, handleSubmit } = useForm<Partial<SurveyType>>()
@@ -48,6 +49,8 @@ const Survey: React.FC = () => {
   const [isTodaysSurvey, setIsTodaysSurvey] = React.useState<boolean>(false)
   const [showAnimation, setShowAnimation] = React.useState<boolean>(false)
   const [width, height] = useWindowSize()
+
+  const history = useHistory()
 
   const saveSurvey = saveSurveyMutation({ mutationKey: 'save-survey' })
   const toast = useToast()
@@ -73,7 +76,7 @@ const Survey: React.FC = () => {
     connection1: false,
     goals1: false,
     goals2: '',
-    other1: '',
+    reflections1: '',
   } as Partial<SurveyType>
 
   const onSubmit: SubmitHandler<Partial<SurveyType>> = async data => {
@@ -112,11 +115,15 @@ const Survey: React.FC = () => {
             score={surveyData?.pointsEarned || 0}
             width={width}
             height={height}
-            onClose={() => setShowAnimation(false)}
+            onClose={() => {
+              history.push(APP_ROUTES.authenticated.dashboard)
+              setShowAnimation(false)
+            }}
           />
         </Fade>
       ) : (
         <Layout
+          showBottomNav
           bottomContent={
             isLoading ? (
               <SurveyLoadingSkeleton />

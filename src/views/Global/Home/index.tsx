@@ -15,7 +15,7 @@ const Home: React.FC = () => {
   const { user } = useAuth()
   return (
     <Layout
-      hideBottomNav={!user}
+      showBottomNav={!!user}
       topContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
