@@ -9,16 +9,16 @@ import { Link } from 'react-router-dom'
 type Props = {
   children: ReactNode
   heading: string
-  isAccountHome?: boolean
+  path: '/' | '/edit' | '/reset-password'
 }
 
-export const AccountLayout: FC<Props> = ({ children, heading, isAccountHome = false }) => {
+export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
   const { logOut } = useAuth()
 
   return (
     <Stack spacing={APP_SPACING.spacing}>
       <Flex align='center' justify='space-between'>
-        {!isAccountHome && (
+        {path !== '/' && (
           <ChakraLink as={Link} to={APP_ROUTES.authenticated.account}>
             <Button variant='link' leftIcon={<ArrowBackIcon />} color='accent.500'>
               Back to Account Page
@@ -28,6 +28,22 @@ export const AccountLayout: FC<Props> = ({ children, heading, isAccountHome = fa
         <Heading size={APP_INNER_HEADINGS.size}>{heading}</Heading>
       </Flex>
       {children}
+      <Stack>
+        {path !== '/edit' && (
+          <ChakraLink as={Link} to={APP_ROUTES.authenticated.editAccount}>
+            <Text as='u' color='accent.500'>
+              Edit Account
+            </Text>
+          </ChakraLink>
+        )}
+        {path !== '/reset-password' && (
+          <ChakraLink as={Link} to={APP_ROUTES.authenticated.resetPassword}>
+            <Text as='u' color='accent.500'>
+              Reset Password
+            </Text>
+          </ChakraLink>
+        )}
+      </Stack>
       <Stack>
         <ChakraLink isExternal to='/terms-of-service' as={Link}>
           <Text as='u' color='accent.500'>

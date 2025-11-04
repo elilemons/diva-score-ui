@@ -89,7 +89,7 @@ const ResetPassword: React.FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <AccountLayout heading='Reset Password Page'>
+        <AccountLayout heading='Reset Password Page' path='/reset-password'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledPasswordInput

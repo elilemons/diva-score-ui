@@ -108,7 +108,7 @@ const AccountEdit: FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <AccountLayout heading='Edit Account Page'>
+        <AccountLayout heading='Edit Account Page' path='/edit'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledTextInput
