@@ -52,6 +52,8 @@ export const UncontrolledTextInput: React.FC<UncontrolledRetypeProps> = props =>
           id={name}
           title={label}
           disabled={disabled}
+          borderEnd={inputType === 'password' ? 'none' : 'inherit'}
+          borderEndRadius={inputType === 'password' ? 'none' : 'inherit'}
         />
         {matchFieldType === 'password' && !disabled && (
           <IconButton

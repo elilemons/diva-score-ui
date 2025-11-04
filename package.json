@@ -41,7 +41,6 @@
     "dev:production": "sh -ac '. .env.production.local; PORT=52051 craco start'",
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|tsx|json)\"",

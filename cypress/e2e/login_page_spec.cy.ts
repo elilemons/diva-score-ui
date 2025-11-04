@@ -25,7 +25,7 @@ describe('The Login Page', () => {
       expect(result[Cypress.env('baseURL')][Cypress.env('jwtTokenName')]).to.exist
     })
     // // UI should reflect this user being logged in
-    cy.get('[data-cy="welcome-message"]').should('contain', 'Welcome to your Dashboard Cypress')
+    cy.get('[data-cy="welcome-message"]').should('contain', `Welcome to your Dashboard ${Cypress.env('userFirstName')}`)
   })
 
   it('shows a toast error when authentication fails', () => {

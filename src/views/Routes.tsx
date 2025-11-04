@@ -25,6 +25,8 @@ const ForgotPassword = React.lazy(() => import('./Unauthenticated/ForgotPassword
 // Authenticated Pages
 // // // // // // // // //
 const Account = React.lazy(() => import('./Authenticated/Account'))
+const EditAccount = React.lazy(() => import('./Authenticated/Account/Edit'))
+const ResetPassword = React.lazy(() => import('./Authenticated/Account/ResetPassword'))
 const Calendar = React.lazy(() => import('./Authenticated/Calendar'))
 const Dashboard = React.lazy(() => import('./Authenticated/Dashboard'))
 const Survey = React.lazy(() => import('./Authenticated/Survey'))
@@ -99,6 +101,16 @@ const authenticatedRoutes = [
     exact: true,
     path: APP_ROUTES.authenticated.account,
     component: Account,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.editAccount,
+    component: EditAccount,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.authenticated.resetPassword,
+    component: ResetPassword,
   },
   {
     exact: true,
