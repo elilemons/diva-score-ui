@@ -81,7 +81,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   React.useEffect(() => {
     const handleLogOut: () => Promise<void> = async () => {
-      if ((await secureStorage.getJWTToken()) === null) {
+      const token = await secureStorage.getJWTToken()
+      if (!token) {
         queryClient.invalidateQueries([fetchMeQueryKey])
       }
     }

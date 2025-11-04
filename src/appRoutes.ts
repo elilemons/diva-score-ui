@@ -17,6 +17,8 @@ export const APP_ROUTES = {
   },
   authenticated: {
     account: '/account',
+    editAccount: '/account/edit',
+    resetPassword: '/account/reset-password',
     calendar: '/calendar',
     dashboard: '/dashboard',
     survey: '/survey',
