@@ -89,14 +89,14 @@ const ResetPassword: React.FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <AccountLayout heading='Reset Password Page' path='/reset-password'>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <AccountLayout heading='Reset Password' path='/reset-password'>
+          <form onSubmit={handleSubmit(onSubmit)} data-cy='reset-password-form'>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledPasswordInput
                 control={control}
                 name='password'
                 label='New Password'
-                required={false}
+                required
               />
               <ControlledRetypeInput
                 control={control}
@@ -106,6 +106,7 @@ const ResetPassword: React.FC = () => {
                 placeholder='Confirm Password'
                 matchFieldName='password'
                 matchFieldType='password'
+                required
               />
 
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />

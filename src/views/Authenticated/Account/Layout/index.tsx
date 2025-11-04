@@ -19,7 +19,11 @@ export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
     <Stack spacing={APP_SPACING.spacing}>
       <Flex align='center' justify='space-between'>
         {path !== '/' && (
-          <ChakraLink as={Link} to={APP_ROUTES.authenticated.account}>
+          <ChakraLink
+            as={Link}
+            to={APP_ROUTES.authenticated.account}
+            data-cy='back-to-account-page'
+          >
             <Button variant='link' leftIcon={<ArrowBackIcon />} color='accent.500'>
               Back to Account Page
             </Button>
@@ -30,14 +34,22 @@ export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
       {children}
       <Stack>
         {path !== '/edit' && (
-          <ChakraLink as={Link} to={APP_ROUTES.authenticated.editAccount}>
+          <ChakraLink
+            as={Link}
+            to={APP_ROUTES.authenticated.editAccount}
+            data-cy='edit-account-link'
+          >
             <Text as='u' color='accent.500'>
               Edit Account
             </Text>
           </ChakraLink>
         )}
         {path !== '/reset-password' && (
-          <ChakraLink as={Link} to={APP_ROUTES.authenticated.resetPassword}>
+          <ChakraLink
+            as={Link}
+            to={APP_ROUTES.authenticated.resetPassword}
+            data-cy='reset-password-link'
+          >
             <Text as='u' color='accent.500'>
               Reset Password
             </Text>
@@ -45,12 +57,12 @@ export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
         )}
       </Stack>
       <Stack>
-        <ChakraLink isExternal to='/terms-of-service' as={Link}>
+        <ChakraLink isExternal to='/terms-of-service' as={Link} data-cy='terms-of-service-link'>
           <Text as='u' color='accent.500'>
             Terms of Service
           </Text>{' '}
         </ChakraLink>
-        <ChakraLink isExternal to='/privacy-policy' as={Link}>
+        <ChakraLink isExternal to='/privacy-policy' as={Link} data-cy='privacy-policy-link'>
           <Text as='u' color='accent.500'>
             Privacy Policy
           </Text>
@@ -59,6 +71,7 @@ export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
           onClick={() => {
             logOut()
           }}
+          data-cy='logout-link'
         >
           <Text as='u' color='brand.500'>
             Log Out

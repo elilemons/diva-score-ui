@@ -58,26 +58,31 @@ const AccountEdit: FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <AccountLayout heading='Edit Account Page' path='/edit'>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <AccountLayout heading='Edit Account' path='/edit'>
+          <form onSubmit={handleSubmit(onSubmit)} data-cy='edit-account-form'>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledTextInput
                 control={control}
                 name='firstName'
                 label='First Name'
                 defaultValue={user?.firstName ?? ''}
+                data-cy='first-name'
+                required
               />
               <ControlledTextInput
                 control={control}
                 name='lastName'
                 label='Last Name'
                 defaultValue={user?.lastName ?? ''}
+                data-cy='last-name'
               />
               <ControlledEmailInput
                 control={control}
                 name='email'
                 label='Email'
                 defaultValue={user?.email}
+                required
+                data-cy='email'
               />
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />
             </Stack>

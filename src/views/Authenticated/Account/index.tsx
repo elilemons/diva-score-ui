@@ -17,15 +17,21 @@ const Account: FC = () => {
           <Stack spacing={APP_SPACING.spacing}>
             <Stack>
               <Text fontWeight={600}>First Name</Text>
-              <Text as='p'>{user?.firstName}</Text>
+              <Text as='p' data-cy='first-name'>
+                {user?.firstName}
+              </Text>
             </Stack>
             <Stack>
               <Text fontWeight={600}>Last Name</Text>
-              <Text as='p'>{user?.lastName}</Text>
+              <Text as='p' data-cy='last-name'>
+                {user?.lastName}
+              </Text>
             </Stack>
             <Stack>
               <Text fontWeight={600}>Email</Text>
-              <Text as='p'>{user?.email}</Text>
+              <Text as='p' data-cy='email'>
+                {user?.email}
+              </Text>
             </Stack>
           </Stack>
         </AccountLayout>
