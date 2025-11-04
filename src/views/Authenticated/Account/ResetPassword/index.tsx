@@ -2,20 +2,19 @@ import { useAuth } from '@components/appProviders/Auth'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ArrowBackIcon } from '@chakra-ui/icons'
-import { Button, Link as ChakraLink, Heading, Stack, Text, useToast } from '@chakra-ui/react'
+import { Stack, useToast } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
 import { ControlledRetypeInput } from '@components/forms/fields/Retype/Controlled'
 import { User } from '@elilemons/diva-score-lib'
-import { APP_ROUTES } from '@root/appRoutes'
 import { Submit } from '@root/components/forms/Submit'
 import { getForgotPasswordTokenQuery } from '@root/queries/user/getForgotPasswordToken'
 import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
-import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
+import { APP_BRAND_BUTTON, APP_SPACING } from '@utils/appStyling'
 import { toastErrors } from '@utils/toastErrors'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { AccountLayout } from '../Layout'
 
 const ResetPassword: React.FC = () => {
   const { user, logOut } = useAuth()
@@ -90,8 +89,7 @@ const ResetPassword: React.FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <Stack spacing={APP_SPACING.spacing}>
-          <Heading size={APP_INNER_HEADINGS.size}>Reset Password Page</Heading>
+        <AccountLayout heading='Reset Password Page'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledPasswordInput
@@ -111,35 +109,9 @@ const ResetPassword: React.FC = () => {
               />
 
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />
-              <ChakraLink as={Link} to={APP_ROUTES.authenticated.account}>
-                <Button variant='link' leftIcon={<ArrowBackIcon />} color='accent.500'>
-                  Back to Account Page
-                </Button>
-              </ChakraLink>
-              <Stack>
-                <ChakraLink isExternal to='/terms-of-service' as={Link}>
-                  <Text as='u' color='accent.500'>
-                    Terms of Service
-                  </Text>
-                </ChakraLink>
-                <ChakraLink isExternal to='/privacy-policy' as={Link}>
-                  <Text as='u' color='accent.500'>
-                    Privacy Policy
-                  </Text>
-                </ChakraLink>
-                <ChakraLink
-                  onClick={() => {
-                    logOut()
-                  }}
-                >
-                  <Text as='u' color='brand.500'>
-                    Log Out
-                  </Text>
-                </ChakraLink>
-              </Stack>
             </Stack>
           </form>
-        </Stack>
+        </AccountLayout>
       }
     />
   )

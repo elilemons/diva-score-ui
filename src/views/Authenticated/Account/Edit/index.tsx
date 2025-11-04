@@ -2,7 +2,7 @@ import { useAuth } from '@components/appProviders/Auth'
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Link as ChakraLink, Heading, Stack, Text, useToast } from '@chakra-ui/react'
+import { Stack, useToast } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { Submit } from '@components/forms/Submit'
@@ -12,9 +12,10 @@ import { getForgotPasswordTokenQuery } from '@root/queries/user/getForgotPasswor
 import { meMutation } from '@root/queries/user/meMutation'
 import { userResetPasswordMutation } from '@root/queries/user/userResetPasswordMutation'
 import { GenericStatusErrorType } from '@root/types/errors'
-import { APP_BRAND_BUTTON, APP_INNER_HEADINGS, APP_SPACING } from '@utils/appStyling'
+import { APP_BRAND_BUTTON, APP_SPACING } from '@utils/appStyling'
 import { toastErrors } from '@utils/toastErrors'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { AccountLayout } from '../Layout'
 
 const AccountEdit: FC = () => {
   const { user, logOut } = useAuth()
@@ -107,8 +108,7 @@ const AccountEdit: FC = () => {
     <Layout
       showBottomNav
       bottomContent={
-        <Stack spacing={APP_SPACING.spacing}>
-          <Heading size={APP_INNER_HEADINGS.size}>Edit Account Page</Heading>
+        <AccountLayout heading='Edit Account Page'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={APP_SPACING.spacing}>
               <ControlledTextInput
@@ -130,30 +130,9 @@ const AccountEdit: FC = () => {
                 defaultValue={user?.email}
               />
               <Submit label='Save' control={control} {...APP_BRAND_BUTTON} />
-              <Stack>
-                <ChakraLink isExternal to='/terms-of-service' as={Link}>
-                  <Text as='u' color='accent.500'>
-                    Terms of Service
-                  </Text>{' '}
-                </ChakraLink>
-                <ChakraLink isExternal to='/privacy-policy' as={Link}>
-                  <Text as='u' color='accent.500'>
-                    Privacy Policy
-                  </Text>
-                </ChakraLink>
-                <ChakraLink
-                  onClick={() => {
-                    logOut()
-                  }}
-                >
-                  <Text as='u' color='brand.500'>
-                    Log Out
-                  </Text>
-                </ChakraLink>
-              </Stack>
             </Stack>
           </form>
-        </Stack>
+        </AccountLayout>
       }
     />
   )
