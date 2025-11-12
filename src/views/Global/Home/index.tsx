@@ -19,13 +19,11 @@ const Home: React.FC = () => {
       topContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
-            Divinely Inspired Vision and Actions
+            Track Your Daily DIVA Score — Reflect and Elevate Your Self-Care Journey
           </Heading>
           <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize} pb={APP_PADDING.pb}>
-            Elevate the self-care journey for Divinely Inspired Vision and Action with your own DIVA
-            Score. Daily check-ins on body, mind, and spirit activities, each with point values,
-            provide a personalized Divine Self-Care Score. Stay accountable to your well-being and
-            goals, and cultivate gratitude and connection with this app.
+            5 simple daily check-ins on Body, Mind, Spirit, Connection, and Goals. Get your
+            personalized DIVA Self-Care Score and stay accountable to what really matters.
           </Text>
         </Stack>
       }
