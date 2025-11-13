@@ -225,7 +225,7 @@ const LandingPage: React.FC = () => {
             <Button
               as={Link}
               size='lg'
-              data-cy='landing-page-signup-bottom'
+              data-cy='landing-page-signup-2'
               to={APP_ROUTES.unauthenticated.signup}
               colorScheme='accent'
               bgGradient={APP_BRAND_GRADIENT.bgGradient}
@@ -234,25 +234,30 @@ const LandingPage: React.FC = () => {
             </Button>
             <Text align='center'>
               Already have an account?{' '}
-              <ChakraLink
-                color={'brand.500'}
-                as={Link}
-                to={
-                  !user
-                    ? `${APP_ROUTES.unauthenticated.login}`
-                    : `${APP_ROUTES.authenticated.dashboard}`
-                }
-              >
-                {!user ? 'Log in' : 'Visit Dashboard'}
-              </ChakraLink>
+              <strong>
+                <ChakraLink
+                  data-cy='landing-page-bottom-login'
+                  color={'brand.500'}
+                  as={Link}
+                  to={
+                    !user
+                      ? `${APP_ROUTES.unauthenticated.login}`
+                      : `${APP_ROUTES.authenticated.dashboard}`
+                  }
+                >
+                  {!user ? 'Log in' : 'Visit Dashboard'}
+                </ChakraLink>
+              </strong>
             </Text>
           </>
           <>
             <Text textAlign='center' as='p'>
               For more details on the DIVA Score App and other projects visit us at:{' '}
-              <ChakraLink isExternal href='www.TechDivaSuccess.com/app' color='accent.500'>
-                www.TechDivaSuccess.com/app
-              </ChakraLink>
+              <strong>
+                <ChakraLink isExternal href='www.TechDivaSuccess.com/app' color='accent.500'>
+                  www.TechDivaSuccess.com/app
+                </ChakraLink>
+              </strong>
             </Text>
           </>
         </Stack>
