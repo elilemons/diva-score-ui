@@ -42,17 +42,19 @@ const LandingPage: React.FC = () => {
             </Button>
           </Stack>
           <Stack spacing={APP_SPACING.spacing}>
-            <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-              The DIVA Score app has helped X people accomplish Y goals.
-            </Text>
-            <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-              Join the self care movement with us!
-            </Text>
+            <Stack spacing={3.5}>
+              <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
+                The DIVA Score app has helped X people accomplish Y goals.
+              </Text>
+              <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
+                Join the self care movement with us!
+              </Text>
+            </Stack>
             <iframe
               width={'100%'}
               height='315'
-              src='https://www.youtube.com/embed/gKiFXz1kbO0?si=j77wX-aets6A38_q'
-              title='YouTube video player'
+              src='https://www.youtube.com/embed/GbvUCjkSAeo?si=WAbezTcM69Mg4iJE'
+              title='DIVA Score App'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               referrerPolicy='strict-origin-when-cross-origin'
               allowFullScreen
