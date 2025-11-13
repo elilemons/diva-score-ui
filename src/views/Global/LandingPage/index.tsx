@@ -1,8 +1,20 @@
 import { CheckCircleIcon } from '@chakra-ui/icons'
-import { Button, Flex, Heading, List, ListIcon, ListItem, Stack, Text } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  Heading,
+  List,
+  ListIcon,
+  ListItem,
+  Spinner,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
+import { getTotalGoalsQuery } from '@root/queries/survey/getTotalGoalsQuery'
+import { getTotalUsersQuery } from '@root/queries/user/getTotalUsersQuery'
 import {
   APP_BRAND_GRADIENT,
   APP_PAGE_DESCRIPTIONS,
@@ -14,6 +26,9 @@ import { Link } from 'react-router-dom'
 
 const LandingPage: React.FC = () => {
   const { user } = useAuth()
+  const { data: totalGoalsData, isLoading: totalGoalsLoading } = getTotalGoalsQuery()
+  const { data: totalUsersData, isLoading: totalUsersLoading } = getTotalUsersQuery()
+
   return (
     <Layout
       showBottomNav={!!user}
@@ -44,7 +59,31 @@ const LandingPage: React.FC = () => {
           <Stack spacing={APP_SPACING.spacing}>
             <Stack spacing={3.5}>
               <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-                The DIVA Score app has helped X people accomplish Y goals.
+                The DIVA Score app has helped{' '}
+                {totalUsersLoading ? (
+                  <Spinner size='xs' color='accent.500' data-cy='total-users-loading' />
+                ) : (
+                  <strong
+                    style={{
+                      color: `var(--chakra-colors-accent-500)`,
+                    }}
+                  >
+                    {totalUsersData?.totalUsers}
+                  </strong>
+                )}{' '}
+                people accomplish{' '}
+                {totalGoalsLoading ? (
+                  <Spinner size='xs' color='brand.500' data-cy='total-users-loading' />
+                ) : (
+                  <strong
+                    style={{
+                      color: `var(--chakra-colors-brand-500)`,
+                    }}
+                  >
+                    {totalGoalsData?.totalGoals}
+                  </strong>
+                )}{' '}
+                goals.
               </Text>
               <Text align='center' fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
                 Join the self care movement with us!
