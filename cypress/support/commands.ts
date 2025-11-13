@@ -32,9 +32,6 @@ Cypress.Commands.add('loginViaAPI', (name = crypto.randomUUID()) => {
 })
 
 Cypress.Commands.add('fillInSurvey', (gratitude: string, goal: string, reflections: string) => {
-  // TODO Remove this test code
-  console.log('ELITEST', { goal })
-  // ^ TODO Remove this test code
   cy.get("[data-cy='body1']").click()
   cy.get("[data-cy='body1']").within(() => {
     cy.get('input[type=checkbox]').should('be.checked')
