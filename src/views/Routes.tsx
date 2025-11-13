@@ -9,6 +9,7 @@ import { APP_ROUTES } from '@root/appRoutes'
 // Global Pages
 // // // // // // // // //
 const Home = React.lazy(() => import('./Global/Home'))
+const LandingPage = React.lazy(() => import('./Global/LandingPage'))
 const TermsOfService = React.lazy(() => import('./Global/TermsOfService'))
 const PrivacyPolicy = React.lazy(() => import('./Global/PrivacyPolicy'))
 
@@ -39,6 +40,11 @@ const globalRoutes = [
     exact: true,
     path: APP_ROUTES.global.home,
     component: Home,
+  },
+  {
+    exact: true,
+    path: APP_ROUTES.global.landingPage,
+    component: LandingPage,
   },
   {
     exact: true,

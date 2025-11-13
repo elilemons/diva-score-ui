@@ -78,6 +78,18 @@ export const AccountLayout: FC<Props> = ({ children, heading, path }) => {
           </Text>
         </ChakraLink>
       </Stack>
+      <Text>
+        For more details on the DIVA Score App and other projects visit us at:{' '}
+        <ChakraLink isExternal href='www.TechDivaSuccess.com/app' color='accent.500'>
+          www.TechDivaSuccess.com/app
+        </ChakraLink>
+      </Text>
+      <Text>
+        Questions? Feedback? Contact us at:{' '}
+        <ChakraLink isExternal href='mailto:info@divascore.app' color='accent.500'>
+          info@divascore.app
+        </ChakraLink>
+      </Text>
     </Stack>
   )
 }
