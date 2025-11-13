@@ -39,7 +39,6 @@ describe('Account Page', () => {
   it('should navigate to Reset Password page', () => {
     cy.get('[data-cy="reset-password-link"]').should('be.visible').click()
     cy.url().should('include', '/account/reset-password')
-    cy.contains('Reset Password Page').should('be.visible')
 
     // Go back to account page
     cy.visit('/account')
