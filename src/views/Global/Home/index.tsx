@@ -1,4 +1,4 @@
-import { Button, Heading, Stack, Text } from '@chakra-ui/react'
+import { Button, Link as ChakraLink, Heading, Stack, Text } from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
@@ -17,13 +17,21 @@ const Home: React.FC = () => {
     <Layout
       showBottomNav={!!user}
       topContent={
-        <Stack spacing={APP_SPACING.spacing}>
-          <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
-            Track Your Daily DIVA Score — Reflect and Elevate Your Self-Care Journey
+        <Stack spacing={APP_SPACING.spacing} align='center'>
+          <Heading
+            as='h1'
+            size={APP_PAGE_HEADINGS.size}
+            ml={APP_PAGE_HEADINGS.ml}
+            textAlign='center'
+          >
+            Track your DIVA Score
+            <br />
+            One Day, One Score at a Time
           </Heading>
           <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize} pb={APP_PADDING.pb}>
-            5 simple daily check-ins on Body, Mind, Spirit, Connection, and Goals. Get your
-            personalized DIVA Self-Care Score and stay accountable to what really matters.
+            The DIVA Score app helps Divinely Inspired Vision and Action takers, like you, to
+            prioritize what truly matters—tracking progress, cultivating gratitude, and celebrating
+            your journey toward balance and growth.
           </Text>
         </Stack>
       }
@@ -74,6 +82,17 @@ const Home: React.FC = () => {
               </Button>
             </>
           )}
+          <Stack spacing={APP_SPACING.spacing} align='center'>
+            <Text textAlign='center'>
+              Stay accountable to your body, mind, spirit, connections, and goals with just 5 daily
+              check-ins.
+              <br /> Build lasting habits and grow your DIVA Self-Care Score. For more details on
+              the DIVA Score App and other projects visit us at:{' '}
+              <ChakraLink isExternal href='www.TechDivaSuccess.com/app' color='accent.500'>
+                www.TechDivaSuccess.com/app
+              </ChakraLink>
+            </Text>
+          </Stack>
         </Stack>
       }
     />

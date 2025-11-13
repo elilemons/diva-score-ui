@@ -11,6 +11,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
 import { getTotalGoalsQuery } from '@root/queries/survey/getTotalGoalsQuery'
@@ -25,11 +26,13 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 const LandingPage: React.FC = () => {
+  const { user } = useAuth()
   const { data: totalGoalsData, isLoading: totalGoalsLoading } = getTotalGoalsQuery()
   const { data: totalUsersData, isLoading: totalUsersLoading } = getTotalUsersQuery()
 
   return (
     <Layout
+      showBottomNav={!!user}
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
           <Stack align='center' spacing={APP_SPACING.spacing}>
@@ -231,8 +234,24 @@ const LandingPage: React.FC = () => {
             </Button>
             <Text align='center'>
               Already have an account?{' '}
-              <ChakraLink color={'brand.500'} as={Link} to={`${APP_ROUTES.unauthenticated.login}`}>
-                Log in
+              <ChakraLink
+                color={'brand.500'}
+                as={Link}
+                to={
+                  !user
+                    ? `${APP_ROUTES.unauthenticated.login}`
+                    : `${APP_ROUTES.authenticated.dashboard}`
+                }
+              >
+                {!user ? 'Log in' : 'Visit Dashboard'}
+              </ChakraLink>
+            </Text>
+          </>
+          <>
+            <Text textAlign='center' as='p'>
+              For more details on the DIVA Score App and other projects visit us at:{' '}
+              <ChakraLink isExternal href='www.TechDivaSuccess.com/app' color='accent.500'>
+                www.TechDivaSuccess.com/app
               </ChakraLink>
             </Text>
           </>
