@@ -1,4 +1,4 @@
-import { Button, Heading, Skeleton, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Button, Heading, Skeleton, Spinner, Stack, Text, useToast } from '@chakra-ui/react'
 import { useAuth } from '@components/appProviders/Auth'
 import { Layout } from '@components/elements/Layout'
 import { APP_ROUTES } from '@root/appRoutes'
@@ -22,6 +22,21 @@ const Dashboard: React.FC = () => {
   const { data: existingSurvey, isLoading } = getTodaysSurveyIdQuery()
   const createSurvey = createSurveyMutation({ mutationKey: 'user-create-daily-survey' })
   const { data: totalScoreData, isSuccess: totalScoreLoaded } = getUsersTotalScoreQuery()
+  const message = history.location.search.split('message=')[1] || ''
+  const toast = useToast()
+
+  React.useEffect(() => {
+    if (message === 'already-signed-up') {
+      if (!toast.isActive('already-signed-up')) {
+        toast({
+          id: 'already-signed-up',
+          title: 'Already Signed Up',
+          description: 'You have already signed up for DIVA Score, welcome back!',
+          status: 'info',
+        })
+      }
+    }
+  }, [message, toast])
 
   const onBeginClick = async () => {
     if (existingSurvey && existingSurvey.id) {

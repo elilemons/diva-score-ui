@@ -35,20 +35,40 @@ const LandingPage: React.FC = () => {
       showBottomNav={!!user}
       bottomContent={
         <Stack spacing={APP_SPACING.spacing}>
+          <Text align='right'>
+            Already have an account?{' '}
+            <strong>
+              <ChakraLink
+                data-cy='landing-page-bottom-login'
+                color={'brand.500'}
+                as={Link}
+                to={
+                  !user
+                    ? `${APP_ROUTES.unauthenticated.login}`
+                    : `${APP_ROUTES.authenticated.dashboard}`
+                }
+              >
+                {!user ? 'Log in' : 'Visit Dashboard'}
+              </ChakraLink>
+            </strong>
+          </Text>
           <Stack align='center' spacing={APP_SPACING.spacing}>
             <Heading as='h1' size={APP_PAGE_HEADINGS.size} ml={APP_PAGE_HEADINGS.ml}>
-              Divinely Inspired Vision and Actions
+              Track Your Daily DIVA Score &mdash; Reflect and Elevate Your Self-Care Journey
             </Heading>
             <Text fontSize={APP_PAGE_DESCRIPTIONS.fontSize}>
-              Elevate the self-care journey for Divinely Inspired Vision and Action with your own
-              DIVA Score. Daily check-ins on body, mind, and spirit activities, each with point
-              values, provide a personalized Divine Self-Care Score. Stay accountable to your
-              well-being and goals, and cultivate gratitude and connection with this app.
+              5 simple daily check-ins on Body, Mind, Spirit, Connection, and Goals. <br />
+              Get your personalized DIVA Self-Care Score and stay accountable to what really
+              matters.
             </Text>
             <Button
               data-cy='landing-page-signup'
               as={Link}
-              to={APP_ROUTES.unauthenticated.signup}
+              to={
+                user
+                  ? `${APP_ROUTES.authenticated.dashboard}?message=already-signed-up`
+                  : APP_ROUTES.unauthenticated.signup
+              }
               colorScheme='brand'
               bgGradient={APP_BRAND_GRADIENT.bgGradient}
               size='lg'
@@ -226,7 +246,11 @@ const LandingPage: React.FC = () => {
               as={Link}
               size='lg'
               data-cy='landing-page-signup-2'
-              to={APP_ROUTES.unauthenticated.signup}
+              to={
+                user
+                  ? `${APP_ROUTES.authenticated.dashboard}?message=already-signed-up`
+                  : APP_ROUTES.unauthenticated.signup
+              }
               colorScheme='accent'
               bgGradient={APP_BRAND_GRADIENT.bgGradient}
             >
