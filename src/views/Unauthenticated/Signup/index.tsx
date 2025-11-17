@@ -1,4 +1,4 @@
-import { Heading, ListItem, Stack, Text, UnorderedList, Link as ChakraLink } from '@chakra-ui/react'
+import { Link as ChakraLink, Heading, ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react'
 import { Layout } from '@components/elements/Layout'
 import { ControlledEmailInput } from '@components/forms/fields/Email/Controlled'
 import { ControlledPasswordInput } from '@components/forms/fields/Password/Controlled'
